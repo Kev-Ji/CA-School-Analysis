@@ -10,7 +10,7 @@ districts = pd.read_csv("C:\\Users\\CYBER_SLAVE\\Downloads\\423 Project\\CA Scho
 
 districts.drop([2110, 2111, 2112, 2113, 2114], axis = 0)
 
-compare = pd.read_excel("C:\\Users\\CYBER_SLAVE\\Downloads\\423 Project\\CA School Analysis\\data\\ED-Data.xlsx")
+compare = pd.read_csv("C:\\Users\\CYBER_SLAVE\\Downloads\\423 Project\\CA School Analysis\\data\\ED-Data.csv")
 
 
 compare['District Name Clean'] = (compare['District Name']
@@ -38,3 +38,5 @@ compare['District Name Clean'] = compare['District Name Clean'].replace(manual_m
 
 merged = compare.merge(districts, left_on='District Name Clean', right_on='Agency Name Clean', how='left')
 print(merged['Agency Name Clean'].isna().sum())
+
+districts['Agency Type [District] 2024-25'].value_counts()
