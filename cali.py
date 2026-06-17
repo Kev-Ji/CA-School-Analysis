@@ -7,10 +7,12 @@ ca.drop([58, 59, 60, 61, 62], axis=0)
 # saved table id = 658116, fiscal year 24-25
 
 districts = pd.read_csv("data/NCES.csv", header=3)
+# source: https://nces.ed.gov/ccd/elsi/
 
 districts.drop([2110, 2111, 2112, 2113, 2114], axis=0)
 
 compare = pd.read_csv("data/ED-Data.csv")
+# source: https://www.ed-data.org/District/Humboldt/Scotia-Union-Elementary 
 
 
 compare['District Name Clean'] = (compare['District Name']
@@ -20,7 +22,7 @@ compare['District Name Clean'] = (compare['District Name']
     .str.replace(r'^SBC - ', '', regex=True)
     .str.replace(',', '')
     .str.strip()
-)
+)f
 
 districts['Agency Name Clean'] = (districts['Agency Name']
     .str.upper()
@@ -96,6 +98,8 @@ econ = check[var].rename(columns={
 econ['Geography'] = econ['Geography'].str.replace(' School District, CA', '', regex = False)
 
 assist = pd.read_csv("data/California_School_District_Areas_2024-25.csv")
+
+# source: https://data.ca.gov/dataset/california-school-district-areas-2024-25
 
 merge2 = econ.merge(assist, left_on='LEAID', right_on='FedID', how='left')
 

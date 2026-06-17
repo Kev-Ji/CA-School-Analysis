@@ -1,24 +1,21 @@
-import numpy as np 
+import numpy as np
 import pandas as pd
-import statsmodels.api as sm 
-import statsmodels.formula.api as smf 
+import statsmodels.api as sm
+import statsmodels.formula.api as smf
+import matplotlib.pyplot as plt
 
 # region data
 
 final = pd.read_csv("data/final.csv")
 
-final = merged[
-    ~merged["District Type (District)"].isin([
-        "State Board of Education Charter",
-        "Common Administration District",
-        "Statewide Benefit Charter"
+final = final[
+    ~final["District Type (District)"].isin([
+        "County Office of Education (COE)"
     ])
 ]
 
 final = final.rename(columns={
     'Unnamed: 0': 'idx',
-
-    # --- Core district identifiers ---
     'District Name': 'dist_name',
     'County Name (District)': 'county',
     'District Type (District)': 'dist_type',
@@ -26,8 +23,6 @@ final = final.rename(columns={
     'Grade Span (District)': 'grade_span',
     'Zip (District)': 'zip',
     'City (District)': 'city',
-
-    # --- Enrollment & demographics ---
     'Census Day Enrollment (District)': 'enrollment',
     'English Learners % (District)': 'pct_el',
     'American Indian or Alaska Native % (District)': 'pct_aian',
@@ -42,14 +37,10 @@ final = final.rename(columns={
     'Free/Reduced Meals % (District)': 'pct_frpm',
     'Fluent English Proficient (FEP) % (District)': 'pct_fep',
     'Ethnic Diversity Index (District)': 'diversity_idx',
-
-    # --- Outcomes ---
     'Cohort Graduates % (District)': 'pct_grad',
     'Cohort Grads by Socio. Econ. DisAdvtg % (District)': 'pct_grad_sed',
     'CAASPP-Math Standard Exceeded or Met (Levels 3 and 4) (District)': 'caaspp_math',
     'CAASPP-ELA Standard Exceeded or Met (Levels 3 and 4) (District)': 'caaspp_ela',
-
-    # --- Teacher characteristics ---
     'Student/Teacher Ratio (District)': 'stu_teach_ratio',
     '1st Year Teachers (District)': 'pct_first_yr_teachers',
     'Experienced Teachers (District)': 'pct_exp_teachers',
@@ -57,12 +48,8 @@ final = final.rename(columns={
     'Teaching Days (District)': 'teaching_days',
     'Inexperienced Teachers (District)': 'pct_inexp_teachers',
     'Avg Years Teaching (District)': 'avg_yrs_teaching',
-
-    # --- Climate & behavior ---
     'Suspension Rate (District)': 'suspension_rate',
     'Chronic Absenteeism % (District)': 'pct_chronic_absent',
-
-    # --- Finance ---
     'Current Exp of Educ per ADA (Ed Code 41372) (District)': 'exp_per_ada',
     'Gen Fund Exp by Activity - 1000-1999 Instruction Exp % (District)': 'pct_exp_instruction',
     'Gen Fund Exp by Activity - 2000-2999 Instruc-related Svcs Exp % (District)': 'pct_exp_instruct_svc',
@@ -71,16 +58,12 @@ final = final.rename(columns={
     'Gen Fund Exp by Activity - 6000-6999 Enterprise Exp % (District)': 'pct_exp_enterprise',
     'Gen Fund Exp by Activity - 7000-7999 General Administration Exp % (District)': 'pct_exp_admin',
     'Gen Fund Exp by Activity - 8000-8999 Plant Services Exp % (District)': 'pct_exp_plant',
-
-    # --- District name / ID variants ---
     'District Name Clean': 'dist_name_clean',
     'Agency Name': 'agency_name',
     'Agency Name Clean': 'agency_name_clean',
     'Agency Name [District] 2024-25': 'agency_name_2425',
     'Agency ID - NCES Assigned [District] Latest available year': 'nces_id',
     'State Agency ID [District] 2024-25': 'state_agency_id',
-
-    # --- State / geo identifiers ---
     'State Name [District] Latest available year': 'state_name',
     'State Name [District] 2024-25': 'state_name_2425',
     'State Abbr [District] Latest available year': 'state_abbr',
@@ -95,8 +78,6 @@ final = final.rename(columns={
     'GeoId': 'geo_id',
     'Geography': 'geography',
     'LEAID': 'leaid',
-
-    # --- NCES locale / status ---
     'Locale [District] 2024-25': 'locale',
     'Agency Type [District] 2024-25': 'agency_type',
     'Agency Level (SY 2017-18 onward) [District] 2024-25': 'agency_level',
@@ -105,8 +86,6 @@ final = final.rename(columns={
     'Updated Status [District] 2024-25': 'status_updated',
     'Effective Date of Updated Status [District] 2024-25': 'status_eff_date',
     'Web Site URL [District] 2024-25': 'website',
-
-    # --- Metro / congressional geography ---
     'CBSA Name [District] 2024-25': 'cbsa_name',
     'CBSA ID [District] 2024-25': 'cbsa_id',
     'CSA Name [District] 2024-25': 'csa_name',
@@ -114,12 +93,8 @@ final = final.rename(columns={
     'Metro Micro Area Code [District] 2024-25': 'metro_code',
     'Congressional Code [District] 2024-25': 'congressional_code',
     'Supervisory Union (ID) Number [District] 2024-25': 'supervisory_union_id',
-
-    # --- Grade span ---
     'Lowest Grade Offered [District] 2024-25': 'grade_low',
     'Highest Grade Offered [District] 2024-25': 'grade_high',
-
-    # --- Student counts (NCES) ---
     'Total Number Operational Schools [Public School] 2024-25': 'n_schools',
     'Total Number Operational Charter Schools [Public School] 2024-25': 'n_charter_schools',
     'Total Students All Grades (Excludes AE) [District] 2024-25': 'n_students',
@@ -148,8 +123,6 @@ final = final.rename(columns={
     'Nat. Hawaiian or Other Pacific Isl. - female [District] 2024-25': 'n_nhpi_f',
     'Two or More Races - male [District] 2024-25': 'n_multi_m',
     'Two or More Races - female [District] 2024-25': 'n_multi_f',
-
-    # --- Staff (NCES) ---
     'Full-Time Equivalent (FTE) Teachers [District] 2024-25': 'fte_teachers',
     'Pupil/Teacher Ratio [District] 2024-25': 'pupil_teach_ratio',
     'Total Staff [District] 2024-25': 'n_staff',
@@ -168,15 +141,11 @@ final = final.rename(columns={
     'Student Support Services Staff (w/o Psychology) [District] 2024-25': 'n_student_support',
     'School Psychologist [District] 2024-25': 'n_psychologist',
     'Other Support Services Staff [District] 2024-25': 'n_other_support',
-
-    # --- ACS / Census economic variables ---
     'median_income': 'median_income',
     'median_income_moe': 'income_moe',
     'unemployment_pct': 'unemployment_pct',
     'poverty_pct': 'poverty_pct',
     'bach_pct': 'bach_pct',
-
-    # --- CA enrollment detail (CDCode source) ---
     'OBJECTID': 'objectid',
     'Year': 'year',
     'FedID': 'fed_id',
@@ -216,7 +185,7 @@ final = final.rename(columns={
     'NRcount': 'n_nr',
     'NRpct': 'pct_nr',
     'ELcount': 'n_el',
-    'ELpct': 'pct_el_ca',       # disambiguate from pct_el above
+    'ELpct': 'pct_el_ca',
     'FOScount': 'n_fos',
     'FOSpct': 'pct_fos',
     'HOMcount': 'n_hom',
@@ -227,191 +196,672 @@ final = final.rename(columns={
     'SWDpct': 'pct_swd',
     'SEDcount': 'n_sed',
     'SEDpct': 'sed_pct',
-
-    # --- District geometry ---
     'DistrctAreaSqMi': 'area_sq_mi',
     'Shape__Area': 'shape_area',
     'Shape__Length': 'shape_length',
 })
 
 locale_map = {
-    '11-City: Large':      'Not Rural',
-    '12-City: Mid-size':   'Not Rural',
-    '13-City: Small':      'Not Rural',
-    '21-Suburb: Large':    'Not Rural',
-    '22-Suburb: Mid-size': 'Not Rural',
-    '23-Suburb: Small':    'Not Rural',
-    '31-Town: Fringe':     'Not Rural',
-    '32-Town: Distant':    'Not Rural',
-    '33-Town: Remote':     'Not Rural',
+    '11-City: Large':      'City',
+    '12-City: Mid-size':   'City',
+    '13-City: Small':      'City',
+    '21-Suburb: Large':    'Suburb',
+    '22-Suburb: Mid-size': 'Suburb',
+    '23-Suburb: Small':    'Suburb',
+    '31-Town: Fringe':     'Town',
+    '32-Town: Distant':    'Town',
+    '33-Town: Remote':     'Town',
     '41-Rural: Fringe':    'Rural',
     '42-Rural: Distant':   'Rural',
     '43-Rural: Remote':    'Rural',
 }
 
+dist_type_map = {
+    'Elementary School District':        'Elementary',
+    'High School District':              'High School',
+    'Unified School District':           'Unified',
+    'Union Elementary School District':  'Elementary',
+    'Union High School District':        'High School',
+}
+
 assist_map = {
-    'Differentiated, Year 1':   'Differentiated',
-    'Differentiated, Year 2':   'Differentiated',
-    'General':                  'General'
+    'Differentiated, Year 1': 'Differentiated',
+    'Differentiated, Year 2': 'Differentiated',
+    'General':                 'General'
 }
 
 final['assist_status'] = final['assist_status'].map(assist_map)
+final['locale']        = final['locale'].map(locale_map)
+final['dist_type']     = final['dist_type'].map(dist_type_map)
 
-final['locale'] = final['locale'].map(locale_map)
-
-final['caaspp_ela'] = pd.to_numeric(final['caaspp_ela'], errors='coerce')
-final['median_income'] = pd.to_numeric(final['median_income'], errors='coerce')
+final['caaspp_ela']        = pd.to_numeric(final['caaspp_ela'],        errors='coerce')
+final['caaspp_math']       = pd.to_numeric(final['caaspp_math'],       errors='coerce')
+final['median_income']     = pd.to_numeric(final['median_income'],     errors='coerce')
 final['pupil_teach_ratio'] = pd.to_numeric(final['pupil_teach_ratio'], errors='coerce')
-final['fte_teachers'] = pd.to_numeric(final['fte_teachers'], errors='coerce')
+final['fte_teachers']      = pd.to_numeric(final['fte_teachers'],      errors='coerce')
+final['enroll_total']      = np.log(final['enroll_total'])
+
+final = final[np.exp(final['enroll_total']) > 30]
 
 # endregion
-
-results = smf.ols('caaspp_ela ~ avg_yrs_teaching + pct_frpm + pct_exp_instruction + suspension_rate + pct_chronic_absent + bach_pct + median_income + pct_el + diversity_idx + locale + sed_pct + pct_swd + teaching_days', data = final).fit()
-robust = results.get_robustcov_results(cov_type='HC3')
-
-robust.summary()
-
-
-from statsmodels.stats.outliers_influence import variance_inflation_factor
-
-X = final[['avg_yrs_teaching', 'pct_frpm', 'suspension_rate',
-           'pct_chronic_absent', 'bach_pct', 'median_income',
-           'diversity_idx', 'pct_el']].dropna()
-
-vif_data = pd.DataFrame({
-    'Feature': X.columns,
-    'VIF': [variance_inflation_factor(X.values, i) for i in range(X.shape[1])]
-}).sort_values('VIF', ascending=False)
-
-print(vif_data)
 
 # region spatial
 
+from sklearn.experimental import enable_iterative_imputer
+from sklearn.impute import IterativeImputer
+from sklearn.linear_model import BayesianRidge
 from libpysal.weights import KNN
 from esda.moran import Moran
+base_cols = ['caaspp_ela', 'caaspp_math', 'lat', 'lon', 'dist_name']
+df_spatial = final.dropna(subset=base_cols).copy()
 
+numeric_preds = [
+    'avg_yrs_teaching', 'pct_frpm', 'pct_exp_instruction', 'suspension_rate', 
+    'pct_chronic_absent', 'bach_pct', 'median_income', 'pct_el', 'diversity_idx', 
+    'pct_swd', 'enroll_total', 'unemployment_pct', 'pct_first_yr_teachers', 
+    'pupil_teach_ratio', 'teaching_days', 'exp_per_ada', 'pct_exp_admin', 
+    'pct_exp_pupil_svc'
+]
 
-model_cols = ['caaspp_ela', 'avg_yrs_teaching', 'pct_frpm', 'pct_exp_instruction',
-              'suspension_rate', 'pct_chronic_absent', 'bach_pct', 'median_income',
-              'pct_el', 'diversity_idx', 'locale', 'sed_pct', 'pct_swd', 'lat', 'lon']
+existing_numeric = [col for col in numeric_preds if col in df_spatial.columns]
 
-df_spatial = final.dropna(subset=model_cols).copy()
+imputer = IterativeImputer(estimator=BayesianRidge(), max_iter=10, random_state=42)
+df_spatial[existing_numeric] = imputer.fit_transform(df_spatial[existing_numeric])
 
-# Fit on this clean subset
-results = smf.ols(
-    'caaspp_ela ~ avg_yrs_teaching + pct_frpm + pct_exp_instruction + suspension_rate '
-    '+ pct_chronic_absent + bach_pct + median_income + pct_el + diversity_idx '
-    '+ locale + sed_pct + pct_swd',
-    data=df_spatial
-).fit()
+for cat_col in ['locale', 'dist_type']:
+    if cat_col in df_spatial.columns:
+        df_spatial[cat_col] = df_spatial[cat_col].fillna(df_spatial[cat_col].mode()[0])
+    
+df_spatial['dist_name'] = df_spatial['dist_name'].values
 
-# Now residuals and rows are guaranteed to align
-df_spatial['resid'] = results.resid.values
+coords = np.array(list(zip(df_spatial['lon'], df_spatial['lat'])))
+w = KNN.from_array(coords, k=8)
+w_dist = KNN.from_array(coords, k=8, distance_metric='euclidean')
 
-coords = list(zip(df_spatial['lon'], df_spatial['lat']))
-w = KNN(coords, k=5)
+for i, neighbors in w_dist.neighbors.items():
+    distances = [w_dist.weights[i][j] for j in range(len(neighbors))]
+    w.weights[i] = [1.0 / (d + 0.0001) for d in distances]
+    
 w.transform = 'r'
 
-moran = Moran(df_spatial['resid'], w)
-print(f"Moran's I:  {moran.I:.4f}")
-print(f"p-value:    {moran.p_sim:.4f}")
-print(f"z-score:    {moran.z_norm:.4f}")
+formula = (
+    '{outcome} ~ avg_yrs_teaching + pct_frpm + suspension_rate '
+    '+ pct_chronic_absent + bach_pct + median_income + pct_el + diversity_idx '
+    '+ locale + pct_swd + enroll_total'
+)
+
+print("\n--- Moran's I on OLS Baseline (IDW k=8) ---")
+for outcome in ['caaspp_ela', 'caaspp_math']:
+    res = smf.ols(formula.format(outcome=outcome), data=df_spatial).fit()
+    df_spatial[f'ols_resid_{outcome}'] = res.resid.values
+    moran = Moran(res.resid.values, w)
+    print(f"{outcome}: R² = {res.rsquared:.4f}, I = {moran.I:.4f}, p = {moran.p_sim:.4f}, z = {moran.z_norm:.4f}")
 
 # endregion
 
-
-# region RANDOM FOREST
+# region FMA specs
 
 from sklearn.ensemble import RandomForestRegressor
-from sklearn.model_selection import cross_val_score, KFold
+from sklearn.model_selection import cross_val_score, cross_val_predict, KFold
 from sklearn.compose import ColumnTransformer
 from sklearn.pipeline import Pipeline
-from sklearn.impute import SimpleImputer
-from sklearn.preprocessing import OneHotEncoder
+from sklearn.linear_model import LinearRegression
+from scipy.stats import zscore
 
-features = [
-    'avg_yrs_teaching',
-    'pct_frpm',
-    'pct_exp_instruction',
-    'suspension_rate',
-    'pct_chronic_absent',
-    'bach_pct',
-    'median_income',
-    'pct_el',
-    'diversity_idx',
-    'locale',
-    'sed_pct',
-    'pct_swd',
-    'teaching_days'
-]
+SPECS = {
+    'maximalist_all_factors': [
+        'median_income', 'bach_pct', 'unemployment_pct', 'locale',
+        'pct_frpm', 'pct_el', 'pct_swd', 'diversity_idx',
+        'avg_yrs_teaching', 'pct_first_yr_teachers', 'pupil_teach_ratio', 'teaching_days',
+        'enroll_total', 'exp_per_ada', 'pct_exp_instruction', 'pct_exp_admin',
+        'suspension_rate', 'pct_chronic_absent', 'pct_exp_pupil_svc'
+    ],
+    
+    'school_production_function': [
+        'pct_frpm', 'pct_el', 'pct_swd', 'diversity_idx', 'enroll_total', 'locale',
+        'avg_yrs_teaching', 'pct_first_yr_teachers', 'pupil_teach_ratio', 'teaching_days',
+        'suspension_rate', 'pct_chronic_absent',
+        'pct_exp_instruction', 'pct_exp_admin', 'pct_exp_pupil_svc'
+    ],
+    
+    'structural_socioeconomic_resource': [
+        'median_income', 'bach_pct', 'unemployment_pct', 'locale', 'enroll_total',
+        'pct_frpm', 'pct_el', 'pct_swd',
+        'exp_per_ada', 'pct_exp_instruction', 'pct_exp_admin',
+        'avg_yrs_teaching', 'pupil_teach_ratio', 'teaching_days'
+    ],
+    
+    'student_composition_and_climate': [
+        'pct_frpm', 'pct_el', 'pct_swd', 'diversity_idx', 'enroll_total', 'locale',
+        'median_income', 'unemployment_pct',
+        'suspension_rate', 'pct_chronic_absent', 'pct_exp_pupil_svc',
+        'pupil_teach_ratio', 'avg_yrs_teaching', 'pct_first_yr_teachers'
+    ],
+    
+    'finance_and_human_capital': [
+        'pct_frpm', 'pct_el', 'enroll_total', 'locale', 'bach_pct',
+        'exp_per_ada', 'pct_exp_instruction', 'pct_exp_admin', 'pct_exp_pupil_svc',
+        'avg_yrs_teaching', 'pct_first_yr_teachers', 'pupil_teach_ratio', 'teaching_days'
+    ]
+}
 
-rf_data = final[features + ['caaspp_math']].copy()
-rf_data = rf_data.dropna(subset=['caaspp_math'])
+for key in SPECS:
+    SPECS[key] = [col for col in SPECS[key] if col in df_spatial.columns]
 
-X = rf_data[features]
-y = rf_data['caaspp_math']
+# endregion
 
-num_cols = X.select_dtypes(include='number').columns
-cat_cols = ['locale']
+# region FMA random forest
 
-preprocess = ColumnTransformer([
-    ('num', SimpleImputer(strategy='median'), num_cols),
-    ('cat', Pipeline([
-        ('imp', SimpleImputer(strategy='most_frequent')),
-        ('ohe', OneHotEncoder(handle_unknown='ignore'))
-    ]), cat_cols)
-])
+cv = KFold(n_splits=5, shuffle=True, random_state=42)
 
-rf = RandomForestRegressor(
+rf_base = RandomForestRegressor(
     n_estimators=1000,
     max_features='sqrt',
     random_state=42,
     n_jobs=-1
 )
 
-pipe = Pipeline([
-    ('prep', preprocess),
-    ('rf', rf)
-])
+outcomes     = ['caaspp_ela', 'caaspp_math']
+spec_results = {outcome: {} for outcome in outcomes}
 
-cv = KFold(n_splits=5, shuffle=True, random_state=42)
+print("\n" + "="*65)
+print("FMA: Fitting specs across outcomes")
+print("="*65)
 
-r2_scores = cross_val_score(
-    pipe,
-    X,
-    y,
-    cv=cv,
-    scoring='r2'
-)
+for outcome in outcomes:
+    print(f"\n── {outcome} ──")
+    for spec_name, features in SPECS.items():
+        rf_data = final[features + [outcome, 'dist_name']].copy()
+        rf_data = rf_data.dropna(subset=[outcome])
+        
+        if 'locale' in rf_data.columns:
+            rf_data = pd.get_dummies(rf_data, columns=['locale'], dtype=float, drop_first=True)
 
-print("CV R²:", r2_scores.mean())
-print("SD:", r2_scores.std())
+        feature_cols = [c for c in rf_data.columns if c not in [outcome, 'dist_name']]
+        X = rf_data[feature_cols]
+        y = rf_data[outcome]
+
+        num_cols   = X.select_dtypes(include='number').columns
+        preprocess = ColumnTransformer([
+            ('iterative', IterativeImputer(
+                estimator=BayesianRidge(),
+                max_iter=10,
+                random_state=42,
+                imputation_order='ascending'
+            ), num_cols),
+        ])
+
+        pipe      = Pipeline([('prep', preprocess), ('rf', rf_base)])
+        r2_scores = cross_val_score(pipe, X, y, cv=cv, scoring='r2')
+        mean_r2   = r2_scores.mean()
+        y_pred    = cross_val_predict(pipe, X, y, cv=cv)
+
+        spec_results[outcome][spec_name] = {
+            'resid': pd.Series(y.values - y_pred, index=rf_data.index),
+            'r2':    mean_r2,
+        }
+
+        print(f"  {spec_name:<18}  CV R²: {mean_r2:.4f}  (n={len(y)})")
 
 # endregion
 
-# region OLS CV
+# region FMA weights and residual aggregation
 
-from sklearn.linear_model import LinearRegression
-from sklearn.model_selection import cross_val_score
+fma_resids   = {}
+spec_weights = {}
 
-ols_pipe = Pipeline([
-    ('prep', preprocess),
-    ('ols', LinearRegression())
-])
+print("\n" + "="*65)
+print("FMA weights (proportional to CV R², floor 0)")
+print("="*65)
 
-ols_cv = cross_val_score(
-    ols_pipe,
-    X,
-    y,
-    cv=10,
-    scoring='r2'
-)
+for outcome in outcomes:
+    specs       = spec_results[outcome]
+    raw_weights = {k: max(v['r2'], 0.0) for k, v in specs.items()}
+    total_w     = sum(raw_weights.values())
 
-print("OLS CV R²:", ols_cv.mean())
+    if total_w == 0:
+        norm_weights = {k: 1 / len(specs) for k in specs}
+        print(f"  WARNING: all specs have R²≤0 for {outcome}; using equal weights")
+    else:
+        norm_weights = {k: w / total_w for k, w in raw_weights.items()}
+
+    spec_weights[outcome] = norm_weights
+
+    print(f"\n  {outcome}")
+    for spec_name, wt in norm_weights.items():
+        print(f"    {spec_name:<18}  weight: {wt:.4f}  (R²={specs[spec_name]['r2']:.4f})")
+
+    resid_df     = pd.DataFrame({k: specs[k]['resid'] for k in specs})
+    weighted_sum = pd.Series(0.0, index=resid_df.index)
+    effective_wt = pd.Series(0.0, index=resid_df.index)
+
+    for spec_name, wt in norm_weights.items():
+        col  = resid_df[spec_name]
+        mask = col.notna()
+        weighted_sum[mask] += wt * col[mask]
+        effective_wt[mask] += wt
+
+    fma_resid              = weighted_sum / effective_wt.replace(0, np.nan)
+    fma_resids[outcome]    = fma_resid.rename(f'fma_resid_{outcome}')
+
+    print(f"\n  FMA residual coverage for {outcome}:")
+    print(f"    Full:    {(effective_wt == 1.0).sum()}")
+    print(f"    Partial: {((effective_wt > 0) & (effective_wt < 1.0)).sum()}")
+    print(f"    None:    {(effective_wt == 0).sum()}")
 
 # endregion
 
-### 
-## RESID VS. OLS 
-### 
+# region emp bayes
 
+eb_resids = {}
+print("\n" + "="*50)
+print("EMPIRICAL BAYES: CLUSTERED SHRINKAGE")
+print("="*50)
+
+for outcome in ['caaspp_ela', 'caaspp_math']:
+    res = smf.ols(formula.format(outcome=outcome), data=df_spatial).fit()
+    df_spatial[f'ols_resid_{outcome}'] = res.resid.values
+    
+    eb_resid_series = pd.Series(index=df_spatial.index, dtype=float)
+    
+    # Calculate shrinkage independently for locale type
+    for cluster_name, group in df_spatial.groupby('locale'):
+        resid = group[f'ols_resid_{outcome}'].values
+        n_students = np.exp(group['enroll_total'].values)
+        
+        p_bar = group[outcome].mean()
+        
+        v_j = (p_bar * (100 - p_bar)) / n_students
+        
+        total_var = np.var(resid, ddof=1) if len(resid) > 1 else 0
+        mean_v_j = np.mean(v_j)
+        tau_squared = max(0, total_var - mean_v_j)
+        
+        w_j = tau_squared / (tau_squared + v_j)
+        eb_resid_series.loc[group.index] = w_j * resid
+        
+    eb_resids[outcome] = eb_resid_series.rename(f'eb_resid_{outcome}')
+    print(f"  -> {outcome.upper()}: Clustered EB applied across {df_spatial['locale'].nunique()} locales.")
+
+# endregion
+
+# region performance ranking (SAR geosmoothed + winsorized)
+
+import spreg
+import numpy as np
+from sklearn.decomposition import PCA
+from scipy.stats import zscore
+from libpysal.weights import KNN, lag_spatial
+
+combined = df_spatial[['dist_name']].copy()
+
+for outcome in ['caaspp_ela', 'caaspp_math']:
+    combined[f'ols_resid_{outcome}'] = df_spatial[f'ols_resid_{outcome}'].values
+    combined = combined.join(fma_resids[outcome].rename(f'fma_resid_{outcome}'), how='left')
+    combined = combined.join(eb_resids[outcome].rename(f'eb_resid_{outcome}'), how='left')
+
+combined['enroll_total_raw'] = np.exp(df_spatial.loc[df_spatial['dist_name'].isin(combined['dist_name']), 'enroll_total'].values)
+min_enrollment = 100
+combined = combined[combined['enroll_total_raw'] >= min_enrollment].copy()
+
+combined = combined.merge(df_spatial[['dist_name', 'lat', 'lon']], on='dist_name', how='left')
+
+combined['fma_ela_z']  = zscore(combined['fma_resid_caaspp_ela'],  nan_policy='omit')
+combined['fma_math_z'] = zscore(combined['fma_resid_caaspp_math'], nan_policy='omit')
+combined['eb_ela_z']   = zscore(combined['eb_resid_caaspp_ela'],   nan_policy='omit')
+combined['eb_math_z']  = zscore(combined['eb_resid_caaspp_math'],  nan_policy='omit')
+
+print("\n" + "="*50)
+print("PERFORMANCE RANKING: DYNAMIC SAR SMOOTHING + WINSORIZED PCA")
+print("="*50)
+
+components = ['fma_ela_z', 'fma_math_z', 'eb_ela_z', 'eb_math_z']
+
+coords = combined[['lon', 'lat']].values
+w_sub = KNN.from_array(coords, k=8)
+w_sub.transform = 'r' 
+
+X = np.ones((len(combined), 1))
+
+for col in components:
+    y = combined[col].values.reshape(-1, 1)
+    
+    sar_model = spreg.ML_Lag(y, X, w=w_sub, name_y=col)
+    
+
+    rho = max(0.0, min(sar_model.rho, 0.5))
+    
+    blend_neighbors = rho
+    blend_self = 1.0 - rho
+    
+    neighbor_avg = lag_spatial(w_sub, combined[col].values)
+    combined[col] = (blend_self * combined[col]) + (blend_neighbors * neighbor_avg)
+    
+    print(f"  -> SAR estimated split for {col}: {blend_self*100:.1f}% Self / {blend_neighbors*100:.1f}% Neighbors (rho = {sar_model.rho:.3f})")
+
+for col in components:
+    lower_bound = combined[col].quantile(0.01)
+    upper_bound = combined[col].quantile(0.99)
+    combined[col] = combined[col].clip(lower=lower_bound, upper=upper_bound)
+
+print(f"  -> Winsorization applied (1st/99th percentiles).")
+
+pca = PCA(n_components=1)
+pca_raw = pca.fit_transform(combined[components])
+
+combined['pca_z'] = (pca_raw - pca_raw.mean()) / pca_raw.std()
+
+if combined[components[0]].corr(combined['pca_z']) < 0:
+    combined['pca_z'] *= -1
+
+print(f"  -> PCA Component 1 Variance Explained: {pca.explained_variance_ratio_[0]*100:.1f}%")
+
+print("\n--- Structural overperformers (SAR Smoothed + Winsorized PCA) ---")
+print(combined.sort_values('pca_z', ascending=False).head(20)[['dist_name', 'pca_z']])
+
+print("\n--- Structural underperformers (SAR Smoothed + Winsorized PCA) ---")
+print(combined.sort_values('pca_z').head(20)[['dist_name', 'pca_z']])
+
+# endregion
+
+
+# region spec weight diagnostics
+
+print("\n" + "="*65)
+print("Spec weight summary across outcomes")
+print("="*65)
+weight_df = pd.DataFrame(spec_weights).rename_axis('spec')
+weight_df['avg_weight'] = weight_df.mean(axis=1)
+print(weight_df.sort_values('avg_weight', ascending=False).round(4).to_string())
+
+# endregion
+
+# region spec stability diagnostic
+
+print("\n" + "="*65)
+print("Spec stability (residual SD across specs per district)")
+print("="*65)
+
+for outcome in outcomes:
+    specs    = spec_results[outcome]
+    resid_df = pd.DataFrame({k: specs[k]['resid'] for k in specs})
+    combined[f'spec_sd_{outcome}'] = resid_df.std(axis=1)
+
+    flagged = (
+        combined[['dist_name', 'pca_z', f'spec_sd_{outcome}']]
+        .dropna()
+        .sort_values(f'spec_sd_{outcome}', ascending=False)
+        .head(15)
+    )
+    print(f"\n  {outcome} — highest cross-spec residual SD")
+    print(flagged.to_string(index=False))
+
+# endregion
+
+
+# region validation
+
+import seaborn as sns
+import shap
+
+print("\n" + "="*50)
+print("CHECK 1: TAIL SHRINKAGE ANALYSIS")
+print("="*50)
+
+# Calculate raw OLS z-scores for comparison
+combined['ols_ela_z'] = zscore(combined['ols_resid_caaspp_ela'], nan_policy='omit')
+combined['ols_math_z'] = zscore(combined['ols_resid_caaspp_math'], nan_policy='omit')
+combined['avg_ols_z'] = (combined['ols_ela_z'] + combined['ols_math_z']) / 2
+
+fig, ax = plt.subplots(figsize=(10, 8))
+
+# Scatter raw OLS vs Final Optimized PCA
+sns.scatterplot(x=combined['avg_ols_z'], y=combined['pca_z'], alpha=0.6, ax=ax)
+
+# Add a 1:1 reference line
+limits = [
+    np.min([ax.get_xlim(), ax.get_ylim()]),  
+    np.max([ax.get_xlim(), ax.get_ylim()]),  
+]
+ax.plot(limits, limits, 'r--', label='1:1 Line (No Shrinkage Effect)')
+
+ax.set_title("Effect of Shrinkage: Raw OLS vs. Optimized PCA Z-Score")
+ax.set_xlabel("Raw OLS Average Z-Score (Unshrunken)")
+ax.set_ylabel("Final PCA Z-Score (Optimized Latent Factor)")
+ax.legend()
+plt.tight_layout()
+plt.savefig("tail_shrinkage_check.png")
+plt.show()
+
+# Examine the variance ratio
+variance_retained = combined['pca_z'].var() / combined['avg_ols_z'].var()
+print(f"Variance retained in final PCA vs raw OLS: {variance_retained:.2%}")
+if variance_retained < 0.5:
+    print("WARNING: You have lost more than half of your variance. Extreme outliers may be erased.")
+
+
+print("\n" + "="*50)
+print("CHECK 2: SHAP VALUE ANALYSIS (ELA Model)")
+print("="*50)
+
+# We will use the maximalist model for the SHAP explanation
+global_features = SPECS['maximalist_all_factors']
+rf_data = final[global_features + ['caaspp_ela', 'dist_name']].dropna(subset=['caaspp_ela'])
+
+if 'locale' in rf_data.columns:
+    rf_data = pd.get_dummies(rf_data, columns=['locale'], drop_first=True, dtype=float)
+
+feature_cols = [c for c in rf_data.columns if c not in ['caaspp_ela', 'dist_name']]
+X = rf_data[feature_cols]
+y = rf_data['caaspp_ela']
+
+num_cols = X.select_dtypes(include='number').columns
+preprocess = ColumnTransformer([
+    ('iterative', IterativeImputer(
+        estimator=BayesianRidge(),
+        max_iter=10,
+        random_state=42,
+        imputation_order='ascending'
+    ), num_cols),
+])
+
+# Fit the preprocessing step
+X_imputed = preprocess.fit_transform(X)
+X_imputed_df = pd.DataFrame(X_imputed, columns=num_cols)
+
+# Define and fit the Random Forest on the full dataset
+rf_shap = RandomForestRegressor(n_estimators=1000, max_features='sqrt', random_state=42, n_jobs=-1)
+rf_shap.fit(X_imputed_df, y)
+
+# Calculate SHAP values
+explainer = shap.TreeExplainer(rf_shap)
+shap_values = explainer.shap_values(X_imputed_df)
+
+# Plot summary
+plt.figure(figsize=(12, 8))
+plt.title("SHAP Feature Importance (Random Forest - ELA)")
+shap.summary_plot(shap_values, X_imputed_df, feature_names=num_cols, show=False)
+plt.tight_layout()
+plt.savefig("shap_summary_ela.png")
+plt.show()
+
+
+print("\n" + "="*50)
+print("CHECK 3: SUBGROUP BIAS AND VARIANCE CHECK")
+print("="*50)
+
+check_df = combined.merge(
+    df_spatial[['dist_name', 'enroll_total', 'locale', 'dist_type', 'pct_frpm']], 
+    on='dist_name', 
+    how='left'
+)
+
+check_df['enrollment_raw'] = np.exp(check_df['enroll_total'])
+
+check_df['size_quintile'] = pd.qcut(
+    check_df['enrollment_raw'], 
+    q=5, 
+    labels=['Smallest', 'Small', 'Medium', 'Large', 'Largest']
+)
+
+# 1. Check for systematic bias 
+print("\n--- Mean PCA Z-Score by District Size ---")
+print(check_df.groupby('size_quintile', observed=False)['pca_z'].mean().round(3))
+
+print("\n--- Mean PCA Z-Score by Locale ---")
+print(check_df.groupby('locale', observed=False)['pca_z'].mean().round(3))
+
+# 2. Check for over-shrinkage by size
+print("\n--- Variance of PCA Z-Score by District Size ---")
+print(check_df.groupby('size_quintile', observed=False)['pca_z'].var().round(3))
+
+# 3. Check correlation with Poverty
+corr_frpm = check_df['pca_z'].corr(check_df['pct_frpm'])
+print(f"\nCorrelation between Final PCA Score and Free/Reduced Lunch %: {corr_frpm:.3f}")
+if abs(corr_frpm) > 0.3:
+    print("WARNING: Residuals are still heavily correlated with poverty. Model is missing structural covariates.")
+
+# endregion
+
+
+# region STABILITY 
+# %%
+# region STABILITY 1: INTERNAL COMPONENT AGREEMENT
+
+print("\n" + "="*50)
+print("STABILITY 1: INTERNAL MODEL AGREEMENT (FMA + EB)")
+print("="*50)
+
+components = ['fma_ela_z', 'fma_math_z', 'eb_ela_z', 'eb_math_z']
+rank_cols = []
+
+for col in components:
+    rank_col = f'rank_{col}'
+    combined[rank_col] = combined[col].rank(ascending=False, method='min')
+    rank_cols.append(rank_col)
+
+combined['component_rank_std'] = combined[rank_cols].std(axis=1)
+combined['component_rank_spread'] = combined[rank_cols].max(axis=1) - combined[rank_cols].min(axis=1)
+
+print("\n--- Most Stable Districts (Top 10 by Lowest Rank Spread) ---")
+print(combined.sort_values('component_rank_spread').head(10)[['dist_name', 'pca_z', 'component_rank_spread']])
+
+print("\n--- Most Volatile Districts (Top 10 by Highest Rank Spread) ---")
+print(combined.sort_values('component_rank_spread', ascending=False).head(10)[['dist_name', 'pca_z', 'component_rank_spread']])
+
+# endregion
+
+# region STABILITY 2: MONTE CARLO RANK SIMULATION
+
+print("\n" + "="*50)
+print("STABILITY 2: MONTE CARLO RANK SIMULATION (EXACT COV + VARIANCE POOLING)")
+print("="*50)
+
+corr_matrix = combined[components].corr()
+N = len(components)
+avg_r = (corr_matrix.values.sum() - N) / (N**2 - N)
+shrinkage_factor = np.sqrt((1 + (N - 1) * avg_r) / N)
+
+raw_se = combined[components].std(axis=1) * shrinkage_factor
+median_se = raw_se.median()
+
+
+combined['se_z'] = (0.5 * raw_se) + (0.5 * median_se)
+combined['se_z'] = combined['se_z'].fillna(median_se)
+
+print(f"  -> Average global correlation: {avg_r:.3f}")
+print(f"  -> Covariance shrinkage factor: {shrinkage_factor:.3f}")
+print(f"  -> Variance Pooling: Blended individual SE with global median SE ({median_se:.3f})")
+
+n_sims = 100000
+n_districts = len(combined)
+simulated_ranks = np.zeros((n_districts, n_sims))
+
+for i in range(n_sims):
+    noise = np.random.normal(loc=0, scale=combined['se_z'])
+    simulated_score = combined['pca_z'] + noise
+    simulated_ranks[:, i] = simulated_score.rank(ascending=False, method='min')
+
+combined['rank_final'] = combined['pca_z'].rank(ascending=False, method='min')
+combined['rank_95_best'] = np.percentile(simulated_ranks, 2.5, axis=1)
+combined['rank_95_worst'] = np.percentile(simulated_ranks, 97.5, axis=1)
+combined['plus_minus_spots'] = (combined['rank_95_worst'] - combined['rank_95_best']) / 2
+
+print("\n--- Top 5 Overall Districts ---")
+top_5 = combined.sort_values('rank_final').head(5)
+for _, row in top_5.iterrows():
+    print(f"{row['dist_name'][:30]:<30} | Rank: {int(row['rank_final'])} (+/- {int(row['plus_minus_spots'])} spots) | Range: {int(row['rank_95_best'])} to {int(row['rank_95_worst'])}")
+
+print("\n--- Median Districts ---")
+sorted_combined = combined.sort_values('rank_final')
+mid_index = len(sorted_combined) // 2
+
+# Grab the 2 districts above the median, the median itself, and the 2 below it
+median_5 = sorted_combined.iloc[mid_index - 2 : mid_index + 3]
+
+for _, row in median_5.iterrows():
+    print(f"{row['dist_name'][:30]:<30} | Rank: {int(row['rank_final'])} (+/- {int(row['plus_minus_spots'])} spots) | Range: {int(row['rank_95_best'])} to {int(row['rank_95_worst'])}")
+
+
+print("\n--- Bottom 5 Overall Districts ---")
+bottom_5 = combined.sort_values('rank_final', ascending=False).head(5)
+
+for _, row in bottom_5.iterrows():
+    print(f"{row['dist_name'][:30]:<30} | Rank: {int(row['rank_final'])} (+/- {int(row['plus_minus_spots'])} spots) | Range: {int(row['rank_95_best'])} to {int(row['rank_95_worst'])}")
+
+# endregion
+
+# endregion
+
+# region TIER ASSIGNMENT
+
+print("\n" + "="*50)
+print("TIER ASSIGNMENT: CATEGORIZING PERFORMANCE")
+print("="*50)
+
+# Prevent Jupyter duplicate column errors on cell re-runs
+if 'assist_status' in combined.columns:
+    combined = combined.drop(columns=['assist_status'])
+
+combined = combined.merge(df_spatial[['dist_name', 'assist_status']], on='dist_name', how='left')
+
+# pca_z is already standardized natively, so we just pass it through directly
+combined['final_z_standardized'] = combined['pca_z']
+
+def assign_tier(z, spread):
+    if spread > 400:
+        return "Mixed/Volatile Results"
+    
+    if z >= 1.5:
+        return "Significant Overperformer"
+    elif z >= 0.5:
+        return "Moderate Overperformer"
+    elif z > -0.5:
+        return "Expected Performer"
+    elif z > -1.5:
+        return "Moderate Underperformer"
+    else:
+        return "Significant Underperformer"
+
+combined['performance_tier'] = combined.apply(
+    lambda row: assign_tier(row['final_z_standardized'], row['component_rank_spread']), 
+    axis=1
+)
+
+print("\n--- Distribution of Districts by Tier ---")
+print(combined['performance_tier'].value_counts())
+print("-" * 30)
+
+output_cols = [
+    'dist_name', 'performance_tier', 'final_z_standardized', 
+    'plus_minus_spots', 'component_rank_spread', 'assist_status'
+]
+
+export_df = combined[output_cols].sort_values('final_z_standardized', ascending=False)
+export_df.to_csv("district_performance_tiers.csv", index=False)
+print("\nExported final tiered rankings to 'district_performance_tiers.csv'")
+
+# endregion
+
+# endregion
+# %%
