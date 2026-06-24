@@ -251,6 +251,7 @@ from sklearn.experimental import enable_iterative_imputer
 from sklearn.impute import IterativeImputer
 from sklearn.linear_model import BayesianRidge
 from libpysal.weights import KNN
+from sklearn.metrics import r2_score
 from esda.moran import Moran
 base_cols = ['caaspp_ela', 'caaspp_math', 'lat', 'lon', 'dist_name']
 df_spatial = final.dropna(subset=base_cols).copy()
@@ -493,7 +494,7 @@ from sklearn.decomposition import PCA
 from scipy.stats import zscore
 from libpysal.weights import KNN, lag_spatial
 
-combined = df_spatial[['dist_name']].copy()
+combined = df_spatial[['dist_name', 'county']].copy()
 
 for outcome in ['caaspp_ela', 'caaspp_math']:
     combined[f'ols_resid_{outcome}'] = df_spatial[f'ols_resid_{outcome}'].values
@@ -564,7 +565,6 @@ print(combined.sort_values('pca_z').head(20)[['dist_name', 'pca_z']])
 
 # endregion
 
-
 # region spec weight diagnostics
 
 print("\n" + "="*65)
@@ -597,7 +597,6 @@ for outcome in outcomes:
     print(flagged.to_string(index=False))
 
 # endregion
-
 
 # region validation
 
@@ -723,18 +722,14 @@ if abs(corr_frpm) > 0.3:
 
 # endregion
 
+# region STABILITY
 
-# region STABILITY 
-# %%
 # region STABILITY 1: INTERNAL COMPONENT AGREEMENT
-
 print("\n" + "="*50)
-print("STABILITY 1: INTERNAL MODEL AGREEMENT (FMA + EB)")
+print("STABILITY 1: INTERNAL MODEL AGREEMENT (SUBJECT SPREAD)")
 print("="*50)
 
-components = ['fma_ela_z', 'fma_math_z', 'eb_ela_z', 'eb_math_z']
 rank_cols = []
-
 for col in components:
     rank_col = f'rank_{col}'
     combined[rank_col] = combined[col].rank(ascending=False, method='min')
@@ -860,6 +855,540 @@ output_cols = [
 export_df = combined[output_cols].sort_values('final_z_standardized', ascending=False)
 export_df.to_csv("district_performance_tiers.csv", index=False)
 print("\nExported final tiered rankings to 'district_performance_tiers.csv'")
+
+# endregion
+
+# endregion
+
+
+# region VALIDATION: EXTERNAL CDS AWARDS (bayes smoothed)
+
+import scipy.stats as stats
+import numpy as np
+
+print("\n" + "="*50)
+print("EXTERNAL VALIDATION: CA DISTINGUISHED SCHOOLS (BAYESIAN SMOOTHED)")
+print("="*50)
+
+try:
+    # 1. Load the award file
+    try:
+        awards = pd.read_csv("data/2024-25award.csv")
+    except FileNotFoundError:
+        awards = pd.read_csv("data/dsaawards.xlsx - CA Distinguished Schools.csv")
+    
+    recent_awards = awards[awards['Year'].isin([2024, 2025])].copy()
+    if recent_awards.empty:
+        recent_awards = awards[awards['Year'] == awards['Year'].max()].copy()
+
+    # 2. Robust CDS Code Merging (Fallback to strings if missing)
+    school_counts = final[['dist_name', 'cds_code', 'agency_name_clean', 'n_schools']].copy()
+    
+    award_cds_col = next((col for col in recent_awards.columns if 'cds' in col.lower()), None)
+    
+    if award_cds_col:
+        recent_awards['merge_target'] = recent_awards[award_cds_col].astype(str).str.zfill(14)
+        school_counts['merge_target'] = school_counts['cds_code'].astype(str).str.zfill(14)
+    else:
+        dist_col = 'District' if 'District' in recent_awards.columns else 'District Name'
+        recent_awards['merge_target'] = recent_awards[dist_col].astype(str).str.upper().str.strip()
+        school_counts['merge_target'] = school_counts['agency_name_clean'].astype(str).str.upper().str.strip()
+
+    award_counts = recent_awards.groupby('merge_target').size().reset_index(name='award_count')
+    
+    val_df = school_counts.merge(award_counts[['merge_target', 'award_count']], on='merge_target', how='left')
+    val_df['award_count'] = val_df['award_count'].fillna(0)
+    
+    val_df['n_schools'] = pd.to_numeric(val_df['n_schools'], errors='coerce').fillna(1)
+    val_df['n_schools'] = val_df['n_schools'].apply(lambda x: x if x > 0 else 1) 
+    
+    # --- BAYESIAN SMOOTHING PARAMETER ESTIMATION ---
+    raw_rates = val_df['award_count'] / val_df['n_schools']
+    global_mean = raw_rates.mean()
+    
+    # Use weighted variance to prevent single-school districts from destroying priors
+    weighted_var = np.average((raw_rates - global_mean)**2, weights=val_df['n_schools'])
+    
+    if weighted_var > 0 and weighted_var < (global_mean * (1 - global_mean)):
+        gamma = (global_mean * (1 - global_mean) / weighted_var) - 1
+        alpha = global_mean * gamma
+        beta = (1 - global_mean) * gamma
+    else:
+        # Robust fallback: Set prior weight to median schools per district
+        prior_weight = val_df['n_schools'].median()
+        alpha = global_mean * prior_weight
+        beta = (1 - global_mean) * prior_weight
+
+    print(f"  -> Empirical Bayes Priors: alpha = {alpha:.3f}, beta = {beta:.3f}")
+    
+    val_df['cds_density_smoothed'] = (val_df['award_count'] + alpha) / (val_df['n_schools'] + alpha + beta)
+    
+    val_df_final = combined.merge(val_df[['dist_name', 'cds_density_smoothed', 'award_count']], on='dist_name', how='left')
+    val_df_final['cds_density_smoothed'] = val_df_final['cds_density_smoothed'].fillna(alpha / (alpha + beta))
+    val_df_final['award_count'] = val_df_final['award_count'].fillna(0)
+
+    # 5. Robust Rank Correlation handling massive blocks of tied zeroes
+    if val_df_final['cds_density_smoothed'].std() == 0:
+        print("  -> ERROR: Smoothed density has zero variance.")
+    else:
+        # Swap Spearman for Kendall's Tau-b
+        tau, p_val = stats.kendalltau(
+            val_df_final['final_z_standardized'], 
+            val_df_final['cds_density_smoothed'], 
+            nan_policy='omit'
+        )
+        
+        print(f"  -> Diagnostic: Mapped {int(val_df['award_count'].sum())} awards across active dataset.")
+        print(f"  -> Kendall's Tau-b (tie-adjusted): {tau:.4f}")
+        print(f"  -> p-value: {p_val:.4e}")
+        
+        if tau > 0.20:
+            print("  -> Result: STRONG validation.")
+        elif tau > 0.10:
+            print("  -> Result: MODERATE validation.")
+        elif tau > 0:
+            print("  -> Result: WEAK validation.")
+        else:
+            print("  -> Result: INVERSE/NO validation.")
+
+except Exception as e:
+    print(f"  -> WARNING: Could not complete validation. Error: {e}")
+
+# endregion
+
+
+# region PLOTS
+
+# region SHAP Bar Plot
+
+print("\n" + "="*50)
+print("INTERPRETABILITY: SHAP BAR PLOT")
+print("="*50)
+
+plt.figure(figsize=(10, 6))
+plt.title("Top Factors Driving ELA Scores (Average Impact)")
+
+shap.summary_plot(
+    shap_values, 
+    X_imputed_df, 
+    plot_type="bar", 
+    show=False
+)
+
+plt.tight_layout()
+plt.savefig("shap_bar_ela.png")
+plt.show()
+# endregion
+
+# region ICE Plots (Individual Conditional Expectation)
+
+from sklearn.inspection import PartialDependenceDisplay
+import matplotlib.pyplot as plt
+
+print("\n" + "="*60)
+print("INTERPRETABILITY: 6-VARIABLE ICE GRID FOR POLICY")
+print("="*60)
+
+features_to_plot = [
+    'pct_frpm', 'pct_el', 'avg_yrs_teaching', 
+    'suspension_rate', 'pct_chronic_absent', 'exp_per_ada'
+]
+
+label_mapping = {
+    'pct_frpm': 'Student Poverty (%)',
+    'pct_el': 'English Learners (%)',
+    'avg_yrs_teaching': 'Avg Teaching Experience (Years)',
+    'suspension_rate': 'Suspension Rate (%)',
+    'pct_chronic_absent': 'Chronic Absenteeism (%)',
+    'exp_per_ada': 'Funding per Student ($ per ADA)'
+}
+
+y_limit_min = 20  
+y_limit_max = 80  
+
+fig, ax = plt.subplots(figsize=(16, 10))
+
+display = PartialDependenceDisplay.from_estimator(
+    estimator=rf_shap,
+    X=X_imputed_df,
+    features=features_to_plot,
+    kind='both',
+    subsample=100,
+    random_state=42,
+    grid_resolution=50,
+    ice_lines_kw={"color": "tab:blue", "alpha": 0.08, "linewidth": 0.5},
+    pd_line_kw={"color": "tab:orange", "linewidth": 3.5, "alpha": 1},
+    ax=ax
+)
+
+for i, feature_name in enumerate(features_to_plot):
+    sub_ax = display.axes_.flatten()[i]
+    if sub_ax is not None:
+        sub_ax.set_xlabel(label_mapping[feature_name], fontsize=11, weight='bold')
+        sub_ax.set_ylabel("Predicted % Meeting ELA Standards", fontsize=9)
+        sub_ax.set_ylim(y_limit_min, y_limit_max)
+        sub_ax.grid(True, linestyle='--', alpha=0.5)
+
+fig.suptitle("Isolated Impact Curves: Systemic Trends (Orange) vs. Individual Districts (Blue)", 
+             fontsize=18, weight='bold', y=0.96)
+
+plt.subplots_adjust(top=0.88, bottom=0.08, wspace=0.3, hspace=0.35)
+plt.savefig("policy_ice_grid_ela.png", dpi=300)
+plt.show()
+
+# endregion
+
+# region CERF CA Bar Chart 
+
+# %%
+import matplotlib.pyplot as plt
+import pandas as pd
+import numpy as np
+
+fig, ax = plt.subplots(figsize=(13, 11.5))
+fig.patch.set_facecolor('white')
+ax.set_facecolor('white')
+
+colors = ['#8b0000', '#d85b5b', '#bdbdbd', '#80cbc4', '#004d40']
+
+cerf_region_map = {
+    'Imperial': 'Southern Border', 'San Diego': 'Southern Border',
+    'Orange': 'Orange County',
+    'Los Angeles': 'Los Angeles County',
+    'Riverside': 'Inland Empire', 'San Bernardino': 'Inland Empire',
+    'Monterey': 'Central Coast', 'San Benito': 'Central Coast', 'Santa Barbara': 'Central Coast', 'Santa Cruz': 'Central Coast', 'San Luis Obispo': 'Central Coast', 'Ventura': 'Central Coast',
+    'Fresno': 'Central San Joaquin Valley', 'Kings': 'Central San Joaquin Valley', 'Madera': 'Central San Joaquin Valley', 'Tulare': 'Central San Joaquin Valley',
+    'Kern': 'Kern County',
+    'Merced': 'Northern San Joaquin Valley', 'San Joaquin': 'Northern San Joaquin Valley', 'Stanislaus': 'Northern San Joaquin Valley',
+    'Alpine': 'Eastern Sierra', 'Amador': 'Eastern Sierra', 'Calaveras': 'Eastern Sierra', 'Inyo': 'Eastern Sierra', 'Mariposa': 'Eastern Sierra', 'Mono': 'Eastern Sierra', 'Tuolumne': 'Eastern Sierra',
+    'Alameda': 'Bay Area', 'Contra Costa': 'Bay Area', 'Marin': 'Bay Area', 'Napa': 'Bay Area', 'San Francisco': 'Bay Area', 'San Mateo': 'Bay Area', 'Santa Clara': 'Bay Area', 'Solano': 'Bay Area', 'Sonoma': 'Bay Area',
+    'Colusa': 'Sacramento', 'El Dorado': 'Sacramento', 'Nevada': 'Sacramento', 'Placer': 'Sacramento', 'Sacramento': 'Sacramento', 'Sutter': 'Sacramento', 'Yolo': 'Sacramento', 'Yuba': 'Sacramento',
+    'Del Norte': 'Redwood Coast', 'Humboldt': 'Redwood Coast', 'Lake': 'Redwood Coast', 'Mendocino': 'Redwood Coast',
+    'Butte': 'North State', 'Glenn': 'North State', 'Lassen': 'North State', 'Modoc': 'North State', 'Plumas': 'North State', 'Shasta': 'North State', 'Sierra': 'North State', 'Siskiyou': 'North State', 'Tehama': 'North State', 'Trinity': 'North State'
+}
+
+combined['cerf_region'] = combined['county'].map(cerf_region_map).fillna('Unclassified')
+
+bins = [-np.inf, -1.5, -0.5, 0.5, 1.5, np.inf]
+labels = ["Sig. Under", "Mod. Under", "Expected", "Mod. Over", "Sig. Over"]
+combined['tier'] = pd.cut(combined['pca_z'], bins=bins, labels=labels)
+
+ct = pd.crosstab(combined['cerf_region'], combined['tier'], normalize='index') * 100
+
+n_counts = combined.groupby('cerf_region').size()
+ct.index = [f"{reg} (n={n_counts[reg]})" if reg in n_counts else reg for reg in ct.index]
+
+ct['delta'] = (ct['Mod. Over'] + ct['Sig. Over']) - (ct['Sig. Under'] + ct['Mod. Under'])
+ct = ct.sort_values('delta', ascending=True).drop(columns='delta')
+
+is_unclassified = ct.index.str.contains('Unclassified', case=False, na=False)
+valid_regions = ct[~is_unclassified]
+unclassified_region = ct[is_unclassified]
+ct = pd.concat([unclassified_region, valid_regions])
+
+
+half_exp = ct['Expected'] / 2
+
+mod_under_right = -half_exp
+mod_under_left = mod_under_right - ct['Mod. Under']
+sig_under_right = mod_under_left
+sig_under_left = sig_under_right - ct['Sig. Under']
+
+mod_over_left = half_exp
+mod_over_right = mod_over_left + ct['Mod. Over']
+sig_over_left = mod_over_right
+sig_over_right = sig_over_left + ct['Sig. Over']
+
+ax.barh(ct.index, half_exp, left=mod_under_right, color=colors[2], label='At Baseline (Expected)', height=0.65, edgecolor='white', linewidth=0.6)
+ax.barh(ct.index, half_exp, left=0, color=colors[2], height=0.65, edgecolor='white', linewidth=0.6)
+ax.barh(ct.index, -ct['Mod. Under'], left=mod_under_right, color=colors[1], label='Moderate Underperformer', height=0.65, edgecolor='white', linewidth=0.6)
+ax.barh(ct.index, -ct['Sig. Under'], left=sig_under_right, color=colors[0], label='Significant Underperformer', height=0.65, edgecolor='white', linewidth=0.6)
+ax.barh(ct.index, ct['Mod. Over'], left=mod_over_left, color=colors[3], label='Moderate Overperformer', height=0.65, edgecolor='white', linewidth=0.6)
+ax.barh(ct.index, ct['Sig. Over'], left=sig_over_left, color=colors[4], label='Significant Overperformer', height=0.65, edgecolor='white', linewidth=0.6)
+
+import matplotlib.patheffects as pe
+
+label_outline = [pe.withStroke(linewidth=2.5, foreground='#1b1b1b')]
+
+ZERO_TOL = 0.05
+
+
+segments = [
+    ('Mod. Under', mod_under_left, mod_under_right),
+    ('Sig. Under', sig_under_left, sig_under_right),
+    ('Mod. Over', mod_over_left, mod_over_right),
+    ('Sig. Over', sig_over_left, sig_over_right),
+]
+
+def _edge_at(edge, region):
+    return edge[region] if isinstance(edge, pd.Series) else edge
+
+for col, left_edges, right_edges in segments:
+    for region in ct.index:
+        w = ct.loc[region, col]
+        if w < ZERO_TOL:
+            continue
+        left = _edge_at(left_edges, region)
+        right = _edge_at(right_edges, region)
+        center_x = (left + right) / 2
+        # Shrink font slightly for very narrow segments so the outlined text
+        # has a better chance of fitting within (or just over) its sliver.
+        fontsize = 9 if w >= 4 else 7.5
+        ax.text(
+            center_x, region, f"{w:.0f}%",
+            ha='center', va='center',
+            fontsize=fontsize, color='white',
+            path_effects=label_outline,
+            zorder=6
+        )
+for region in ct.index:
+    w = ct.loc[region, 'Expected']
+    if w < ZERO_TOL:
+        continue
+    fontsize = 9 if w >= 4 else 7.5
+    ax.text(
+        0, region, f"{w:.0f}%",
+        ha='center', va='center',
+        fontsize=fontsize, color='#1b1b1b',
+        path_effects=[pe.withStroke(linewidth=2.5, foreground='white')],
+        zorder=6
+    )
+
+ax.axvline(0, color='#1b1b1b', linewidth=1.5, zorder=5)
+
+fig.suptitle("Regional Performance Gaps", fontsize=22, weight='bold', color='#1b1b1b', y=0.96, x=0.5, ha='center')
+
+ax.spines[['top', 'right', 'left']].set_visible(False)
+ax.spines['bottom'].set_color('#cccccc')
+ax.spines['bottom'].set_linewidth(1.0)
+
+left_extent = sig_under_left.min()
+right_extent = sig_over_right.max()
+margin = 5
+ax.set_xlim(left_extent - margin, right_extent + margin)
+
+ax.tick_params(axis='x', labelsize=10, colors='#1b1b1b')
+ax.tick_params(axis='y', labelsize=11, colors='#1b1b1b', length=0, pad=12)
+xticks = ax.get_xticks()
+ax.set_xticklabels([f"{abs(int(x))}%" for x in xticks])
+
+ax.set_xlabel("Percentage of Districts Deviating from Baseline", fontsize=11, labelpad=15, color='#1b1b1b')
+
+ax.legend(
+    loc='upper center', 
+    bbox_to_anchor=(0.5, -0.06), 
+    ncol=5, 
+    frameon=False,
+    fontsize=10,
+    columnspacing=1.5
+)
+
+fig.text(
+    0.05, 0.01, 
+    "*Note: Regions reflect official CERF CA economic region designations.", 
+    fontsize=9, style='italic', color='#5b5b5b', ha='left', va='bottom'
+)
+
+plt.subplots_adjust(top=0.90, bottom=0.12, left=0.20)
+plt.savefig("cerf_regional_gaps_final.png", dpi=300, bbox_inches='tight')
+plt.show()
+
+# endregion
+
+# %%
+# %%
+# %%
+# region clusters (SES vs. Performance)
+
+import matplotlib.transforms as transforms
+import re
+from sklearn.preprocessing import StandardScaler
+from sklearn.decomposition import PCA
+from adjustText import adjust_text
+import matplotlib.pyplot as plt
+
+print("\n" + "="*60)
+print("VISUALIZATION: SES VS. PERFORMANCE DIAGNOSTIC")
+print("="*60)
+
+ses_cols = ['pct_frpm', 'median_income', 'bach_pct', 'unemployment_pct']
+cluster_df = combined.merge(df_spatial[['dist_name'] + ses_cols], on='dist_name', how='left')
+
+scaler_ses = StandardScaler()
+ses_scaled = scaler_ses.fit_transform(cluster_df[ses_cols])
+pca_ses = PCA(n_components=1)
+cluster_df['ses_index'] = pca_ses.fit_transform(ses_scaled)
+
+if cluster_df['ses_index'].corr(cluster_df['median_income']) < 0:
+    cluster_df['ses_index'] *= -1
+
+def assign_strategic_group(row):
+    if row['ses_index'] >= 0 and row['pca_z'] >= 0:
+        return "Expected High"
+    elif row['ses_index'] < 0 and row['pca_z'] >= 0:
+        return "Beat-the-Odds"
+    elif row['ses_index'] < 0 and row['pca_z'] < 0:
+        return "Systemic Challenge"
+    else:
+        return "Underutilized"
+
+cluster_df['strategic_group'] = cluster_df.apply(assign_strategic_group, axis=1)
+
+cluster_df['dist_name_short'] = cluster_df['dist_name'].apply(
+    lambda s: re.sub(r'\s*\([^)]*\)\s*$', '', s)
+)
+
+COLOR_OVERPERFORM  = "#14532D"
+COLOR_UNDERPERFORM = "#7A271A"
+COLOR_BG           = "#C9CCCF"
+COLOR_TEXT         = "#1B1B1B"
+COLOR_GRID         = "#DFE1E2"
+
+CMAP_OVER  = plt.cm.Greens
+
+CMAP_UNDER = plt.cm.Reds_r 
+
+plt.rcParams["font.family"] = "sans-serif"
+plt.rcParams["font.sans-serif"] = ["Arial", "Helvetica", "DejaVu Sans"]
+plt.rcParams["text.color"] = COLOR_TEXT
+plt.rcParams["axes.edgecolor"] = COLOR_TEXT
+plt.rcParams["axes.labelcolor"] = COLOR_TEXT
+plt.rcParams["xtick.color"] = COLOR_TEXT
+plt.rcParams["ytick.color"] = COLOR_TEXT
+
+N_LABELS = 6
+
+
+panel_specs = {
+    "Beat-the-Odds": dict(
+        group="Beat-the-Odds",
+        point_color="#14532D",   # Solid deep green
+        label_color=COLOR_OVERPERFORM,
+        title="Low-SES districts that outperform expectations",
+        sort_ascending=False,
+    ),
+    "Underutilized": dict(
+        group="Underutilized",
+        point_color="#7A271A",   # Solid deep red
+        label_color=COLOR_UNDERPERFORM,
+        title="High-SES districts that underperform expectations",
+        sort_ascending=True,
+    ),
+}
+
+fig, axes = plt.subplots(1, 2, figsize=(17, 7.5))
+fig.patch.set_facecolor("white")
+
+accessible_tables = {}
+
+for ax, (panel_name, spec) in zip(axes, panel_specs.items()):
+    grp = spec["group"]
+    panel_df = cluster_df[cluster_df['strategic_group'] == grp]
+    background_df = cluster_df[cluster_df['strategic_group'] != grp]
+
+    ax.set_facecolor("white")
+    ax.axhline(0, color=COLOR_GRID, linewidth=1.2, zorder=1)
+    ax.axvline(0, color=COLOR_GRID, linewidth=1.2, zorder=1)
+    ax.grid(True, color=COLOR_GRID, linewidth=0.7, zorder=0)
+    ax.set_axisbelow(True)
+
+    # Plot background points in a faint gray color for clean styling
+    ax.scatter(
+        background_df['ses_index'], background_df['pca_z'], 
+        color="#E5E7EB", alpha=0.6, s=26, linewidth=0, zorder=2
+    )
+
+    # Plot active points with a clean, solid color hex code
+    ax.scatter(
+        panel_df['ses_index'], panel_df['pca_z'], 
+        color=spec["point_color"], alpha=0.9, s=50, linewidth=0, zorder=3
+    )
+
+    # Note: Colorbar instantiation and formatting blocks have been removed entirely
+
+    # Set boundaries BEFORE adjust_text so label positioning respects axis constraints
+    if grp == "Beat-the-Odds":
+        x_lo = panel_df['ses_index'].min() - 0.3
+        x_hi = 0.0  
+        y_lo = 0.0  
+        y_hi = panel_df['pca_z'].max() + 0.5
+    else:
+        x_lo = 0.0  
+        x_hi = panel_df['ses_index'].max() + 0.3
+        y_lo = panel_df['pca_z'].min() - 0.5
+        y_hi = 0.0  
+
+    ax.set_xlim(x_lo, x_hi)
+    ax.set_ylim(y_lo, y_hi)
+
+    top_labels = panel_df.sort_values('pca_z', ascending=spec["sort_ascending"]).head(N_LABELS)
+
+    texts = []
+    label_x, label_y = [], []
+    for _, row in top_labels.iterrows():
+        t = ax.text(
+            row['ses_index'], row['pca_z'], row['dist_name_short'],
+            fontsize=8, color=spec["label_color"], weight='bold',
+            bbox=dict(facecolor='white', edgecolor='none', alpha=0.75, pad=1.2),
+            zorder=6
+        )
+        texts.append(t)
+        label_x.append(row['ses_index'])
+        label_y.append(row['pca_z'])
+
+    adjust_text(
+        texts,
+        ax=ax,
+        x=label_x,
+        y=label_y,
+        arrowprops=dict(arrowstyle='-', color=COLOR_TEXT, lw=0.6, alpha=0.6),
+        expand=(1.2, 1.4),
+        force_text=(0.6, 0.8),
+        max_move=30,
+        lim=2000,
+    )
+
+    ax.set_title(spec["title"], fontsize=13, weight='bold', color=COLOR_TEXT, pad=14, loc='left')
+    ax.set_xlabel("Socioeconomic status index (higher = wealthier)", fontsize=9.5, color=COLOR_TEXT, labelpad=10)
+    ax.set_ylabel("Value-added performance (z-score)", fontsize=9.5, color=COLOR_TEXT, labelpad=10)
+
+    accessible_tables[grp] = (
+        top_labels[['dist_name', 'ses_index', 'pca_z']]
+        .rename(columns={
+            'dist_name': 'District',
+            'ses_index': 'SES index',
+            'pca_z': 'Value-added z-score'
+        })
+        .round(2)
+    )
+
+
+fig.suptitle(
+    "Performance relative to socioeconomic expectations, by district",
+    fontsize=15, weight='bold', color=COLOR_TEXT, y=1.04, x=0.01, ha='left'
+)
+fig.text(
+    0.01, 0.965,
+    "Color intensity shows how far each district's performance deviates from what its "
+    "socioeconomic profile would predict. Faint gray points are districts outside this panel's group.",
+    fontsize=10, color=COLOR_TEXT, ha='left', wrap=True
+)
+
+plt.tight_layout(rect=[0, 0, 1, 0.90])
+plt.savefig("performance_cluster.png")
+plt.show()
+
+
+
+print("\n" + "="*60)
+print("ACCESSIBLE DATA TABLE — Beat-the-Odds (overperforming, low-SES)")
+print("="*60)
+print(accessible_tables["Beat-the-Odds"].to_string(index=False))
+
+print("\n" + "="*60)
+print("ACCESSIBLE DATA TABLE — Underutilized (underperforming, high-SES)")
+print("="*60)
+print(accessible_tables["Underutilized"].to_string(index=False))
 
 # endregion
 

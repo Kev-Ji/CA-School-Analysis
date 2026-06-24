@@ -109,3 +109,11 @@ final = merged.merge(merge2, left_on = 'Agency ID - NCES Assigned [District] Lat
 
 final.to_csv("data/final.csv")
 
+# awards
+
+all_award = pd.read_excel(r"data/dsaawards.xlsx", header=5)
+
+award = all_award[all_award['Year'] > 2023]
+
+award.to_csv("data/2024-25award.csv")
+

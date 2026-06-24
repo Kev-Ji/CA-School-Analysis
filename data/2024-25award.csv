@@ -1,0 +1,630 @@
+,Year,County,District,School
+0,2025.0,Alameda,Castro Valley Unified,Independent Elementary
+1,2025.0,Alameda,Dublin Unified,Harold William Kolb
+2,2025.0,Alameda,Fremont Unified,John G. Mattos Elementary
+3,2025.0,Alameda,Livermore Valley Joint Unified,Lawrence Elementary
+4,2025.0,Alameda,New Haven Unified,Pioneer Elementary
+5,2025.0,Alameda,Oakland Unified,Lincoln Elementary
+6,2025.0,Alameda,Oakland Unified,Crocker Highlands Elementary
+7,2025.0,Alameda,Oakland Unified,Peralta Elementary
+8,2025.0,Alameda,Alameda Unified,Bay Farm
+9,2025.0,Alameda,Alameda Unified,Love Elementary
+10,2025.0,Alameda,Albany City Unified,Ocean View Elementary
+11,2025.0,Alameda,Berkeley Unified,John Muir Elementary
+12,2025.0,Alameda,Castro Valley Unified,Palomares Elementary
+13,2025.0,Butte,Chico Unified,Nord Country
+14,2025.0,Contra Costa,Lafayette Elementary,Happy Valley Elementary
+15,2025.0,Contra Costa,Moraga Elementary,Los Perales Elementary
+16,2025.0,Contra Costa,West Contra Costa Unified,West County Mandarin
+17,2025.0,Contra Costa,Moraga Elementary,Donald L. Rheem Elementary
+18,2025.0,Contra Costa,San Ramon Valley Unified,John Baldwin Elementary
+19,2025.0,Contra Costa,San Ramon Valley Unified,Greenbrook Elementary
+20,2025.0,Contra Costa,San Ramon Valley Unified,Neil A. Armstrong Elementary
+21,2025.0,Contra Costa,San Ramon Valley Unified,Creekside Elementary
+22,2025.0,El Dorado,Rescue Union Elementary,Jackson Elementary
+23,2025.0,Fresno,Central Unified,Madison Elementary
+24,2025.0,Fresno,Clovis Unified,Copper Hills Elementary
+25,2025.0,Fresno,Fresno Unified,Mayfair Elementary
+26,2025.0,Fresno,Kerman Unified,Goldenrod Elementary
+27,2025.0,Fresno,Kings Canyon Joint Unified,Lincoln Elementary
+28,2025.0,Fresno,Clovis Unified,Woods (Harold L.) Elementary
+29,2025.0,Humboldt,Ferndale Unified,Ferndale Elementary
+30,2025.0,Imperial,Holtville Unified,Pine Elementary
+31,2025.0,Imperial,Imperial Unified,Ben Hulse Elementary
+32,2025.0,Kern,Norris Elementary,Norris Elementary
+33,2025.0,Kern,Panama-Buena Vista Union,Ronald Reagan Elementary
+34,2025.0,Kern,Richland Union Elementary,Golden Oak Elementary
+35,2025.0,Kern,Southern Kern Unified,Westpark Elementary
+36,2025.0,Kings,Hanford Elementary,Martin Luther King Jr. Elementary
+37,2025.0,Kings,Kings River-Hardwick Union Elementary,Kings River-Hardwick Elementary
+38,2025.0,Los Angeles,ABC Unified,Cerritos Elementary
+39,2025.0,Los Angeles,Arcadia Unified,Camino Grove Elementary
+40,2025.0,Los Angeles,Arcadia Unified,Longley Way Elementary
+41,2025.0,Los Angeles,Bonita Unified,Gladstone Elementary
+42,2025.0,Los Angeles,Burbank Unified,Providencia Elementary
+43,2025.0,Los Angeles,Claremont Unified,Chaparral Elementary
+44,2025.0,Los Angeles,Claremont Unified,Sumner Elementary
+45,2025.0,Los Angeles,Compton Unified,Tibby Elementary
+46,2025.0,Los Angeles,Compton Unified,Roosevelt Elementary
+47,2025.0,Los Angeles,Covina-Valley Unified,Manzanita Elementary
+48,2025.0,Los Angeles,Culver City Unified,Linwood E. Howe Elementary
+49,2025.0,Los Angeles,Culver City Unified,La Ballona Elementary
+50,2025.0,Los Angeles,East Whittier City Elementary,Orchard Dale Elementary
+51,2025.0,Los Angeles,El Monte City,Legore Elementary
+52,2025.0,Los Angeles,El Rancho Unified,Birney Tech Academy
+53,2025.0,Los Angeles,Garvey Elementary,Duff Language Magnet Academy
+54,2025.0,Los Angeles,Glendale Unified,Verdugo Woodlands Elementary
+55,2025.0,Los Angeles,Hacienda la Puente Unified,Wedgeworth Elementary
+56,2025.0,Los Angeles,Las Virgenes Unified,Bay Laurel Elementary
+57,2025.0,Los Angeles,Las Virgenes Unified,Sumac Elementary
+58,2025.0,Los Angeles,Las Virgenes Unified,Willow Elementary
+59,2025.0,Los Angeles,Lawndale Elementary,William Anderson Elementary
+60,2025.0,Los Angeles,Los Angeles County Office of Education,Lashon Academy
+61,2025.0,Los Angeles,Los Angeles County Office of Education,Aspire Antonio Maria Lugo Academy
+62,2025.0,Los Angeles,Los Angeles Unified,Franklin Avenue Elementary
+63,2025.0,Los Angeles,Los Angeles Unified,Beckford Charter for Enriched Studies
+64,2025.0,Los Angeles,Los Angeles Unified,Third Street Elementary
+65,2025.0,Los Angeles,Los Angeles Unified,Community Magnet Charter Elementary
+66,2025.0,Los Angeles,Los Angeles Unified,Warner Avenue Elementary
+67,2025.0,Los Angeles,Los Angeles Unified,Open Charter Magnet
+68,2025.0,Los Angeles,Los Angeles Unified,Castle Heights Elementary
+69,2025.0,Los Angeles,Los Angeles Unified,Hesby Oaks Leadership Charter
+70,2025.0,Los Angeles,Los Angeles Unified,Colfax Charter Elementary
+71,2025.0,Los Angeles,Los Angeles Unified,Porter Ranch Community
+72,2025.0,Los Angeles,Los Angeles Unified,Carpenter Community Charter
+73,2025.0,Los Angeles,Los Angeles Unified,Kentwood Elementary
+74,2025.0,Los Angeles,Los Angeles Unified,ICEF Vista Elementary Academy
+75,2025.0,Los Angeles,Los Angeles Unified,Multnomah Street Elementary
+76,2025.0,Los Angeles,Los Angeles Unified,Sierra Vista Elementary
+77,2025.0,Los Angeles,Los Angeles Unified,San Jose Street Elementary
+78,2025.0,Los Angeles,Los Angeles Unified,ISANA Palmati Academy
+79,2025.0,Los Angeles,Los Angeles Unified,Stagg Street Elementary
+80,2025.0,Los Angeles,Los Angeles Unified,Allesandro Elementary
+81,2025.0,Los Angeles,Los Angeles Unified,Panorama City Elementary
+82,2025.0,Los Angeles,Los Angeles Unified,Newcastle Elementary
+83,2025.0,Los Angeles,Los Angeles Unified,Jaime Escalante Elementary
+84,2025.0,Los Angeles,Los Angeles Unified,Hoover Street Elementary
+85,2025.0,Los Angeles,Los Angeles Unified,Rockdale Visual & Performing Arts Magnet
+86,2025.0,Los Angeles,Los Angeles Unified,Gates Street Elementary
+87,2025.0,Los Angeles,Los Angeles Unified,Annalee Avenue Elementary
+88,2025.0,Los Angeles,Los Angeles Unified,City Terrace Elementary
+89,2025.0,Los Angeles,Los Angeles Unified,Dorris Place Elementary
+90,2025.0,Los Angeles,Los Angeles Unified,PUC Community Charter Elementary
+91,2025.0,Los Angeles,Los Angeles Unified,Brockton Avenue Elementary
+92,2025.0,Los Angeles,Los Angeles Unified,Brooklyn Avenue
+93,2025.0,Los Angeles,Los Angeles Unified,Figueroa Street Elementary
+94,2025.0,Los Angeles,Los Angeles Unified,One Hundred Twenty-Second Street Elementary
+95,2025.0,Los Angeles,Los Angeles Unified,ISANA Cardinal Academy
+96,2025.0,Los Angeles,Los Angeles Unified,N.E.W. Academy of Science and Arts
+97,2025.0,Los Angeles,Los Angeles Unified,Aragon Avenue Elementary
+98,2025.0,Los Angeles,Los Angeles Unified,ISANA Octavia Academy
+99,2025.0,Los Angeles,Los Angeles Unified,Magnolia Science Academy 7
+100,2025.0,Los Angeles,Los Angeles Unified,Gledhill Street Elementary
+101,2025.0,Los Angeles,Los Angeles Unified,Alexandria Avenue Elementary
+102,2025.0,Los Angeles,Los Angeles Unified,Chase Street Elementary
+103,2025.0,Los Angeles,Los Angeles Unified,Coldwater Canyon Elementary
+104,2025.0,Los Angeles,Los Angeles Unified,Malabar Street Elementary
+105,2025.0,Los Angeles,Los Angeles Unified,Nevin Avenue Elementary
+106,2025.0,Los Angeles,Los Angeles Unified,Tulsa Street Elementary
+107,2025.0,Los Angeles,Los Angeles Unified,Bonita Street Elementary
+108,2025.0,Los Angeles,Los Angeles Unified,Hubbard Street Elementary
+109,2025.0,Los Angeles,Los Angeles Unified,Rosemont Avenue Elementary
+110,2025.0,Los Angeles,Los Angeles Unified,Reseda Elementary
+111,2025.0,Los Angeles,Los Angeles Unified,Soto Street Elementary
+112,2025.0,Los Angeles,Los Angeles Unified,Danube Avenue Elementary
+113,2025.0,Los Angeles,Los Angeles Unified,Westside Global Awareness Magnet
+114,2025.0,Los Angeles,Los Angeles Unified,Seventh Street Elementary Arts Integration Magnet
+115,2025.0,Los Angeles,Los Angeles Unified,Vermont Avenue Elementary
+116,2025.0,Los Angeles,Manhattan Beach Unified,Pacific Elementary
+117,2025.0,Los Angeles,Newhall,Old Orchard Elementary
+118,2025.0,Los Angeles,Newhall,Meadows Elementary
+119,2025.0,Los Angeles,Newhall,Pico Canyon Elementary
+120,2025.0,Los Angeles,Palos Verdes Peninsula Unified,Cornerstone at Pedregal Elementary
+121,2025.0,Los Angeles,Palos Verdes Peninsula Unified,Silver Spur Elementary
+122,2025.0,Los Angeles,Palos Verdes Peninsula Unified,Montemalaga Elementary
+123,2025.0,Los Angeles,Paramount Unified,Howard Tanner
+124,2025.0,Los Angeles,Pasadena Unified,Field (Eugene) Elementary
+125,2025.0,Los Angeles,Pasadena Unified,Sierra Madre Elementary
+126,2025.0,Los Angeles,Pasadena Unified,Altadena Elementary
+127,2025.0,Los Angeles,Pomona Unified,Pantera Elementary
+128,2025.0,Los Angeles,Pomona Unified,Golden Springs Elementary
+129,2025.0,Los Angeles,Redondo Beach Unified,Birney Elementary
+130,2025.0,Los Angeles,Redondo Beach Unified,Jefferson Elementary
+131,2025.0,Los Angeles,Redondo Beach Unified,Lincoln Elementary
+132,2025.0,Los Angeles,Rosemead Elementary,Emma W. Shuey Elementary
+133,2025.0,Los Angeles,San Gabriel Unified,Wilson Elementary
+134,2025.0,Los Angeles,San Marino Unified,Valentine Elementary
+135,2025.0,Los Angeles,Santa Monica-Malibu Unified,Edison Elementary
+136,2025.0,Los Angeles,Saugus Union,Cedarcreek Elementary
+137,2025.0,Los Angeles,Saugus Union,Rosedell Elementary
+138,2025.0,Los Angeles,Saugus Union,Plum Canyon Elementary
+139,2025.0,Los Angeles,Saugus Union,Mountainview Elementary
+140,2025.0,Los Angeles,Saugus Union,West Creek Academy
+141,2025.0,Los Angeles,Saugus Union,North Park Elementary
+142,2025.0,Los Angeles,South Pasadena Unified,Marengo Elementary
+143,2025.0,Los Angeles,South Pasadena Unified,Monterey Hills Elementary
+144,2025.0,Los Angeles,Sulphur Springs Union,Leona H. Cox Community Elementary
+145,2025.0,Los Angeles,Torrance Unified,Yukon Elementary
+146,2025.0,Los Angeles,Torrance Unified,John Adams Elementary
+147,2025.0,Los Angeles,Torrance Unified,Towers Elementary
+148,2025.0,Los Angeles,Torrance Unified,Arlington Elementary
+149,2025.0,Los Angeles,Walnut Valley Unified,Walnut Elementary
+150,2025.0,Los Angeles,West Covina Unified,Merced Elementary
+151,2025.0,Los Angeles,West Covina Unified,San Jose Charter Academy
+152,2025.0,Los Angeles,West Covina Unified,Orangewood Elementary
+153,2025.0,Los Angeles,Whittier City,Mill School and Technology Academy
+154,2025.0,Los Angeles,Long Beach Unified,Henry
+155,2025.0,Los Angeles,Long Beach Unified,Fremont Elementary
+156,2025.0,Marin,Novato Unified,Pleasant Valley Elementary
+157,2025.0,Marin,Novato Unified,San Ramon Elementary
+158,2025.0,Marin,Novato Unified,Loma Verde Elementary
+159,2025.0,Marin,Ross Valley Elementary,Brookside Elementary
+160,2025.0,Marin,Ross Valley Elementary,Hidden Valley Elementary
+161,2025.0,Merced,Los Banos Unified,Grasslands Elementary
+162,2025.0,Merced,Weaver Union,Pioneer Elementary
+163,2025.0,Monterey,Soledad Unified,Rose Ferrero Elementary
+164,2025.0,Monterey,Soledad Unified,Gabilan Elementary
+165,2025.0,Monterey,Soledad Unified,Jack Franscioni Elementary
+166,2025.0,Monterey,Spreckels Union Elementary,Spreckels Elementary
+167,2025.0,Monterey,Washington Union Elementary,Washington Elementary
+168,2025.0,Napa,Napa Valley Unified,Donaldson Way Elementary
+169,2025.0,Orange,Anaheim Elementary,Jefferson (Thomas) Elementary
+170,2025.0,Orange,Brea-Olinda Unified,Olinda Elementary
+171,2025.0,Orange,Capistrano Unified,Oso Grande Elementary
+172,2025.0,Orange,Capistrano Unified,Philip J. Reilly Elementary
+173,2025.0,Orange,Capistrano Unified,Truman Benedict Elementary
+174,2025.0,Orange,Fullerton Elementary,Beechwood Elementary
+175,2025.0,Orange,Fullerton Elementary,Robert C. Fisler Elementary
+176,2025.0,Orange,Garden Grove Unified,Excelsior Elementary
+177,2025.0,Orange,Garden Grove Unified,Loyal Barker Elementary
+178,2025.0,Orange,Garden Grove Unified,A. G. Cook Elementary
+179,2025.0,Orange,Garden Grove Unified,Patton Elementary
+180,2025.0,Orange,Garden Grove Unified,Susan B. Anthony Elementary
+181,2025.0,Orange,Garden Grove Unified,Merton E. Hill Elementary
+182,2025.0,Orange,Garden Grove Unified,Brookhurst Elementary
+183,2025.0,Orange,Garden Grove Unified,Louis G. Zeyen Elementary
+184,2025.0,Orange,Garden Grove Unified,Ocia A. Peters Elementary
+185,2025.0,Orange,Garden Grove Unified,Dwight D. Eisenhower Elementary
+186,2025.0,Orange,Huntington Beach City Elementary,Ralph E. Hawes Elementary
+187,2025.0,Orange,Irvine Unified,Plaza Vista
+188,2025.0,Orange,Irvine Unified,Bonita Canyon Elementary
+189,2025.0,Orange,Irvine Unified,Eastshore Elementary
+190,2025.0,Orange,Irvine Unified,Portola Springs Elementary
+191,2025.0,Orange,La Habra City Elementary,Arbolita Elementary
+192,2025.0,Orange,Los Alamitos Unified,Rossmoor Elementary
+193,2025.0,Orange,Newport-Mesa Unified,Heinz Kaiser Elementary
+194,2025.0,Orange,Newport-Mesa Unified,Adams Elementary
+195,2025.0,Orange,Orange County Department of Education,Irvine International Academy
+196,2025.0,Orange,Orange County Department of Education,Oxford Preparatory Academy - Saddleback Valley
+197,2025.0,Orange,Orange Unified,Nohl Canyon Elementary
+198,2025.0,Orange,Orange Unified,Taft Elementary
+199,2025.0,Orange,Placentia-Yorba Linda Unified,Golden Elementary
+200,2025.0,Orange,Placentia-Yorba Linda Unified,Sierra Vista Elementary
+201,2025.0,Orange,Placentia-Yorba Linda Unified,Lakeview Elementary
+202,2025.0,Orange,Saddleback Valley Unified,De Portola Elementary
+203,2025.0,Orange,Saddleback Valley Unified,Robinson Elementary
+204,2025.0,Orange,Saddleback Valley Unified,Rancho Canada Elementary
+205,2025.0,Orange,Saddleback Valley Unified,Santiago STEAM Magnet Elementary
+206,2025.0,Orange,Santa Ana Unified,Fremont Elementary
+207,2025.0,Orange,Tustin Unified,Arroyo Elementary
+208,2025.0,Orange,Tustin Unified,Tustin Ranch Elementary
+209,2025.0,Orange,Tustin Unified,Ladera Elementary
+210,2025.0,Orange,Tustin Unified,Red Hill Elementary
+211,2025.0,Orange,Tustin Unified,Orchard Hills
+212,2025.0,Orange,Tustin Unified,Benjamin F. Beswick Elementary
+213,2025.0,Placer,Eureka Union,Maidu Elementary
+214,2025.0,Placer,Loomis Union Elementary,H. Clarke Powers Elementary
+215,2025.0,Placer,Loomis Union Elementary,Penryn Elementary
+216,2025.0,Placer,Rocklin Unified,Maria Montessori Charter Academy
+217,2025.0,Placer,Rocklin Unified,Ruhkala Elementary
+218,2025.0,Placer,Western Placer Unified,First Street Elementary
+219,2025.0,Placer,Roseville City Elementary,William Kaseberg Elementary
+220,2025.0,Riverside,Beaumont Unified,Starlight Elementary
+221,2025.0,Riverside,Beaumont Unified,Palm Innovation Academy
+222,2025.0,Riverside,Corona-Norco Unified,Temescal Valley Elementary
+223,2025.0,Riverside,Corona-Norco Unified,Benjamin Franklin Elementary
+224,2025.0,Riverside,Corona-Norco Unified,Prado View Elementary
+225,2025.0,Riverside,Desert Sands Unified,Gerald R. Ford Elementary
+226,2025.0,Riverside,Menifee Union,Taawila Elementary
+227,2025.0,Riverside,Moreno Valley Unified,North Ridge Elementary
+228,2025.0,Riverside,Murrieta Valley Unified,Monte Vista Elementary
+229,2025.0,Riverside,Riverside Unified,Magnolia Elementary
+230,2025.0,Sacramento,Elk Grove Unified,Carroll Elementary
+231,2025.0,Sacramento,Elk Grove Unified,Robert J. Fite Elementary
+232,2025.0,Sacramento,Folsom-Cordova Unified,Riverview STEM Elementary
+233,2025.0,Sacramento,Folsom-Cordova Unified,Mangini Ranch Elementary
+234,2025.0,Sacramento,Folsom-Cordova Unified,Russell Ranch Elementary
+235,2025.0,Sacramento,Natomas Unified,Natomas Pacific Pathways Prep Elementary
+236,2025.0,Sacramento,River Delta Joint Unified,Isleton Elementary
+237,2025.0,Sacramento,Sacramento City Unified,Leonardo Da Vinci
+238,2025.0,San Bernardino,Alta Loma Elementary,Jasper Elementary
+239,2025.0,San Bernardino,Alta Loma Elementary,Victoria Groves Elementary
+240,2025.0,San Bernardino,Chino Valley Unified,Country Springs Elementary
+241,2025.0,San Bernardino,Chino Valley Unified,Butterfield Ranch Elementary
+242,2025.0,San Bernardino,Chino Valley Unified,Eagle Canyon Elementary
+243,2025.0,San Bernardino,Chino Valley Unified,Lyle S. Briggs Fundamental
+244,2025.0,San Bernardino,Chula Vista Elementary,Sunnyside Elementary
+245,2025.0,San Bernardino,Etiwanda Elementary,David W. Long Elementary
+246,2025.0,San Bernardino,Fontana Unified,Beech Avenue Elementary
+247,2025.0,San Bernardino,Fontana Unified,Shadow Hills Elementary
+248,2025.0,San Bernardino,Fontana Unified,Date Elementary
+249,2025.0,San Bernardino,Hesperia Unified,LaVerne Elementary Preparatory Academy
+250,2025.0,San Bernardino,Morongo Unified,Friendly Hills Elementary
+251,2025.0,San Bernardino,Ontario-Montclair,Buena Vista Arts-Integrated
+252,2025.0,San Bernardino,Redlands Unified,Kimberly Elementary
+253,2025.0,San Bernardino,Redlands Unified,Highland Grove Elementary
+254,2025.0,San Bernardino,Rialto Unified,Samuel W. Simpson Elementary
+255,2025.0,San Bernardino,San Bernardino City Unified,Ramona-Alessandro Elementary
+256,2025.0,San Bernardino,San Bernardino City Unified,Palm Avenue Elementary
+257,2025.0,San Bernardino,Snowline Joint Unified,Heritage
+258,2025.0,San Bernardino,Victor Elementary,Sixth Street Prep
+259,2025.0,San Bernardino,Yucaipa-Calimesa Joint Unified,Wildwood Elementary
+260,2025.0,San Diego,Dehesa Elementary,The Heights Charter
+261,2025.0,San Diego,Escondido Union,Heritage K-8 Charter
+262,2025.0,San Diego,Fallbrook Union Elementary,La Paloma Elementary
+263,2025.0,San Diego,Fallbrook Union Elementary,Live Oak Elementary
+264,2025.0,San Diego,Lakeside Union Elementary,Riverview Elementary
+265,2025.0,San Diego,San Diego County Office of Education,Dual Language Immersion North County
+266,2025.0,San Diego,San Diego County Office of Education,JCS - Manzanita
+267,2025.0,San Diego,San Diego Unified,Jonas Salk Elementary
+268,2025.0,San Diego,San Diego Unified,Benchley/Weinberger Elementary
+269,2025.0,San Diego,San Diego Unified,Doyle Elementary
+270,2025.0,San Diego,Solana Beach Elementary,Carmel Creek Elementary
+271,2025.0,San Diego,Solana Beach Elementary,Solana Pacific Elementary
+272,2025.0,San Francisco,San Francisco Unified,Key (Francis Scott) Elementary
+273,2025.0,San Francisco,San Francisco Unified,Chinese Immersion School at DeAvila
+274,2025.0,San Francisco,San Francisco Unified,Sunset Elementary
+275,2025.0,San Francisco,San Francisco Unified,Chin (John Yehall) Elementary
+276,2025.0,San Joaquin,Jefferson Elementary,Monticello Elementary
+277,2025.0,San Joaquin,Lammersville Joint Unified,Bethany Elementary
+278,2025.0,San Joaquin,Lammersville Joint Unified,Julius Cordes Elementary
+279,2025.0,San Joaquin,Lammersville Joint Unified,Hansen Elementary
+280,2025.0,San Joaquin,Lodi Unified,Vinewood Elementary
+281,2025.0,San Joaquin,Ripon Unified,Weston Elementary
+282,2025.0,San Luis Obispo,San Luis Coastal Unified,Pacheco Elementary
+283,2025.0,San Luis Obispo,San Luis Coastal Unified,Monarch Grove Elementary
+284,2025.0,San Mateo,Belmont-Redwood Shores Elementary,Central Elementary
+285,2025.0,San Mateo,Brisbane Elementary,Brisbane Elementary
+286,2025.0,San Mateo,Burlingame Elementary,Hoover Elementary
+287,2025.0,San Mateo,Burlingame Elementary,Roosevelt Elementary
+288,2025.0,San Mateo,Hillsborough City Elementary,North Hillsborough
+289,2025.0,San Mateo,Hillsborough City Elementary,West Hillsborough
+290,2025.0,San Mateo,Hillsborough City Elementary,South Hillsborough
+291,2025.0,San Mateo,Millbrae Elementary,Meadows Elementary
+292,2025.0,San Mateo,San Carlos Elementary,Brittan Acres Elementary
+293,2025.0,San Mateo,San Carlos Elementary,Mariposa
+294,2025.0,San Mateo,Redwood City Elementary,North Star Academy
+295,2025.0,Santa Barbara,Carpinteria Unified,Aliso Elementary
+296,2025.0,Santa Barbara,Santa Barbara Unified,Peabody Charter
+297,2025.0,Santa Barbara,Santa Barbara Unified,Adelante Charter
+298,2025.0,Santa Barbara,Santa Barbara Unified,Washington Elementary
+299,2025.0,Santa Barbara,Hope Elementary,Vieja Valley Elementary
+300,2025.0,Santa Clara,Campbell Union,Capri Elementary
+301,2025.0,Santa Clara,Campbell Union,Forest Hill Elementary
+302,2025.0,Santa Clara,Cupertino Union,Murdock-Portal Elementary
+303,2025.0,Santa Clara,Cupertino Union,Chester W. Nimitz Elementary
+304,2025.0,Santa Clara,Los Altos Elementary,Covington Elementary
+305,2025.0,Santa Clara,Los Gatos Union Elementary,Daves Avenue Elementary
+306,2025.0,Santa Clara,Los Gatos Union Elementary,Lexington Elementary
+307,2025.0,Santa Clara,San Jose Unified,Los Alamitos Elementary
+308,2025.0,Santa Clara,Santa Clara County Office of Education,Rocketship Fuerza Community Prep
+309,2025.0,Santa Clara,Santa Clara Unified,Washington Open Elementary
+310,2025.0,Santa Clara,Sunnyvale,Cherry Chase Elementary
+311,2025.0,Santa Cruz,Santa Cruz City Elementary,De Laveaga Elementary
+312,2025.0,Shasta,Columbia Elementary,Redding School of the Arts
+313,2025.0,Shasta,Enterprise Elementary,Boulder Creek Elementary
+314,2025.0,Shasta,Enterprise Elementary,Lassen View Elementary
+315,2025.0,Sonoma,Roseland,Roseland Elementary
+316,2025.0,Sonoma,West Side Union Elementary,West Side Elementary
+317,2025.0,Sonoma,Wright Elementary,Robert L. Stevens Elementary
+318,2025.0,Stanislaus,Hickman Community Charter,Hickman Elementary
+319,2025.0,Stanislaus,Modesto City Elementary,Sonoma Elementary
+320,2025.0,Stanislaus,Oakdale Joint Unified,Fair Oaks Elementary
+321,2025.0,Sutter,Franklin Elementary,Franklin Elementary
+322,2025.0,Sutter,Live Oak Unified,Encinal Elementary
+323,2025.0,Sutter,Yuba City Unified,Twin Rivers Charter
+324,2025.0,Tulare,Cutler-Orosi Joint Unified,Golden Valley Elementary
+325,2025.0,Tulare,Dinuba Unified,Roosevelt Elementary
+326,2025.0,Tulare,Exeter Unified,Rocky Hill Elementary
+327,2025.0,Tulare,Three Rivers Union Elementary,Three Rivers Elementary
+328,2025.0,Tulare,Visalia Unified,Mountain View Elementary
+329,2025.0,Ventura,Conejo Valley Unified,Wildwood Elementary
+330,2025.0,Ventura,Conejo Valley Unified,Banyan Elementary
+331,2025.0,Ventura,Santa Clara Elementary,Santa Clara Elementary
+332,2025.0,Ventura,Simi Valley Unified,White Oak Elementary
+333,2025.0,Ventura,Simi Valley Unified,Madera Elementary
+334,2025.0,Ventura,Simi Valley Unified,Garden Grove Elementary
+335,2025.0,Yolo,Davis Joint Unified,Robert E. Willett Elementary
+337,2024.0,Alameda,Alameda Unified,Lincoln Middle
+338,2024.0,Alameda,Berkeley Unified,Martin Luther King Middle
+339,2024.0,Alameda,Castro Valley Unified,Creekside Middle
+340,2024.0,Alameda,Dublin Unified,Dublin High
+341,2024.0,Alameda,Dublin Unified,Wells Middle
+342,2024.0,Alameda,Fremont Unified,Irvington High
+343,2024.0,Alameda,Oakland Unified,AIMS College Prep High
+344,2024.0,Alameda,Oakland Unified,Downtown Charter Academy
+345,2024.0,Alameda,Pleasanton Unified,Pleasanton Middle
+346,2024.0,Alameda,Pleasanton Unified,Thomas S. Hart Middle
+347,2024.0,Alameda,San Lorenzo Unified,KIPP Summit Academy
+348,2024.0,Amador,Amador County Unified,Jackson Junior High
+349,2024.0,Butte,Chico Unified,Chico Junior High
+350,2024.0,Butte,Chico Unified,Inspire School of Arts and Sciences
+351,2024.0,Butte,Durham Unified,Durham Intermediate
+352,2024.0,Colusa,Pierce Joint Unified,Lloyd G. Johnson Junior High
+353,2024.0,Contra Costa,Acalanes Union High,Acalanes High
+354,2024.0,Contra Costa,Acalanes Union High,Miramonte High
+355,2024.0,Contra Costa,Lafayette Elementary,M. H. Stanley Middle
+356,2024.0,Contra Costa,Martinez Unified,Martinez Junior High
+357,2024.0,Contra Costa,Mt. Diablo Unified,Diablo View Middle
+358,2024.0,Contra Costa,San Ramon Valley Unified,Pine Valley Middle
+359,2024.0,Contra Costa,West Contra Costa Unified,Middle College High
+360,2024.0,El Dorado,Buckeye Union Elementary,Camerado Springs Middle
+361,2024.0,El Dorado,Mother Lode Union Elementary,Herbert C. Green Middle
+362,2024.0,El Dorado,Rescue Union Elementary,Marina Village Middle
+363,2024.0,Fresno,Fresno Unified,Phillip J Patino School of Entrepreneurship
+364,2024.0,Fresno,Kings Canyon Joint Unified,Reedley Middle College High
+365,2024.0,Imperial,Holtville Unified,Holtville High
+366,2024.0,Inyo,Bishop Unified,Home Street Middle
+367,2024.0,Kern,Bakersfield City,Chipman Junior High
+368,2024.0,Kern,Bakersfield City,Paul L. Cato Middle
+369,2024.0,Kern,Delano Joint Union High,Cesar E. Chavez High
+370,2024.0,Kern,Fruitvale Elementary,Fruitvale Junior High
+371,2024.0,Kern,Lost Hills Union Elementary,A. M. Thomas Middle
+372,2024.0,Kern,Panama-Buena Vista Union,Earl Warren Junior High
+373,2024.0,Kern,Panama-Buena Vista Union,O. J. Actis Junior High
+374,2024.0,Kern,Panama-Buena Vista Union,Tevis Junior High
+375,2024.0,Kern,Rio Bravo-Greeley Union Elementary,Rio Bravo-Greeley Elementary
+376,2024.0,Kern,Wasco Union High,Wasco High
+377,2024.0,Lassen,Susanville Elementary,Diamond View Middle
+378,2024.0,Los Angeles,ABC Unified,Cerritos High
+379,2024.0,Los Angeles,ABC Unified,Gahr (Richard) High
+380,2024.0,Los Angeles,ABC Unified,Tetzlaff (Martin B.) Middle
+381,2024.0,Los Angeles,ABC Unified,Whitney (Gretchen) High
+382,2024.0,Los Angeles,Alhambra Unified,Mark Keppel High
+383,2024.0,Los Angeles,Antelope Valley Union High,SOAR High (Students On Academic Rise)
+384,2024.0,Los Angeles,Arcadia Unified,First Avenue Middle
+385,2024.0,Los Angeles,Bonita Unified,Ramona Middle
+386,2024.0,Los Angeles,Compton Unified,Bunche Middle
+387,2024.0,Los Angeles,Compton Unified,Compton Early College High
+388,2024.0,Los Angeles,Compton Unified,Davis Middle
+389,2024.0,Los Angeles,Compton Unified,Whaley Middle
+390,2024.0,Los Angeles,Compton Unified,Willowbrook Middle
+391,2024.0,Los Angeles,Covina-Valley Unified,Covina High
+392,2024.0,Los Angeles,Covina-Valley Unified,Las Palmas Middle
+393,2024.0,Los Angeles,Downey Unified,Doty (Wendy Lopour) Middle
+394,2024.0,Los Angeles,El Monte Union High,Arroyo High
+395,2024.0,Los Angeles,Glendale Unified,Anderson W. Clark Magnet High
+396,2024.0,Los Angeles,Glendale Unified,Eleanor J. Toll Middle
+397,2024.0,Los Angeles,Glendora Unified,Sandburg Middle
+398,2024.0,Los Angeles,Hacienda la Puente Unified,Glen A. Wilson High
+399,2024.0,Los Angeles,Inglewood Unified,Animo Inglewood Charter High
+400,2024.0,Los Angeles,Inglewood Unified,Wilder's Preparatory Academy Charter Middle
+401,2024.0,Los Angeles,Lawndale Elementary,Environmental Charter High - Lawndale
+402,2024.0,Los Angeles,Lennox,Animo Leadership High
+403,2024.0,Los Angeles,Lennox,"Lennox Mathematics, Science and Technology Academy"
+404,2024.0,Los Angeles,Long Beach Unified,California Academy of Mathematics and Science
+405,2024.0,Los Angeles,Long Beach Unified,Eunice Sato Academy of Math & Science
+406,2024.0,Los Angeles,Long Beach Unified,Stanford Middle
+407,2024.0,Los Angeles,Long Beach Unified,Stephens Middle
+408,2024.0,Los Angeles,Los Angeles County Office of Education,International Polytechnic High
+409,2024.0,Los Angeles,Los Angeles County Office of Education,Magnolia Science Academy 2
+410,2024.0,Los Angeles,Los Angeles Unified,Abraham Lincoln Senior High
+411,2024.0,Los Angeles,Los Angeles Unified,Alfred B. Nobel Charter Middle
+412,2024.0,Los Angeles,Los Angeles Unified,Alliance Collins Family College-Ready High
+413,2024.0,Los Angeles,Los Angeles Unified,Alliance Jack H. Skirball Middle
+414,2024.0,Los Angeles,Los Angeles Unified,Alliance Judy Ivie Burton Technology Academy High
+415,2024.0,Los Angeles,Los Angeles Unified,Alliance Leichtman-Levine Family Foundation Environmental Science High
+416,2024.0,Los Angeles,Los Angeles Unified,Alliance Margaret M. Bloomfield Technology Academy High
+417,2024.0,Los Angeles,Los Angeles Unified,Alliance Patti And Peter Neuwirth Leadership Academy
+418,2024.0,Los Angeles,Los Angeles Unified,Alliance Ted K. Tajima High
+419,2024.0,Los Angeles,Los Angeles Unified,Animo Ellen Ochoa Charter Middle
+420,2024.0,Los Angeles,Los Angeles Unified,Animo Jackie Robinson High
+421,2024.0,Los Angeles,Los Angeles Unified,Birmingham Community Charter High
+422,2024.0,Los Angeles,Los Angeles Unified,Camino Nuevo High #2
+423,2024.0,Los Angeles,Los Angeles Unified,Central City Value
+424,2024.0,Los Angeles,Los Angeles Unified,Cesar E. Chavez Learning Academies-Arts/Theatre/Entertain Mag
+425,2024.0,Los Angeles,Los Angeles Unified,Dr. Richard A. Vladovic Harbor Teacher Preparation Academy
+426,2024.0,Los Angeles,Los Angeles Unified,Eagle Rock High
+427,2024.0,Los Angeles,Los Angeles Unified,Early College Academy-LA Trade Tech College
+428,2024.0,Los Angeles,Los Angeles Unified,East Los Angeles Renaissance Academy at Esteban E. Torres High No. 2
+429,2024.0,Los Angeles,Los Angeles Unified,Ednovate - Brio College Prep
+430,2024.0,Los Angeles,Los Angeles Unified,Ednovate - East College Prep
+431,2024.0,Los Angeles,Los Angeles Unified,Ednovate - Esperanza College Prep
+432,2024.0,Los Angeles,Los Angeles Unified,Equitas Academy #2
+433,2024.0,Los Angeles,Los Angeles Unified,Equitas Academy 4
+434,2024.0,Los Angeles,Los Angeles Unified,Francisco Bravo Medical Magnet High
+435,2024.0,Los Angeles,Los Angeles Unified,Gaspar De Portola Charter Middle
+436,2024.0,Los Angeles,Los Angeles Unified,"Girls Academic Leadership Academy, Dr. Michelle King School for Sci, Tech, Eng and Math"
+437,2024.0,Los Angeles,Los Angeles Unified,Grover Cleveland Charter High
+438,2024.0,Los Angeles,Los Angeles Unified,"Hilda L. Solis Learning Academy School of Technology, Business and Education"
+439,2024.0,Los Angeles,Los Angeles Unified,ICEF Vista Middle Academy
+440,2024.0,Los Angeles,Los Angeles Unified,King/Drew Medical Magnet High
+441,2024.0,Los Angeles,Los Angeles Unified,Los Angeles Center for Enriched Studies
+442,2024.0,Los Angeles,Los Angeles Unified,Math and Science College Preparatory
+443,2024.0,Los Angeles,Los Angeles Unified,"Math, Science, & Technology Magnet Academy at Roosevelt High"
+444,2024.0,Los Angeles,Los Angeles Unified,Northridge Academy High
+445,2024.0,Los Angeles,Los Angeles Unified,Oliver Wendell Holmes Middle
+446,2024.0,Los Angeles,Los Angeles Unified,Orthopaedic Hospital
+447,2024.0,Los Angeles,Los Angeles Unified,Phineas Banning Senior High
+448,2024.0,Los Angeles,Los Angeles Unified,Port of Los Angeles High
+449,2024.0,Los Angeles,Los Angeles Unified,Public Service Community at Diego Rivera Learning Complex
+450,2024.0,Los Angeles,Los Angeles Unified,PUC Lakeview Charter Academy
+451,2024.0,Los Angeles,Los Angeles Unified,PUC Triumph Charter Academy and PUC Triumph Charter High
+452,2024.0,Los Angeles,Los Angeles Unified,Robert Frost Middle
+453,2024.0,Los Angeles,Los Angeles Unified,Rudecinda Sepulveda Dodson Middle
+454,2024.0,Los Angeles,Los Angeles Unified,Sylmar Biotech Health and Engineering Magnet
+455,2024.0,Los Angeles,Los Angeles Unified,Taft Charter High
+456,2024.0,Los Angeles,Los Angeles Unified,Verdugo Hills Senior High
+457,2024.0,Los Angeles,Los Angeles Unified,Vox Collegiate of Los Angeles
+458,2024.0,Los Angeles,Los Angeles Unified,Walter Reed Middle
+459,2024.0,Los Angeles,Los Angeles Unified,"Washington Irving Middle School Math, Music and Engineering Magnet"
+460,2024.0,Los Angeles,Los Angeles Unified,WISH Academy High
+461,2024.0,Los Angeles,Los Nietos,Los Nietos Middle
+462,2024.0,Los Angeles,Monrovia Unified,Clifton Middle
+463,2024.0,Los Angeles,Montebello Unified,Macy Intermediate
+464,2024.0,Los Angeles,Norwalk-La Mirada Unified,Arlie F. Hutchinson Middle
+465,2024.0,Los Angeles,Palos Verdes Peninsula Unified,Palos Verdes Intermediate
+466,2024.0,Los Angeles,Pasadena Unified,Sierra Madre Middle
+467,2024.0,Los Angeles,Rowland Unified,Giano Intermediate
+468,2024.0,Los Angeles,Santa Monica-Malibu Unified,John Adams Middle
+469,2024.0,Los Angeles,South Pasadena Unified,South Pasadena Middle
+470,2024.0,Los Angeles,Torrance Unified,Casimir Middle
+471,2024.0,Los Angeles,Torrance Unified,Edward J. Richardson Middle
+472,2024.0,Los Angeles,Torrance Unified,Jefferson Middle
+473,2024.0,Los Angeles,Torrance Unified,South High
+474,2024.0,Los Angeles,Walnut Valley Unified,Chaparral Middle
+475,2024.0,Los Angeles,West Covina Unified,Hollencrest Middle
+476,2024.0,Los Angeles,West Covina Unified,Mt. SAC Early College Academy at West Covina
+477,2024.0,Los Angeles,West Covina Unified,Walnut Grove Intermediate
+478,2024.0,Los Angeles,Whittier City Elementary,Katherine Edwards Middle School STEAM & Dual Immersion Academy
+479,2024.0,Los Angeles,William S. Hart Union High,Rancho Pico Junior High
+480,2024.0,Los Angeles,William S. Hart Union High,Rio Norte Junior High
+481,2024.0,Los Angeles,Wiseburn Unified,Da Vinci Science
+482,2024.0,Madera,Madera Unified,Sherman Thomas STEM Academy
+483,2024.0,Marin,Kentfield Elementary,Adaline E. Kent Middle
+484,2024.0,Marin,Mill Valley Elementary,Mill Valley Middle
+485,2024.0,Marin,Reed Union Elementary,Del Mar Middle
+486,2024.0,Merced,Atwater Elementary,Bellevue Senior Elementary
+487,2024.0,Monterey,Pacific Grove Unified,Pacific Grove Middle
+488,2024.0,Napa,Napa Valley Unified,New Technology High
+489,2024.0,Napa,Napa Valley Unified,Vintage High
+490,2024.0,Nevada,Nevada Joint Union High,William & Marian Ghidotti High
+491,2024.0,Orange,Anaheim Union High,Cypress High
+492,2024.0,Orange,Anaheim Union High,John F. Kennedy High
+493,2024.0,Orange,Anaheim Union High,Lexington Junior High
+494,2024.0,Orange,Anaheim Union High,Magnolia High
+495,2024.0,Orange,Anaheim Union High,Oxford Academy
+496,2024.0,Orange,Buena Park Elementary,Buena Park Middle
+497,2024.0,Orange,Capistrano Unified,Bernice Ayer Middle
+498,2024.0,Orange,Capistrano Unified,Carl Hankey Middle
+499,2024.0,Orange,Capistrano Unified,Esencia Middle
+500,2024.0,Orange,Capistrano Unified,Las Flores Middle
+501,2024.0,Orange,Capistrano Unified,Marco Forster Middle
+502,2024.0,Orange,Capistrano Unified,Niguel Hills Middle
+503,2024.0,Orange,Fountain Valley Elementary,Masuda (Kazuo) Middle
+504,2024.0,Orange,Fullerton Joint Union High,Fullerton Union High
+505,2024.0,Orange,Fullerton Joint Union High,Sonora High
+506,2024.0,Orange,Garden Grove Unified,Hilton D. Bell Intermediate
+507,2024.0,Orange,Garden Grove Unified,Sarah McGarvin Intermediate
+508,2024.0,Orange,Huntington Beach City Elementary,Ethel Dwyer Middle
+509,2024.0,Orange,Irvine Unified,Jeffrey Trail Middle
+510,2024.0,Orange,Irvine Unified,Northwood High
+511,2024.0,Orange,Irvine Unified,South Lake Middle
+512,2024.0,Orange,Irvine Unified,Venado Middle
+513,2024.0,Orange,Los Alamitos Unified,Oak Middle
+514,2024.0,Orange,Los Alamitos Unified,Sharon Christa McAuliffe Middle
+515,2024.0,Orange,Lowell Joint,Rancho-Starbuck Intermediate
+516,2024.0,Orange,Newport-Mesa Unified,Corona del Mar High
+517,2024.0,Orange,Newport-Mesa Unified,Estancia High
+518,2024.0,Orange,Orange Unified,Canyon High
+519,2024.0,Orange,Orange Unified,El Rancho Charter
+520,2024.0,Orange,Orange Unified,Santiago Middle
+521,2024.0,Orange,Placentia-Yorba Linda Unified,Kraemer Middle
+522,2024.0,Orange,Saddleback Valley Unified,La Paz Intermediate
+523,2024.0,Orange,Saddleback Valley Unified,Mission Viejo High
+524,2024.0,Orange,Saddleback Valley Unified,Rancho Santa Margarita Intermediate
+525,2024.0,Orange,Tustin Unified,Legacy Magnet Academy
+526,2024.0,Orange,Tustin Unified,Pioneer Middle
+527,2024.0,Orange,Tustin Unified,Tustin High
+528,2024.0,Orange,Westminster,Helen Stacey Middle
+529,2024.0,Placer,Roseville City Elementary,Barbara Chilton Middle
+530,2024.0,Placer,Western Placer Unified,Twelve Bridges Middle
+531,2024.0,Riverside,Corona-Norco Unified,John F. Kennedy High
+532,2024.0,Riverside,Hemet Unified,Western Center Academy
+533,2024.0,Riverside,Moreno Valley Unified,Moreno Valley High
+534,2024.0,Riverside,Murrieta Valley Unified,Dorothy McElhinney Middle
+535,2024.0,Riverside,Murrieta Valley Unified,Murrieta Mesa High
+536,2024.0,Riverside,Murrieta Valley Unified,Vista Murrieta High
+537,2024.0,Riverside,Palm Springs Unified,Cathedral City High
+538,2024.0,Riverside,Riverside Unified,Amelia Earhart Middle
+539,2024.0,Riverside,Riverside Unified,Martin Luther King Jr. High
+540,2024.0,Riverside,Temecula Valley Unified,Temecula Middle
+541,2024.0,Sacramento,Elk Grove Unified,Harriet G. Eddy Middle
+542,2024.0,Sacramento,Folsom-Cordova Unified,Folsom High
+543,2024.0,Sacramento,Folsom-Cordova Unified,Folsom Middle
+544,2024.0,Sacramento,Folsom-Cordova Unified,Sutter Middle
+545,2024.0,Sacramento,Folsom-Cordova Unified,Vista del Lago High
+546,2024.0,Sacramento,Galt Joint Union High,Liberty Ranch High
+547,2024.0,Sacramento,Sacramento City Unified,Miwok Middle
+548,2024.0,Sacramento,Sacramento City Unified,West Campus
+549,2024.0,San Benito,Hollister,Accelerated Achievement Academy
+550,2024.0,San Bernardino,Adelanto Elementary,Melva Davis Academy of Excellence
+551,2024.0,San Bernardino,Alta Loma Elementary,Alta Loma Junior High
+552,2024.0,San Bernardino,Chaffey Joint Union High,Alta Loma High
+553,2024.0,San Bernardino,Chaffey Joint Union High,Etiwanda High
+554,2024.0,San Bernardino,Chino Valley Unified,Woodcrest Junior High
+555,2024.0,San Bernardino,Colton Joint Unified,Grand Terrace High School at the Ray Abril Jr. Educational Complex
+556,2024.0,San Bernardino,Etiwanda Elementary,Day Creek Intermediate
+557,2024.0,San Bernardino,Hesperia Unified,Hesperia High
+558,2024.0,San Bernardino,Hesperia Unified,Oak Hills High
+559,2024.0,San Bernardino,Victor Valley Union High,University Preparatory
+560,2024.0,San Diego,Carlsbad Unified,Aviara Oaks Middle
+561,2024.0,San Diego,La Mesa-Spring Valley,Spring Valley Academy
+562,2024.0,San Diego,Oceanside Unified,El Camino High
+563,2024.0,San Diego,Poway Unified,Mesa Verde Middle
+564,2024.0,San Diego,Poway Unified,Oak Valley Middle
+565,2024.0,San Diego,San Diego Unified,Challenger Middle
+566,2024.0,San Diego,San Diego Unified,De Portola Middle
+567,2024.0,San Diego,San Diego Unified,High Tech High
+568,2024.0,San Diego,San Diego Unified,Kearny College Connections
+569,2024.0,San Diego,San Diego Unified,Kearny Eng Innov & Design
+570,2024.0,San Diego,San Diego Unified,Kearny School of Biomedical Science and Technology
+571,2024.0,San Diego,San Diego Unified,KIPP Adelante Preparatory Academy
+572,2024.0,San Diego,San Diego Unified,Magnolia Science Academy San Diego
+573,2024.0,San Diego,San Diego Unified,Marston Middle
+574,2024.0,San Diego,San Diego Unified,Muirlands Middle
+575,2024.0,San Diego,San Diego Unified,School for Entrepreneurship and Technology
+576,2024.0,San Diego,San Diego Unified,Standley Middle
+577,2024.0,San Diego,San Diego Unified,Taft Middle
+578,2024.0,San Diego,San Dieguito Union High,Canyon Crest Academy
+579,2024.0,San Diego,San Dieguito Union High,Pacific Trails Middle
+580,2024.0,San Diego,SBC - High Tech High,High Tech Middle North County
+581,2024.0,San Diego,Vista Unified,"Vista Magnet Middle School of Technology, Science, and Math"
+582,2024.0,San Francisco,San Francisco Unified,Gateway High
+583,2024.0,San Joaquin,Jefferson Elementary,Jefferson
+584,2024.0,San Joaquin,Manteca Unified,Manteca High
+585,2024.0,San Joaquin,Stockton Unified,Health Careers Academy
+586,2024.0,San Joaquin,Stockton Unified,Stockton Early College Academy
+587,2024.0,San Luis Obispo,Lucia Mar Unified,Arroyo Grande High
+588,2024.0,San Luis Obispo,Lucia Mar Unified,Paulding Middle
+589,2024.0,San Luis Obispo,San Luis Coastal Unified,Laguna Middle
+590,2024.0,San Mateo,Belmont-Redwood Shores Elementary,Ralston Intermediate
+591,2024.0,San Mateo,Burlingame Elementary,Burlingame Intermediate
+592,2024.0,San Mateo,Menlo Park City Elementary,Hillview Middle
+593,2024.0,San Mateo,Portola Valley Elementary,Corte Madera
+594,2024.0,San Mateo,San Carlos Elementary,Central Middle
+595,2024.0,Santa Clara,Berryessa Union Elementary,Morrill Middle
+596,2024.0,Santa Clara,Campbell Union High,Leigh High
+597,2024.0,Santa Clara,Cupertino Union,Joaquin Miller Middle
+598,2024.0,Santa Clara,Cupertino Union,John F. Kennedy Middle
+599,2024.0,Santa Clara,Cupertino Union,Warren E. Hyde Middle
+600,2024.0,Santa Clara,East Side Union High,Luis Valdez Leadership Academy
+601,2024.0,Santa Clara,Franklin-McKinley Elementary,KIPP Heritage Academy
+602,2024.0,Santa Clara,Fremont Union High,Lynbrook High
+603,2024.0,Santa Clara,Gilroy Unified,Dr. TJ Owens Gilroy Early College Academy
+604,2024.0,Santa Clara,Los Altos Elementary,Ardis G. Egan Junior High
+605,2024.0,Santa Clara,Los Altos Elementary,Georgina P. Blach Junior High
+606,2024.0,Santa Clara,Milpitas Unified,Thomas Russell Middle
+607,2024.0,Santa Clara,Santa Clara Unified,Marian A. Peterson Middle
+608,2024.0,Santa Clara,Saratoga Union Elementary,Redwood Middle
+609,2024.0,Santa Clara,Union Elementary,Dartmouth Middle
+610,2024.0,Santa Clara,Union Elementary,Union Middle
+611,2024.0,Santa Cruz,Live Oak Elementary,Shoreline Middle
+612,2024.0,Santa Cruz,Scotts Valley Unified,Scotts Valley Middle
+613,2024.0,Shasta,Gateway Unified,Central Valley High
+614,2024.0,Shasta,Shasta Union High,Enterprise High
+615,2024.0,Shasta,Shasta Union High,University Preparatory
+616,2024.0,Sonoma,Healdsburg Unified,Healdsburg Junior High
+617,2024.0,Sonoma,Sebastopol Union Elementary,Brook Haven Middle
+618,2024.0,Sonoma,Twin Hills Union Elementary,Twin Hills Charter Middle
+619,2024.0,Stanislaus,Ceres Unified,Ceres High
+620,2024.0,Stanislaus,Hughson Unified,Emilie J. Ross Middle
+621,2024.0,Stanislaus,Modesto City High,Joseph A. Gregori High
+622,2024.0,Sutter,Live Oak Unified,Live Oak Middle
+623,2024.0,Tehama,Evergreen Union,Evergreen Middle
+624,2024.0,Tulare,Porterville Unified,Harmony Magnet Academy
+625,2024.0,Tulare,Porterville Unified,Monache High
+626,2024.0,Tulare,Porterville Unified,Pioneer Middle
+627,2024.0,Tulare,Terra Bella Union Elementary,Carl Smith Middle
+628,2024.0,Ventura,Fillmore Unified,Fillmore Senior High
+629,2024.0,Yuba,Marysville Joint Unified,Marysville Charter Academy for the Arts
