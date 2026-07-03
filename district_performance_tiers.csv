@@ -1,840 +1,694 @@
 dist_name,performance_tier,final_z_standardized,plus_minus_spots,component_rank_spread,assist_status
-Scotia Union Elementary (Humboldt),Significant Overperformer,2.767444500066934,5.0,0.0,Differentiated
-Liberty Elementary (Sonoma),Significant Overperformer,2.735436582361578,5.0,11.0,General
-Douglas City Elementary (Trinity),Significant Overperformer,2.723097654565566,5.0,12.0,General
-Hope Elementary (Tulare),Significant Overperformer,2.7216541324704386,6.5,14.0,General
-Pacific Union Elementary (Fresno),Significant Overperformer,2.6625625661149357,7.5,23.0,Differentiated
-Clay Joint Elementary (Fresno),Significant Overperformer,2.506145950015228,10.5,25.0,General
-Junction Elementary (Siskiyou),Significant Overperformer,2.45149780111397,17.0,65.0,General
-Jacoby Creek Elementary (Humboldt),Significant Overperformer,2.440342423279913,10.0,29.0,General
-Paradise Elementary (Stanislaus),Significant Overperformer,2.414428624854769,13.5,33.0,General
-Cold Spring Elementary (Santa Barbara),Significant Overperformer,2.330216755600116,12.5,23.0,General
-West Side Union Elementary (Sonoma),Significant Overperformer,2.320622219975105,16.0,59.0,General
-Mountain Valley Unified (Trinity),Significant Overperformer,2.2785054818832933,22.0,91.0,General
-Leggett Valley Unified (Mendocino),Significant Overperformer,2.2728757773673447,24.0,86.0,General
-Kings Canyon Joint Unified (Fresno),Significant Overperformer,2.2608821869307394,10.0,6.0,Differentiated
-Gravenstein Union Elementary (Sonoma),Significant Overperformer,2.25674485407516,14.0,22.0,General
-Camptonville Elementary (Yuba),Significant Overperformer,2.2561499781486862,19.0,72.0,General
-Garden Grove Unified (Orange),Significant Overperformer,2.1835780001003737,12.5,9.0,General
-Sunol Glen Unified (Alameda),Significant Overperformer,2.125411552920591,17.0,19.0,General
-Cupertino Union (Santa Clara),Significant Overperformer,2.0941537117653093,33.5,99.0,General
-Columbine Elementary (Tulare),Significant Overperformer,2.061102677396965,30.0,105.0,General
-Fallbrook Union Elementary (San Diego),Significant Overperformer,2.042868561429773,22.0,34.0,Differentiated
-Trinity Alps Unified (Trinity),Significant Overperformer,1.976555820316546,43.0,116.0,Differentiated
-Happy Valley Elementary (Santa Cruz),Significant Overperformer,1.958495450991902,38.0,78.0,General
-Winton (Merced),Significant Overperformer,1.9508367797217325,35.0,66.0,General
-Latrobe (El Dorado),Significant Overperformer,1.9248828045726385,33.0,67.0,General
-Rosemead Elementary (Los Angeles),Significant Overperformer,1.9118823467645902,23.5,43.0,General
-South Pasadena Unified (Los Angeles),Significant Overperformer,1.8861476244229716,19.0,9.0,General
-Marcum-Illinois Union Elementary (Sutter),Significant Overperformer,1.8786755722883768,36.0,76.0,General
-Fountain Valley Elementary (Orange),Significant Overperformer,1.8661799249945377,21.0,20.0,Differentiated
-Compton Unified (Los Angeles),Significant Overperformer,1.861340026952842,23.0,28.0,General
-Palo Alto Unified (Santa Clara),Significant Overperformer,1.8186467891329812,46.0,108.0,General
-Mountain View Elementary (Los Angeles),Significant Overperformer,1.810109893184221,22.0,32.0,Differentiated
-Los Altos Elementary (Santa Clara),Significant Overperformer,1.7449756203785003,57.5,147.0,General
-Garvey Elementary (Los Angeles),Significant Overperformer,1.7409861715266886,37.0,65.0,General
-Bonita Unified (Los Angeles),Significant Overperformer,1.740408596035863,28.5,35.0,General
-Whittier Union High (Los Angeles),Significant Overperformer,1.6816801380948925,71.5,224.0,Differentiated
-Holtville Unified (Imperial),Significant Overperformer,1.66842793243586,60.5,155.0,General
-Delano Joint Union High (Kern),Significant Overperformer,1.6626279599380205,94.0,266.0,General
-Temple City Unified (Los Angeles),Significant Overperformer,1.661219585274648,54.5,150.0,General
-General Shafter Elementary (Kern),Significant Overperformer,1.635914267998291,72.5,233.0,General
-Monson-Sultana Joint Union Elementary (Tulare),Significant Overperformer,1.6269255046442126,95.0,233.0,Differentiated
-Orinda Union (Contra Costa),Significant Overperformer,1.6160692136243584,36.5,42.0,General
-Chaffey Joint Union High (San Bernardino),Significant Overperformer,1.6154823156696,114.5,304.0,Differentiated
-Albany City Unified (Alameda),Significant Overperformer,1.5926929979845508,38.0,41.0,General
-Clovis Unified (Fresno),Significant Overperformer,1.5865186981896813,35.5,55.0,Differentiated
-McCabe Union Elementary (Imperial),Significant Overperformer,1.5819945630565948,44.0,83.0,Differentiated
-Cypress Elementary (Orange),Significant Overperformer,1.5790003709004719,37.0,50.0,General
-Ferndale Unified (Humboldt),Significant Overperformer,1.5670307913182673,97.5,268.0,Differentiated
-Chualar Union (Monterey),Significant Overperformer,1.561229873373383,97.5,246.0,General
-Caruthers Unified (Fresno),Significant Overperformer,1.5609754303876253,39.0,42.0,Differentiated
-Woodside Elementary (San Mateo),Significant Overperformer,1.549229796190143,64.0,124.0,General
-Mendocino Unified (Mendocino),Significant Overperformer,1.533560235125653,36.5,32.0,General
-Kings River-Hardwick Union Elementary (Kings),Significant Overperformer,1.5310242871759754,49.0,96.0,General
-Centralia Elementary (Orange),Significant Overperformer,1.5297903622597528,61.0,124.0,General
-Newhall (Los Angeles),Significant Overperformer,1.5234439695349937,32.0,25.0,General
-Fallbrook Union High (San Diego),Significant Overperformer,1.517970830223936,138.0,384.0,Differentiated
-Las Lomitas Elementary (San Mateo),Significant Overperformer,1.517769284084002,73.0,186.0,General
-San Marino Unified (Los Angeles),Significant Overperformer,1.509090654000545,57.5,148.0,General
-El Monte Union High (Los Angeles),Significant Overperformer,1.5090375865484125,102.0,269.0,Differentiated
-San Luis Coastal Unified (San Luis Obispo),Moderate Overperformer,1.4964603756471695,51.0,84.0,General
-Little Lake City Elementary (Los Angeles),Moderate Overperformer,1.4956184900923246,46.0,78.0,Differentiated
-Bolinas-Stinson Union (Marin),Moderate Overperformer,1.4904562095668674,52.5,124.0,General
-Rio Dell Elementary (Humboldt),Moderate Overperformer,1.481798104950467,82.0,176.0,General
-Savanna Elementary (Orange),Moderate Overperformer,1.479889634637564,59.5,117.0,General
-El Nido Elementary (Merced),Moderate Overperformer,1.4716077315097054,49.0,70.0,General
-Vallecito Union (Calaveras),Moderate Overperformer,1.4619636419548385,50.0,79.0,Differentiated
-Fremont Unified (Alameda),Moderate Overperformer,1.4597181453939279,51.0,82.0,Differentiated
-La Honda-Pescadero Unified (San Mateo),Moderate Overperformer,1.4442038595501638,102.01249999999709,207.0,General
-Brawley Union High (Imperial),Moderate Overperformer,1.4431839569903622,134.5,378.0,Differentiated
-Belmont-Redwood Shores Elementary (San Mateo),Moderate Overperformer,1.4295567481333553,65.5,142.0,Differentiated
-Trinidad Union Elementary (Humboldt),Moderate Overperformer,1.426059410890797,68.0,128.0,Differentiated
-Murrieta Valley Unified (Riverside),Moderate Overperformer,1.4152049746289581,59.5,91.0,Differentiated
-Cutler-Orosi Joint Unified (Tulare),Moderate Overperformer,1.4095895424349532,47.5,72.0,General
-Lemoore Union Elementary (Kings),Moderate Overperformer,1.4095300758201665,44.5,53.0,Differentiated
-La Canada Unified (Los Angeles),Moderate Overperformer,1.3833743576982613,39.5,50.0,General
-Sanger Unified (Fresno),Moderate Overperformer,1.3748133975876282,46.0,58.0,Differentiated
-Loma Prieta Joint Union Elementary (Santa Clara),Moderate Overperformer,1.3464092383837458,73.0,153.0,Differentiated
-Chino Valley Unified (San Bernardino),Moderate Overperformer,1.3447932379006993,43.5,25.0,Differentiated
-Heber Elementary (Imperial),Moderate Overperformer,1.344321847744655,58.0,117.0,Differentiated
-Rancho Santa Fe Elementary (San Diego),Moderate Overperformer,1.3382522054803008,70.5,138.0,General
-Weaver Union (Merced),Moderate Overperformer,1.3378236552120017,83.01249999999709,215.0,Differentiated
-Lake Elementary (Glenn),Moderate Overperformer,1.3358727514528708,93.5,304.0,General
-Ross Elementary (Marin),Moderate Overperformer,1.3346077903505364,70.5,139.0,General
-Berkeley Unified (Alameda),Moderate Overperformer,1.3309206464544319,59.5,104.0,Differentiated
-Montecito Union Elementary (Santa Barbara),Moderate Overperformer,1.314788902070791,125.0,400.0,General
-Solana Beach Elementary (San Diego),Moderate Overperformer,1.3004851000492705,62.0,96.0,General
-Hanford Elementary (Kings),Moderate Overperformer,1.2932984727784673,52.5,84.0,Differentiated
-San Gabriel Unified (Los Angeles),Moderate Overperformer,1.2872777101216966,58.5,98.0,Differentiated
-Live Oak Unified (Sutter),Moderate Overperformer,1.2727070927603985,76.0,127.0,Differentiated
-Capistrano Unified (Orange),Moderate Overperformer,1.270339827600215,48.0,51.0,Differentiated
-San Carlos Elementary (San Mateo),Moderate Overperformer,1.262056611759566,69.0,103.0,Differentiated
-Portola Valley Elementary (San Mateo),Moderate Overperformer,1.2606567822906984,80.0,178.0,General
-Chicago Park Elementary (Nevada),Moderate Overperformer,1.2601287357329534,81.0,212.0,General
-Gridley Unified (Butte),Moderate Overperformer,1.258522927884073,70.5,117.0,Differentiated
-Downey Unified (Los Angeles),Moderate Overperformer,1.2464352401740533,46.0,60.0,Differentiated
-Santa Monica-Malibu Unified (Los Angeles),Moderate Overperformer,1.2342911053575611,79.0,183.0,Differentiated
-Walnut Valley Unified (Los Angeles),Moderate Overperformer,1.2338478048448729,81.0,186.0,Differentiated
-ABC Unified (Los Angeles),Moderate Overperformer,1.2329476441592986,46.5,37.0,Differentiated
-Clear Creek Elementary (Nevada),Moderate Overperformer,1.2185985232323837,94.5,212.0,General
-Dinuba Unified (Tulare),Moderate Overperformer,1.21295899576205,65.0,94.0,General
-Davis Joint Unified (Yolo),Moderate Overperformer,1.2078565509726022,79.0,152.0,Differentiated
-Pacific Elementary (Santa Cruz),Moderate Overperformer,1.2028730862570338,143.5,329.0,General
-Huntington Beach Union High (Orange),Moderate Overperformer,1.1990041641381437,95.0,237.0,Differentiated
-Terra Bella Union Elementary (Tulare),Moderate Overperformer,1.1874835232812024,109.0,201.0,General
-Del Mar Union Elementary (San Diego),Moderate Overperformer,1.1869302867494484,85.5,175.0,General
-Laytonville Unified (Mendocino),Moderate Overperformer,1.1540333000743304,116.5,309.0,Differentiated
-Wheatland Union High (Yuba),Mixed/Volatile Results,1.1493832216231008,222.5,540.0,Differentiated
-Alhambra Unified (Los Angeles),Moderate Overperformer,1.146415248652688,80.5,150.0,Differentiated
-Hydesville Elementary (Humboldt),Moderate Overperformer,1.144886348173367,98.5,197.0,General
-Outside Creek Elementary (Tulare),Moderate Overperformer,1.1428122315163374,108.5,282.0,General
-Saratoga Union Elementary (Santa Clara),Moderate Overperformer,1.1391364952378644,107.5,260.0,General
-Piedmont City Unified (Alameda),Moderate Overperformer,1.1298142867118761,75.5,142.0,General
-Duarte Unified (Los Angeles),Moderate Overperformer,1.1295727741492538,54.5,44.0,Differentiated
-Spencer Valley Elementary (San Diego),Moderate Overperformer,1.125594129865721,56.5,82.0,General
-Milpitas Unified (Santa Clara),Moderate Overperformer,1.1207505439456473,52.0,53.0,Differentiated
-Island Union Elementary (Kings),Moderate Overperformer,1.1199558414077115,51.0,41.0,General
-Grant Elementary (Shasta),Moderate Overperformer,1.119505280869365,87.5,200.0,General
-East Whittier City Elementary (Los Angeles),Moderate Overperformer,1.1021365295348864,80.0,189.0,Differentiated
-Hillsborough City Elementary (San Mateo),Moderate Overperformer,1.090728497800014,96.0,219.0,General
-Alameda Unified (Alameda),Moderate Overperformer,1.065045286361262,59.0,66.0,Differentiated
-Sequoia Union High (San Mateo),Moderate Overperformer,1.0649427408896792,91.0,199.0,Differentiated
-Westminster (Orange),Moderate Overperformer,1.0647656956297764,44.5,36.0,Differentiated
-Delano Union Elementary (Kern),Moderate Overperformer,1.0498086419281034,58.5,52.0,General
-Kingsburg Joint Union High (Fresno),Mixed/Volatile Results,1.0433106012238065,193.5,524.0,Differentiated
-Lost Hills Union Elementary (Kern),Moderate Overperformer,1.0419474349653355,97.5,162.0,Differentiated
-Redwood City Elementary (San Mateo),Moderate Overperformer,1.0341715377960812,74.5,116.0,Differentiated
-Anderson Union High (Shasta),Moderate Overperformer,1.0271756745327456,104.0,212.0,Differentiated
-Dunham Elementary (Sonoma),Moderate Overperformer,1.0262546423698242,67.5,114.0,Differentiated
-Ripon Unified (San Joaquin),Moderate Overperformer,1.0259207655500677,77.0,126.0,General
-Penn Valley Union Elementary (Nevada),Moderate Overperformer,1.015284442802974,68.5,110.0,General
-Planada Elementary (Merced),Moderate Overperformer,1.0051390200882822,106.5,195.0,Differentiated
-Fremont Union High (Santa Clara),Moderate Overperformer,1.0009798703645996,91.5,179.0,Differentiated
-Millville Elementary (Shasta),Moderate Overperformer,0.992537783145871,143.0,311.0,General
-Evergreen Union (Tehama),Moderate Overperformer,0.9914580868559028,65.5,95.0,General
-Imperial Unified (Imperial),Moderate Overperformer,0.9884593458434231,96.0,213.0,Differentiated
-Los Molinos Unified (Tehama),Moderate Overperformer,0.9782213296202806,137.0,394.0,General
-Oak Valley Union Elementary (Tulare),Moderate Overperformer,0.9779416477599712,99.5,183.0,General
-West Sonoma County Union High (Sonoma),Moderate Overperformer,0.976947598695718,157.0,387.0,Differentiated
-Brea-Olinda Unified (Orange),Moderate Overperformer,0.9728374871011782,81.5,147.0,Differentiated
-Whittier City (Los Angeles),Moderate Overperformer,0.9630594690568542,87.0,189.0,Differentiated
-Shasta Union High (Shasta),Moderate Overperformer,0.9545038745475185,109.5,251.0,Differentiated
-Long Beach Unified (Los Angeles),Moderate Overperformer,0.9528867922959434,54.0,31.0,Differentiated
-Buellton Union Elementary (Santa Barbara),Moderate Overperformer,0.951114047789778,122.0,272.0,Differentiated
-Lawndale Elementary (Los Angeles),Moderate Overperformer,0.9474615857378044,66.5,84.0,Differentiated
-Washington Colony Elementary (Fresno),Moderate Overperformer,0.9316569767412096,106.5,228.0,Differentiated
-Kit Carson Union Elementary (Kings),Mixed/Volatile Results,0.9268098842644719,190.0,491.0,Differentiated
-Mountain View-Los Altos Union High (Santa Clara),Moderate Overperformer,0.9156944421690834,97.5,189.0,Differentiated
-Sausalito Marin City (Marin),Moderate Overperformer,0.911694097883672,74.5,92.0,Differentiated
-Plaza Elementary (Glenn),Moderate Overperformer,0.9071448254816719,92.0,170.0,General
-Moreland (Santa Clara),Moderate Overperformer,0.9057805684897069,77.5,109.0,General
-Northern Humboldt Union High (Humboldt),Moderate Overperformer,0.901205214759578,143.0,339.0,Differentiated
-Los Alamitos Unified (Orange),Moderate Overperformer,0.9004336352172012,87.5,120.0,General
-Maple Elementary (Kern),Moderate Overperformer,0.8983425156151277,110.01249999999709,264.0,General
-Magnolia Elementary (Orange),Moderate Overperformer,0.8869506212039249,80.0,144.0,Differentiated
-Lammersville Joint Unified (San Joaquin),Moderate Overperformer,0.8834834020937871,68.5,83.0,Differentiated
-Valle Lindo Elementary (Los Angeles),Moderate Overperformer,0.87958825899422,118.5,240.0,Differentiated
-Nevada Joint Union High (Nevada),Mixed/Volatile Results,0.8766705200280623,161.5,416.0,Differentiated
-San Dieguito Union High (San Diego),Moderate Overperformer,0.8762410640923299,70.0,88.0,General
-Placentia-Yorba Linda Unified (Orange),Moderate Overperformer,0.8749037912797766,67.0,61.0,General
-Irvine Unified (Orange),Moderate Overperformer,0.874819347590822,85.0,146.0,Differentiated
-Oak View Union Elementary (San Joaquin),Moderate Overperformer,0.8728272667357452,82.5,135.0,Differentiated
-Fresno Unified (Fresno),Moderate Overperformer,0.8651210737594796,113.5,248.0,Differentiated
-Roberts Ferry Union Elementary (Stanislaus),Moderate Overperformer,0.8617010065946078,124.0,263.0,General
-Twin Rivers Unified (Sacramento),Moderate Overperformer,0.8594364015284356,165.0,394.0,Differentiated
-Orange Center (Fresno),Moderate Overperformer,0.8538914459783656,146.5,279.0,Differentiated
-Los Angeles Unified (Los Angeles),Moderate Overperformer,0.8196181964046568,122.01249999999709,287.0,Differentiated
-Mill Valley Elementary (Marin),Moderate Overperformer,0.8137460594135545,99.5,198.0,Differentiated
-Carlsbad Unified (San Diego),Moderate Overperformer,0.8124327880412339,64.5,64.0,Differentiated
-Raisin City Elementary (Fresno),Moderate Overperformer,0.8110217096130321,178.0,374.0,General
-Lindsay Unified (Tulare),Moderate Overperformer,0.8069021766427281,83.0,139.0,Differentiated
-Castro Valley Unified (Alameda),Moderate Overperformer,0.8059187299516531,73.0,107.0,Differentiated
-Silver Valley Unified (San Bernardino),Moderate Overperformer,0.8038847123302679,99.0,152.0,General
-Los Nietos (Los Angeles),Moderate Overperformer,0.8002892575193784,82.0,107.0,Differentiated
-Bellflower Unified (Los Angeles),Moderate Overperformer,0.7991867688322216,98.0,190.0,Differentiated
-El Centro Elementary (Imperial),Moderate Overperformer,0.7886777055740335,78.0,95.0,Differentiated
-Knights Ferry Elementary (Stanislaus),Moderate Overperformer,0.7885434352037278,61.0,27.0,General
-San Miguel Joint Union (San Luis Obispo),Moderate Overperformer,0.7841969401882274,140.0,308.0,Differentiated
-Lassen View Union Elementary (Tehama),Moderate Overperformer,0.7808430079759093,94.5,194.0,General
-San Francisco Unified (San Francisco),Moderate Overperformer,0.7787459296362016,77.5,107.0,Differentiated
-Lone Pine Unified (Inyo),Moderate Overperformer,0.7747872023911759,120.5,272.0,Differentiated
-South Monterey County Joint Union High (Monterey),Mixed/Volatile Results,0.7690756650809792,296.0,718.0,Differentiated
-Waukena Joint Union Elementary (Tulare),Moderate Overperformer,0.7680752273366451,98.5,174.0,Differentiated
-Calipatria Unified (Imperial),Moderate Overperformer,0.7680419659863515,121.5,255.0,Differentiated
-Huntington Beach City Elementary (Orange),Moderate Overperformer,0.7645314665911502,89.0,164.0,Differentiated
-Saugus Union (Los Angeles),Moderate Overperformer,0.7615840042107818,92.5,162.0,General
-Alview-Dairyland Union Elementary (Madera),Moderate Overperformer,0.7590263405501824,125.5,208.0,General
-Summerville Union High (Tuolumne),Mixed/Volatile Results,0.7559274511175174,303.5,746.0,General
-Newport-Mesa Unified (Orange),Moderate Overperformer,0.7554079424546546,119.0,203.0,Differentiated
-Alvina Elementary (Fresno),Moderate Overperformer,0.748796575312865,83.0,112.0,General
-Burlingame Elementary (San Mateo),Moderate Overperformer,0.7431778743260847,94.5,160.0,Differentiated
-Middletown Unified (Lake),Moderate Overperformer,0.7427903366343487,69.5,47.0,Differentiated
-Scott Valley Unified (Siskiyou),Moderate Overperformer,0.7413434094314345,120.0,252.0,Differentiated
-Beverly Hills Unified (Los Angeles),Moderate Overperformer,0.7405438288652727,90.5,147.0,Differentiated
-Elk Grove Unified (Sacramento),Moderate Overperformer,0.7354628938637042,82.51249999999709,112.0,Differentiated
-Exeter Unified (Tulare),Moderate Overperformer,0.731124275087643,79.0,91.0,Differentiated
-Chula Vista Elementary (San Diego),Moderate Overperformer,0.7261811880716891,75.0,84.0,Differentiated
-Laguna Beach Unified (Orange),Moderate Overperformer,0.7047487115987082,132.0,311.0,General
-Glendale Unified (Los Angeles),Moderate Overperformer,0.7007958648422177,103.0,200.0,Differentiated
-Tustin Unified (Orange),Moderate Overperformer,0.6990518071335131,70.0,70.0,Differentiated
-Julian Union High (San Diego),Mixed/Volatile Results,0.6985357746865878,203.5,530.0,General
-Wheatland (Yuba),Moderate Overperformer,0.6948473891499423,103.0,171.0,Differentiated
-Brawley Elementary (Imperial),Moderate Overperformer,0.6885610294134324,127.5,232.0,Differentiated
-Healdsburg Unified (Sonoma),Moderate Overperformer,0.6885034902437162,127.0,292.0,General
-Atwater Elementary (Merced),Moderate Overperformer,0.6846270653898582,79.0,64.0,General
-Gorman Joint (Los Angeles),Moderate Overperformer,0.6819572132357871,122.0,197.0,General
-San Diego Unified (San Diego),Moderate Overperformer,0.6800197968641198,65.0,63.0,Differentiated
-Arcadia Unified (Los Angeles),Moderate Overperformer,0.6730413483733793,142.0,329.0,Differentiated
-Mountain View Whisman (Santa Clara),Moderate Overperformer,0.672725446119923,99.0,165.0,Differentiated
-Fall River Joint Unified (Shasta),Mixed/Volatile Results,0.655976257183048,168.5,435.0,Differentiated
-Lemoore Union High (Kings),Mixed/Volatile Results,0.655732132372282,315.5,729.0,Differentiated
-Etiwanda Elementary (San Bernardino),Moderate Overperformer,0.6538374738309151,120.5,196.0,Differentiated
-South Fork Union (Kern),Moderate Overperformer,0.6533353689341933,141.0,338.0,Differentiated
-Menlo Park City Elementary (San Mateo),Moderate Overperformer,0.6498290688712319,135.5,283.0,General
-Palo Verde Union Elementary (Tulare),Moderate Overperformer,0.6489135760900933,76.0,79.0,General
-Vallecitos Elementary (San Diego),Moderate Overperformer,0.6422965799492395,143.0,286.0,Differentiated
-Atascadero Unified (San Luis Obispo),Moderate Overperformer,0.6390199868458339,88.5,122.0,Differentiated
-Fullerton Joint Union High (Orange),Moderate Overperformer,0.6359219016726528,133.0,278.0,Differentiated
-Mendota Unified (Fresno),Moderate Overperformer,0.633147512583443,138.5,267.0,Differentiated
-Wasco Union High (Kern),Mixed/Volatile Results,0.6270138014966151,227.5,504.0,Differentiated
-Woodville Union Elementary (Tulare),Moderate Overperformer,0.6083768641224213,114.5,230.0,Differentiated
-Selma Unified (Fresno),Moderate Overperformer,0.6060192130357711,102.0,136.0,Differentiated
-Galt Joint Union High (Sacramento),Mixed/Volatile Results,0.6036131077096772,280.0,660.0,General
-Eureka Union (Placer),Moderate Overperformer,0.5995942538358642,136.5,298.0,General
-Galt Joint Union Elementary (Sacramento),Moderate Overperformer,0.5881602692561976,83.0,48.0,Differentiated
-Le Grand Union High (Merced),Mixed/Volatile Results,0.5715846000463257,266.0,604.0,General
-Palos Verdes Peninsula Unified (Los Angeles),Moderate Overperformer,0.5693483463802165,86.5,96.0,General
-Kingsburg Elementary Charter (Fresno),Moderate Overperformer,0.5640304895428914,121.5,191.0,Differentiated
-Torrance Unified (Los Angeles),Moderate Overperformer,0.5614800945881796,93.5,149.0,General
-Union Elementary (Santa Clara),Moderate Overperformer,0.556082843666703,147.0,336.0,General
-Lagunitas Elementary (Marin),Moderate Overperformer,0.5524323365442984,102.5,115.0,General
-East Side Union High (Santa Clara),Mixed/Volatile Results,0.5469514729481088,207.5,466.0,Differentiated
-Tipton Elementary (Tulare),Moderate Overperformer,0.5440034112374476,169.5,320.0,Differentiated
-Le Grand Union Elementary (Merced),Moderate Overperformer,0.5435124064714438,132.0,211.0,General
-Corona-Norco Unified (Riverside),Moderate Overperformer,0.5393917660254585,113.0,176.0,Differentiated
-Dublin Unified (Alameda),Moderate Overperformer,0.5295867738906955,124.5,221.0,Differentiated
-Acalanes Union High (Contra Costa),Moderate Overperformer,0.5270732223332684,140.5,239.0,General
-Somis Union (Ventura),Moderate Overperformer,0.5254674824693096,118.5,192.0,General
-Freshwater Elementary (Humboldt),Moderate Overperformer,0.5167548056718704,146.5,322.0,General
-Tulare Joint Union High (Tulare),Mixed/Volatile Results,0.5161065137812231,245.5,580.0,Differentiated
-Orange Unified (Orange),Moderate Overperformer,0.5151471142276834,88.0,93.0,Differentiated
-Pleasanton Unified (Alameda),Moderate Overperformer,0.5048241383692933,127.0,237.0,Differentiated
-Sonora Union High (Tuolumne),Mixed/Volatile Results,0.5038499621518011,235.5,502.0,Differentiated
-San Mateo Union High (San Mateo),Mixed/Volatile Results,0.5016543424585947,207.5,487.0,Differentiated
-Coronado Unified (San Diego),Expected Performer,0.49958225415510304,84.5,52.0,General
-Yreka Union High (Siskiyou),Mixed/Volatile Results,0.4982710304216515,229.0,583.0,Differentiated
-Golden Plains Unified (Fresno),Mixed/Volatile Results,0.49752160532146084,198.5,407.0,Differentiated
-Manhattan Beach Unified (Los Angeles),Expected Performer,0.4915937541791832,87.5,71.0,General
-Victor Valley Union High (San Bernardino),Expected Performer,0.4891247272259934,142.5,230.0,Differentiated
-Lynwood Unified (Los Angeles),Expected Performer,0.48818099286108235,115.0,178.0,Differentiated
-El Monte City (Los Angeles),Expected Performer,0.48806024822377675,128.0,221.0,Differentiated
-Wright Elementary (Sonoma),Expected Performer,0.4846330698606109,148.5,331.0,Differentiated
-Central Elementary (San Bernardino),Expected Performer,0.48457012006454436,146.0,258.0,Differentiated
-Alta Loma Elementary (San Bernardino),Expected Performer,0.48279563155933736,114.0,160.0,General
-Claremont Unified (Los Angeles),Expected Performer,0.4826914166093415,92.5,118.0,Differentiated
-Central Unified (Fresno),Expected Performer,0.4748016294700334,100.5,141.0,Differentiated
-Bella Vista Elementary (Shasta),Expected Performer,0.4734926015370957,80.5,76.0,General
-Fortuna Union High (Humboldt),Expected Performer,0.47154991922218836,167.5,310.0,Differentiated
-Carpinteria Unified (Santa Barbara),Expected Performer,0.47049122201841226,164.5,369.0,Differentiated
-Upland Unified (San Bernardino),Expected Performer,0.466317827179503,105.0,104.0,Differentiated
-Covina-Valley Unified (Los Angeles),Expected Performer,0.4627899990431465,93.5,117.0,Differentiated
-Poway Unified (San Diego),Expected Performer,0.45401892473602445,136.0,226.0,General
-Sulphur Springs Union (Los Angeles),Expected Performer,0.453435521173429,90.0,102.0,General
-Camino Union Elementary (El Dorado),Expected Performer,0.45257229346530414,111.0,161.0,Differentiated
-Happy Valley Union Elementary (Shasta),Expected Performer,0.4481996275555824,81.0,66.0,Differentiated
-Redlands Unified (San Bernardino),Expected Performer,0.4476081910834325,82.0,78.0,Differentiated
-Two Rock Union (Sonoma),Expected Performer,0.44756257958348267,192.0,395.0,General
-North County Joint Union Elementary (San Benito),Expected Performer,0.4457307055113721,121.5,201.0,General
-Fowler Unified (Fresno),Expected Performer,0.4393246691114734,114.5,184.0,General
-Kerman Unified (Fresno),Expected Performer,0.42975183301103403,110.5,159.0,Differentiated
-Eastern Sierra Unified (Mono),Mixed/Volatile Results,0.4296426755172593,234.0,564.0,General
-Nuview Union (Riverside),Expected Performer,0.42903091242799674,157.0,325.0,Differentiated
-Lowell Joint (Orange),Expected Performer,0.42841367392098356,111.01249999999982,175.0,Differentiated
-Oak Grove Union Elementary (Sonoma),Expected Performer,0.4242932828789868,119.0,179.0,General
-Visalia Unified (Tulare),Expected Performer,0.41785510783862906,98.5,116.0,Differentiated
-La Mesa-Spring Valley (San Diego),Expected Performer,0.40926805916417297,117.0,213.0,Differentiated
-Redding Elementary (Shasta),Expected Performer,0.4051906491569104,141.5,302.0,Differentiated
-Merced River Union Elementary (Merced),Mixed/Volatile Results,0.39366372695579044,181.0,440.0,General
-Riverdale Joint Unified (Fresno),Expected Performer,0.3927880133318836,96.0,98.0,Differentiated
-Sierra Unified (Fresno),Expected Performer,0.3922006282874994,126.5,173.0,Differentiated
-San Ramon Valley Unified (Contra Costa),Expected Performer,0.38915167208442053,112.0,170.0,Differentiated
-National Elementary (San Diego),Expected Performer,0.388714262594501,134.5,257.0,General
-Larkspur-Corte Madera (Marin),Expected Performer,0.38723197778893187,132.5,237.0,Differentiated
-Charter Oak Unified (Los Angeles),Expected Performer,0.3849009580906955,147.0,282.0,Differentiated
-Bear Valley Unified (San Bernardino),Expected Performer,0.3805324388428668,132.5,227.0,Differentiated
-Lennox (Los Angeles),Expected Performer,0.37593763912638567,100.0,123.0,General
-Gateway Unified (Shasta),Expected Performer,0.3648511476221867,109.5,163.0,Differentiated
-Bassett Unified (Los Angeles),Expected Performer,0.36410342728799155,99.0,122.0,Differentiated
-Buckeye Union Elementary (El Dorado),Expected Performer,0.3615659587496609,141.5,302.0,General
-Bass Lake Joint Union Elementary (Madera),Expected Performer,0.3612138058930136,151.51249999999982,333.0,Differentiated
-Kentfield Elementary (Marin),Expected Performer,0.3606247393714034,117.0,191.0,Differentiated
-Temecula Valley Unified (Riverside),Expected Performer,0.36018593848185204,139.0,248.0,Differentiated
-Ocean View (Orange),Expected Performer,0.3547967798316386,141.5,292.0,Differentiated
-Roseland (Sonoma),Expected Performer,0.3535039816702353,147.0,292.0,General
-Lucia Mar Unified (San Luis Obispo),Expected Performer,0.3497310623563844,150.5,303.0,Differentiated
-Monrovia Unified (Los Angeles),Expected Performer,0.34700926521892,121.5,210.0,Differentiated
-Twain Harte (Tuolumne),Expected Performer,0.3458177374865337,101.0,134.0,General
-Hacienda la Puente Unified (Los Angeles),Expected Performer,0.34572962361390464,132.0,259.0,Differentiated
-Solvang Elementary (Santa Barbara),Expected Performer,0.34252340883667487,172.0,391.0,Differentiated
-Ontario-Montclair (San Bernardino),Expected Performer,0.3402017755000172,98.5,105.0,General
-Morongo Unified (San Bernardino),Expected Performer,0.3366050830127866,161.5,285.0,Differentiated
-Bret Harte Union High (Calaveras),Mixed/Volatile Results,0.33605592711877935,349.0,770.0,Differentiated
-Seeley Union Elementary (Imperial),Expected Performer,0.33494297031910336,90.5,88.0,Differentiated
-Campbell Union High (Santa Clara),Expected Performer,0.33192922775663086,176.0,369.0,General
-Ballard Elementary (Santa Barbara),Expected Performer,0.3318097635332597,155.5,302.0,General
-Enterprise Elementary (Shasta),Expected Performer,0.32581379686482215,117.0,197.0,Differentiated
-Central Union Elementary (Kings),Expected Performer,0.3254039994749109,97.5,100.0,Differentiated
-San Rafael City High (Marin),Mixed/Volatile Results,0.32246730742250757,249.0,631.0,Differentiated
-Moraga Elementary (Contra Costa),Expected Performer,0.32041582508355865,106.5,117.0,General
-Patterson Joint Unified (Stanislaus),Expected Performer,0.32032202942521354,160.5,334.0,Differentiated
-Val Verde Unified (Riverside),Expected Performer,0.31718766906889445,146.5,255.0,Differentiated
-Loomis Union Elementary (Placer),Expected Performer,0.31546301710190927,99.0,107.0,General
-Newcastle Elementary (Placer),Expected Performer,0.3084131796127081,143.0,282.0,General
-Encinitas Union Elementary (San Diego),Expected Performer,0.3053041194443288,125.0,215.0,General
-Panama-Buena Vista Union (Kern),Expected Performer,0.30525596232319463,131.0,195.0,Differentiated
-San Bernardino City Unified (San Bernardino),Expected Performer,0.29997146606326486,159.0,294.0,Differentiated
-Greenfield Union (Kern),Expected Performer,0.29362581606821986,99.0,104.0,Differentiated
-Ballico-Cressey Elementary (Merced),Expected Performer,0.29165738753740417,160.5,338.0,General
-Santee (San Diego),Expected Performer,0.28139949001089354,112.0,151.0,Differentiated
-Gonzales Unified (Monterey),Expected Performer,0.2799305492712599,151.0,272.0,Differentiated
-Kern High (Kern),Mixed/Volatile Results,0.27907806312988365,260.5,555.0,Differentiated
-Southern Humboldt Joint Unified (Humboldt),Mixed/Volatile Results,0.2774163500180865,227.0,567.0,General
-Westwood Unified (Lassen),Expected Performer,0.2773141313824008,186.0,366.0,Differentiated
-Lafayette Elementary (Contra Costa),Expected Performer,0.2772298755253628,157.5,303.0,General
-Golden Valley Unified (Madera),Expected Performer,0.2701611264495335,162.0,307.0,Differentiated
-Vista Unified (San Diego),Expected Performer,0.2667948413857735,119.0,203.0,Differentiated
-Rowland Unified (Los Angeles),Expected Performer,0.2639528151898086,113.5,138.0,Differentiated
-Paramount Unified (Los Angeles),Expected Performer,0.2636380218367709,144.0,243.0,General
-Oakland Unified (Alameda),Expected Performer,0.250757647071185,150.0,306.0,Differentiated
-Goleta Union Elementary (Santa Barbara),Expected Performer,0.24915813298409692,143.5,252.0,General
-King City Union (Monterey),Expected Performer,0.2488974004805514,172.0,331.0,Differentiated
-Porterville Unified (Tulare),Expected Performer,0.2473811762909207,88.0,54.0,Differentiated
-Red Bluff Joint Union High (Tehama),Mixed/Volatile Results,0.2442606969603785,242.5,519.0,Differentiated
-Lemon Grove (San Diego),Expected Performer,0.23998095027749225,112.0,177.0,Differentiated
-Belleview Elementary (Tuolumne),Expected Performer,0.238940183584084,102.0,113.0,Differentiated
-Folsom-Cordova Unified (Sacramento),Expected Performer,0.23764327516678935,104.0,119.0,Differentiated
-Pierce Joint Unified (Colusa),Expected Performer,0.2375904665473171,154.5,298.0,Differentiated
-El Segundo Unified (Los Angeles),Expected Performer,0.23141298625778398,117.5,145.0,General
-Shiloh Elementary (Stanislaus),Expected Performer,0.21267207297125312,119.0,167.0,General
-Fruitvale Elementary (Kern),Expected Performer,0.21237750074274245,149.0,299.0,General
-Traver Joint Elementary (Tulare),Expected Performer,0.20986908011431563,135.5,216.0,Differentiated
-Trona Joint Unified (San Bernardino),Mixed/Volatile Results,0.2086518006783564,264.0,681.0,General
-Calistoga Joint Unified (Napa),Expected Performer,0.20774871875317752,140.5,214.0,Differentiated
-Lake Tahoe Unified (El Dorado),Expected Performer,0.20744246566660973,123.51249999999982,170.0,Differentiated
-Sweetwater Union High (San Diego),Expected Performer,0.20304078152266478,174.0,346.0,Differentiated
-Delhi Unified (Merced),Expected Performer,0.2012304370279103,164.0,329.0,Differentiated
-Cutten Elementary (Humboldt),Mixed/Volatile Results,0.19954885339858602,215.5,490.0,General
-Placerville Union Elementary (El Dorado),Expected Performer,0.19759538089825449,108.0,136.0,Differentiated
-Rescue Union Elementary (El Dorado),Expected Performer,0.19486588827553253,127.0,206.0,General
-Hawthorne (Los Angeles),Expected Performer,0.19473948913317962,142.5,282.0,Differentiated
-Taft Union High (Kern),Mixed/Volatile Results,0.19256833412685526,326.5,742.0,Differentiated
-Klamath-Trinity Joint Unified (Humboldt),Mixed/Volatile Results,0.19070964327643142,276.0,630.0,Differentiated
-Pioneer Union Elementary (Kings),Expected Performer,0.18676513346855236,179.5,347.0,Differentiated
-Oak Park Unified (Ventura),Expected Performer,0.18439894745236893,111.0,107.0,General
-Soledad Unified (Monterey),Expected Performer,0.18326229338453448,151.5,276.0,Differentiated
-Cottonwood Union Elementary (Shasta),Expected Performer,0.18325281057380388,99.0,106.0,Differentiated
-Millbrae Elementary (San Mateo),Expected Performer,0.18145057949698762,138.0,273.0,Differentiated
-Lincoln Unified (San Joaquin),Expected Performer,0.18106403662351628,91.0,77.0,Differentiated
-Baldwin Park Unified (Los Angeles),Expected Performer,0.18065666555941914,96.0,77.0,Differentiated
-Oroville Union High (Butte),Mixed/Volatile Results,0.1766927404100627,218.0,529.0,Differentiated
-Saddleback Valley Unified (Orange),Expected Performer,0.17255316766393428,113.5,155.0,Differentiated
-Pasadena Unified (Los Angeles),Expected Performer,0.1701922958899502,144.0,271.0,Differentiated
-Rio Bravo-Greeley Union Elementary (Kern),Expected Performer,0.16823340134053455,113.0,170.0,General
-Borrego Springs Unified (San Diego),Mixed/Volatile Results,0.16575125171093563,223.5,477.0,Differentiated
-Sundale Union Elementary (Tulare),Expected Performer,0.16125491979551954,97.5,63.0,General
-Buttonwillow Union Elementary (Kern),Expected Performer,0.1569032595777158,168.0,269.0,General
-Walnut Creek Elementary (Contra Costa),Expected Performer,0.15344681687029638,154.0,323.0,Differentiated
-Ceres Unified (Stanislaus),Expected Performer,0.15207559847484095,124.0,180.0,Differentiated
-Riverside Unified (Riverside),Expected Performer,0.14604313949677564,92.5,81.0,Differentiated
-William S. Hart Union High (Los Angeles),Mixed/Volatile Results,0.14579365638911915,217.5,436.0,Differentiated
-Cambrian (Santa Clara),Expected Performer,0.14473132643603742,119.0,185.0,General
-Corcoran Joint Unified (Kings),Expected Performer,0.13964531693226476,164.5,296.0,Differentiated
-Hanford Joint Union High (Kings),Mixed/Volatile Results,0.1357189372700375,307.5,679.0,Differentiated
-Pleasant Valley (Ventura),Expected Performer,0.13563065597207283,101.5,91.0,Differentiated
-Pacific Union Elementary (Humboldt),Mixed/Volatile Results,0.13356272595175625,243.0,515.0,Differentiated
-Fullerton Elementary (Orange),Expected Performer,0.1331338684305461,89.5,63.0,Differentiated
-Los Gatos-Saratoga Union High (Santa Clara),Expected Performer,0.1310149068172939,179.0,328.0,General
-Ross Valley Elementary (Marin),Expected Performer,0.1249678909649607,109.0,107.0,Differentiated
-Newman-Crows Landing Unified (Stanislaus),Expected Performer,0.12460621729240527,137.0,173.0,Differentiated
-Evergreen Elementary (Santa Clara),Expected Performer,0.12422226255050836,121.5,198.0,Differentiated
-McFarland Unified (Kern),Expected Performer,0.12291962928058695,116.5,140.0,Differentiated
-Chico Unified (Butte),Expected Performer,0.12133465020913575,107.5,133.0,Differentiated
-Montague Elementary (Siskiyou),Mixed/Volatile Results,0.11862927475141063,184.0,434.0,General
-Cascade Union Elementary (Shasta),Expected Performer,0.11667289965608958,144.0,268.0,Differentiated
-San Jose Unified (Santa Clara),Expected Performer,0.11538935315701734,126.0,224.0,Differentiated
-Rocklin Unified (Placer),Expected Performer,0.11407772341404136,141.5,277.0,Differentiated
-Placer Hills Union Elementary (Placer),Mixed/Volatile Results,0.10729615121638907,231.5,558.0,General
-Paso Robles Joint Unified (San Luis Obispo),Expected Performer,0.09996937129160609,142.5,232.0,Differentiated
-Eureka City Schools (Humboldt),Expected Performer,0.09929446962051514,108.0,121.0,Differentiated
-Hermosa Beach City Elementary (Los Angeles),Expected Performer,0.09435777565206263,132.0,198.0,General
-Palm Springs Unified (Riverside),Expected Performer,0.0917080952208743,108.5,116.0,Differentiated
-Bonsall Unified (San Diego),Expected Performer,0.08515812097009479,139.01249999999982,237.0,Differentiated
-Pacific Grove Unified (Monterey),Expected Performer,0.08353413204336355,122.0,156.0,General
-Modesto City High (Stanislaus),Mixed/Volatile Results,0.08238309915793612,228.0,544.0,Differentiated
-San Mateo-Foster City (San Mateo),Expected Performer,0.08146964870323666,159.0,335.0,Differentiated
-Cuddeback Union Elementary (Humboldt),Expected Performer,0.07020036816139398,158.5,331.0,General
-Shandon Joint Unified (San Luis Obispo),Expected Performer,0.06488007510469862,119.0,142.0,Differentiated
-Mountain Elementary (Santa Cruz),Expected Performer,0.05947357208097562,113.5,128.0,General
-Santa Clara Unified (Santa Clara),Expected Performer,0.05234451515634096,110.01249999999982,113.0,Differentiated
-Central Union High (Imperial),Mixed/Volatile Results,0.05016771816148721,289.5124999999998,700.0,Differentiated
-Stone Corral Elementary (Tulare),Mixed/Volatile Results,0.046458024201777116,243.5,583.0,Differentiated
-Cayucos Elementary (San Luis Obispo),Expected Performer,0.043084587187793566,178.0,332.0,General
-Redondo Beach Unified (Los Angeles),Expected Performer,0.041063319933544215,121.5,168.0,General
-Santa Barbara Unified (Santa Barbara),Expected Performer,0.03842011747028216,158.5,316.0,Differentiated
-Escondido Union High (San Diego),Mixed/Volatile Results,0.023258568019852186,314.5,723.0,General
-Coast Unified (San Luis Obispo),Expected Performer,0.015579179132323899,135.0,230.0,Differentiated
-Mammoth Unified (Mono),Expected Performer,0.011028976084104265,153.0,285.0,Differentiated
-Janesville Union Elementary (Lassen),Expected Performer,0.0029953493442441614,142.0,271.0,Differentiated
-Grass Valley Elementary (Nevada),Mixed/Volatile Results,3.015504827588488e-06,202.5,468.0,General
-Rialto Unified (San Bernardino),Expected Performer,-0.0020296227961415234,113.0,134.0,Differentiated
-Calexico Unified (Imperial),Expected Performer,-0.0036231288105032264,138.0,238.0,Differentiated
-Linden Unified (San Joaquin),Expected Performer,-0.0040033683789057655,133.0,216.0,Differentiated
-Coachella Valley Unified (Riverside),Expected Performer,-0.005320956817286032,175.5,380.0,Differentiated
-Lodi Unified (San Joaquin),Expected Performer,-0.006347294658268341,141.5,233.0,Differentiated
-Roseville City (Placer),Expected Performer,-0.006889828232888919,103.0,100.0,Differentiated
-Alexander Valley Union Elementary (Sonoma),Expected Performer,-0.007498610112888699,181.0,395.0,General
-Reed Union Elementary (Marin),Expected Performer,-0.007906401756188121,155.5,308.0,General
-Bishop Unified (Inyo),Expected Performer,-0.008540939921212163,173.0,311.0,Differentiated
-Sierra Sands Unified (Kern),Expected Performer,-0.009182775593629056,169.0,373.0,Differentiated
-Empire Union Elementary (Stanislaus),Expected Performer,-0.010401824572774792,117.0,144.0,Differentiated
-Santa Cruz City Elementary (Santa Cruz),Expected Performer,-0.010784246324971235,133.0,209.0,General
-Arcata Elementary (Humboldt),Expected Performer,-0.015099178082408082,155.0,315.0,Differentiated
-Strathmore Union Elementary (Tulare),Expected Performer,-0.01615723831202881,149.0,277.0,Differentiated
-Carmel Unified (Monterey),Expected Performer,-0.017467536027209338,99.0,88.0,General
-Mojave Unified (Kern),Mixed/Volatile Results,-0.018044887735232037,316.0,717.0,Differentiated
-El Dorado Union High (El Dorado),Mixed/Volatile Results,-0.021766925550290597,203.5,423.0,Differentiated
-Taft City (Kern),Expected Performer,-0.026649891891071583,178.0,361.0,Differentiated
-San Rafael City Elementary (Marin),Expected Performer,-0.028113823033041885,163.5,357.0,Differentiated
-Newark Unified (Alameda),Expected Performer,-0.028135723909039876,114.5,150.0,Differentiated
-Curtis Creek Elementary (Tuolumne),Mixed/Volatile Results,-0.030892512205679304,196.0,410.0,Differentiated
-Ackerman Charter (Placer),Expected Performer,-0.03647064623226368,142.0,253.0,General
-Jamestown Elementary (Tuolumne),Expected Performer,-0.04462984393236366,184.5,379.0,Differentiated
-Chowchilla Union High (Madera),Mixed/Volatile Results,-0.04794868575969823,303.5,658.0,Differentiated
-Thermalito Union Elementary (Butte),Expected Performer,-0.05006248234773114,157.0,312.0,Differentiated
-Tahoe-Truckee Unified (Placer),Expected Performer,-0.05132099136818748,138.0,244.0,Differentiated
-Hope Elementary (Santa Barbara),Mixed/Volatile Results,-0.051842571602339,228.5,472.0,General
-Pixley Union Elementary (Tulare),Expected Performer,-0.057138642329860455,149.0,252.0,Differentiated
-Princeton Joint Unified (Glenn),Expected Performer,-0.05800400686915652,100.0,103.0,General
-Pomona Unified (Los Angeles),Expected Performer,-0.06705762590399433,142.0,214.0,Differentiated
-Palermo Union Elementary (Butte),Expected Performer,-0.06743646538834264,170.0,315.0,Differentiated
-Centinela Valley Union High (Los Angeles),Mixed/Volatile Results,-0.06894720177296942,276.5,605.0,Differentiated
-Anaheim Union High (Orange),Expected Performer,-0.07082170293681586,118.0,148.0,Differentiated
-West Covina Unified (Los Angeles),Expected Performer,-0.07269638961494278,158.5,292.0,Differentiated
-Hemet Unified (Riverside),Expected Performer,-0.07532350559068825,140.0,240.0,Differentiated
-Robla Elementary (Sacramento),Mixed/Volatile Results,-0.07580018015324667,197.5,483.0,Differentiated
-Farmersville Unified (Tulare),Expected Performer,-0.07810242005524226,153.0,291.0,Differentiated
-Salida Union Elementary (Stanislaus),Mixed/Volatile Results,-0.08254640784828272,188.5,405.0,General
-San Ysidro Elementary (San Diego),Expected Performer,-0.08383481934465786,94.0,79.0,Differentiated
-Conejo Valley Unified (Ventura),Expected Performer,-0.0857766312064275,100.5,68.0,Differentiated
-Paradise Unified (Butte),Mixed/Volatile Results,-0.08718972469630477,200.0,423.0,Differentiated
-Nevada City Elementary (Nevada),Mixed/Volatile Results,-0.09023572895426123,212.0,451.0,Differentiated
-West Park Elementary (Fresno),Expected Performer,-0.1024916418436683,156.5,276.0,General
-Scotts Valley Unified (Santa Cruz),Expected Performer,-0.10670695427420487,129.5,165.0,General
-Los Gatos Union Elementary (Santa Clara),Expected Performer,-0.11185561495338786,146.0,243.0,General
-Lucerne Elementary (Lake),Mixed/Volatile Results,-0.11543148602495482,254.5,629.0,General
-Sacramento City Unified (Sacramento),Expected Performer,-0.11557503674672555,143.5,244.0,Differentiated
-Kenwood (Sonoma),Expected Performer,-0.11733905784501811,154.5,268.0,General
-College Elementary (Santa Barbara),Mixed/Volatile Results,-0.11984320182069098,235.5,555.0,Differentiated
-Beaumont Unified (Riverside),Expected Performer,-0.12258518684861279,118.5,142.0,Differentiated
-Cardiff Elementary (San Diego),Expected Performer,-0.12321635729626569,145.0,235.0,General
-Fontana Unified (San Bernardino),Expected Performer,-0.1260146682032373,114.5,121.0,Differentiated
-Foresthill Union Elementary (Placer),Expected Performer,-0.14658935293985662,139.0,225.0,Differentiated
-Stockton Unified (San Joaquin),Expected Performer,-0.15242947933167403,140.0,256.0,Differentiated
-Sebastopol Union Elementary (Sonoma),Mixed/Volatile Results,-0.15244326141097683,214.0,523.0,General
-Susanville Elementary (Lassen),Expected Performer,-0.15284806955938868,130.5,200.0,Differentiated
-Placer Union High (Placer),Mixed/Volatile Results,-0.15630141982048548,214.5,504.0,Differentiated
-Live Oak Elementary (Santa Cruz),Expected Performer,-0.16073532387977327,155.0,274.0,Differentiated
-Santa Paula Unified (Ventura),Expected Performer,-0.1637184440421747,121.5,161.0,Differentiated
-Los Olivos Elementary (Santa Barbara),Mixed/Volatile Results,-0.16622186792811897,193.0,431.0,Differentiated
-Snowline Joint Unified (San Bernardino),Mixed/Volatile Results,-0.16692232328334752,199.0,471.0,Differentiated
-Plainsburg Union Elementary (Merced),Expected Performer,-0.16895374927123905,205.5,372.0,General
-Woodlake Unified (Tulare),Expected Performer,-0.1786243685784858,156.5,275.0,Differentiated
-Castaic Union (Los Angeles),Expected Performer,-0.1799451859507762,124.0,168.0,General
-Alvord Unified (Riverside),Expected Performer,-0.18030981333903223,106.0,110.0,Differentiated
-Tracy Joint Unified (San Joaquin),Expected Performer,-0.18479740969555544,85.0,39.0,Differentiated
-Westmorland Union Elementary (Imperial),Expected Performer,-0.18742780632123587,189.0,390.0,Differentiated
-New Haven Unified (Alameda),Expected Performer,-0.1907232940318278,105.5,100.0,Differentiated
-Sylvan Union Elementary (Stanislaus),Expected Performer,-0.19157973544298154,151.0,254.0,Differentiated
-Desert Sands Unified (Riverside),Expected Performer,-0.19598595716490508,113.5,135.0,Differentiated
-Antelope Elementary (Tehama),Expected Performer,-0.19838656417304568,163.5,308.0,General
-Cajon Valley Union (San Diego),Expected Performer,-0.20082716394893704,136.5,219.0,Differentiated
-Konocti Unified (Lake),Mixed/Volatile Results,-0.20194615159027035,306.0,705.0,Differentiated
-Oakdale Joint Unified (Stanislaus),Expected Performer,-0.20218490290326452,98.0,104.0,Differentiated
-Shoreline Unified (Marin),Mixed/Volatile Results,-0.20283558228317153,181.5,426.0,Differentiated
-Buena Park Elementary (Orange),Expected Performer,-0.203301878546988,155.0,307.0,Differentiated
-Stanislaus Union Elementary (Stanislaus),Expected Performer,-0.20424223818456086,121.0,169.0,Differentiated
-Vineland Elementary (Kern),Mixed/Volatile Results,-0.20482508753766868,197.51249999999982,443.0,Differentiated
-South Whittier Elementary (Los Angeles),Expected Performer,-0.20516223268910463,134.5,216.0,Differentiated
-Del Norte County Unified (Del Norte),Expected Performer,-0.20573168333390757,165.0,356.0,Differentiated
-Santa Maria Joint Union High (Santa Barbara),Mixed/Volatile Results,-0.2073049570052814,248.0,576.0,Differentiated
-Black Butte Union Elementary (Shasta),Mixed/Volatile Results,-0.20792070078022687,185.5,451.0,Differentiated
-Parlier Unified (Fresno),Expected Performer,-0.21209275854664195,143.5,244.0,Differentiated
-Ramona City Unified (San Diego),Expected Performer,-0.21849699158778585,119.0,135.0,Differentiated
-Hart-Ransom Union Elementary (Stanislaus),Expected Performer,-0.21856889049204622,161.0,298.0,Differentiated
-Burton Elementary (Tulare),Expected Performer,-0.2200800228746634,129.5,199.0,Differentiated
-Grossmont Union High (San Diego),Mixed/Volatile Results,-0.22140730028109282,222.5,462.0,Differentiated
-Franklin Elementary (Sutter),Expected Performer,-0.22328131957929984,170.0,363.0,General
-El Rancho Unified (Los Angeles),Mixed/Volatile Results,-0.226194526309484,220.0,533.0,Differentiated
-Manzanita Elementary (Butte),Expected Performer,-0.23208020710679514,160.0,273.0,General
-San Marcos Unified (San Diego),Expected Performer,-0.23424162149640593,97.0,86.0,Differentiated
-Twin Hills Union Elementary (Sonoma),Expected Performer,-0.23466390260263248,173.0,312.0,General
-Firebaugh-Las Deltas Unified (Fresno),Expected Performer,-0.23514661958829977,101.5,90.0,Differentiated
-Fairfield-Suisun Unified (Solano),Expected Performer,-0.23603188978691123,124.5,198.0,Differentiated
-Elk Hills Elementary (Kern),Expected Performer,-0.23859335756215885,155.5,329.0,General
-Victor Elementary (San Bernardino),Expected Performer,-0.24520776677519332,172.5,397.0,Differentiated
-McKinleyville Union Elementary (Humboldt),Expected Performer,-0.2507949667972917,196.5,400.0,Differentiated
-Corning Union High (Tehama),Mixed/Volatile Results,-0.2509612160875961,207.5,473.0,Differentiated
-Sunnyvale (Santa Clara),Expected Performer,-0.2524143912254608,121.0,151.0,General
-Chatom Union (Stanislaus),Expected Performer,-0.25672286584489434,91.5,84.0,Differentiated
-Orcutt Union Elementary (Santa Barbara),Expected Performer,-0.2571356036976282,135.0,203.0,Differentiated
-Santa Cruz City High (Santa Cruz),Mixed/Volatile Results,-0.2580338279683671,201.5,443.0,Differentiated
-Laton Joint Unified (Fresno),Expected Performer,-0.26446997535702893,147.0,280.0,Differentiated
-Mariposa County Unified (Mariposa),Expected Performer,-0.2677846438460519,125.0,183.0,Differentiated
-Soulsbyville Elementary (Tuolumne),Mixed/Volatile Results,-0.2707199702145579,194.0,421.0,General
-Columbia Union (Tuolumne),Expected Performer,-0.2727935847429125,132.0,228.0,Differentiated
-Arvin Union (Kern),Expected Performer,-0.2767933365357962,173.5,387.0,General
-San Leandro Unified (Alameda),Expected Performer,-0.2793609792228025,110.5,129.0,Differentiated
-Pacheco Union Elementary (Shasta),Expected Performer,-0.28218582167416895,133.0,223.0,Differentiated
-Richland Union Elementary (Kern),Expected Performer,-0.28338426181342274,140.0,237.0,Differentiated
-Big Pine Unified (Inyo),Mixed/Volatile Results,-0.28693127439456007,280.0,697.0,General
-Yucaipa-Calimesa Joint Unified (San Bernardino),Expected Performer,-0.29136682224601707,87.0,46.0,Differentiated
-Westside Elementary (Fresno),Mixed/Volatile Results,-0.29271495026782307,213.0,448.0,General
-Waterford Unified (Stanislaus),Expected Performer,-0.2945849646419141,160.5,320.0,General
-Los Banos Unified (Merced),Expected Performer,-0.29755247861183826,142.5,273.0,Differentiated
-Miller Creek Elementary (Marin),Expected Performer,-0.2991182575707234,130.5,177.0,Differentiated
-Plumas Unified (Plumas),Expected Performer,-0.3000031966911354,110.0,123.0,Differentiated
-Menifee Union (Riverside),Expected Performer,-0.30793683273072614,102.5,93.0,Differentiated
-Glendora Unified (Los Angeles),Expected Performer,-0.30946112989232977,114.0,167.0,Differentiated
-Montebello Unified (Los Angeles),Expected Performer,-0.3129476254880816,162.5,310.0,Differentiated
-Las Virgenes Unified (Los Angeles),Expected Performer,-0.3132793789463541,118.0,163.0,General
-La Habra City Elementary (Orange),Expected Performer,-0.31398192896198546,130.5,223.0,Differentiated
-Wasco Union Elementary (Kern),Expected Performer,-0.31501317232524334,122.5,154.0,General
-Harmony Union Elementary (Sonoma),Mixed/Volatile Results,-0.3195346000896679,248.0,602.0,General
-Westside Union Elementary (Los Angeles),Expected Performer,-0.32352575324393873,99.0,109.0,Differentiated
-Santa Ynez Valley Union High (Santa Barbara),Mixed/Volatile Results,-0.3271436405707591,222.01249999999982,538.0,General
-Sonora Elementary (Tuolumne),Expected Performer,-0.3316884033549842,135.5,218.0,General
-Alpine Union Elementary (San Diego),Expected Performer,-0.33237495124015765,172.0,350.0,Differentiated
-Berryessa Union Elementary (Santa Clara),Expected Performer,-0.33250145199439074,122.0,170.0,Differentiated
-Rincon Valley Union Elementary (Sonoma),Expected Performer,-0.33670456881881594,151.0,310.0,General
-Butteville Union Elementary (Siskiyou),Expected Performer,-0.3433942390921348,157.5,336.0,General
-Sequoia Union Elementary (Tulare),Expected Performer,-0.3541589156501359,138.5,233.0,General
-Salinas Union High (Monterey),Mixed/Volatile Results,-0.36684597561939675,180.5,405.0,Differentiated
-Armona Union Elementary (Kings),Expected Performer,-0.37001101902598627,142.5,215.0,Differentiated
-Culver City Unified (Los Angeles),Expected Performer,-0.3714347249326076,142.5,276.0,Differentiated
-San Benito High (San Benito),Mixed/Volatile Results,-0.373544443911503,294.5,636.0,Differentiated
-Mupu Elementary (Ventura),Expected Performer,-0.3752323326642099,125.0,191.0,General
-West Contra Costa Unified (Contra Costa),Expected Performer,-0.37952295453226287,121.5,188.0,Differentiated
-Auburn Union Elementary (Placer),Expected Performer,-0.38173491254681374,121.0,183.0,Differentiated
-Franklin-McKinley Elementary (Santa Clara),Expected Performer,-0.38969792565314654,109.5,145.0,Differentiated
-San Bruno Park Elementary (San Mateo),Mixed/Volatile Results,-0.39050234878883483,177.5,418.0,Differentiated
-Shaffer Union Elementary (Lassen),Mixed/Volatile Results,-0.3921598077339117,202.5,511.0,Differentiated
-McSwain Union Elementary (Merced),Expected Performer,-0.39463650509375375,154.5,310.0,General
-Madera Unified (Madera),Expected Performer,-0.39513228398881317,94.5,86.0,Differentiated
-Wiseburn Unified (Los Angeles),Expected Performer,-0.39675315461306615,148.0,262.0,Differentiated
-Oceanside Unified (San Diego),Expected Performer,-0.3978052971519785,131.5,241.0,Differentiated
-Gustine Unified (Merced),Expected Performer,-0.4012912706704832,122.0,212.0,General
-Pleasant Grove Joint Union (Sutter),Expected Performer,-0.4016582111187353,112.01249999999982,153.0,General
-Woodland Joint Unified (Yolo),Expected Performer,-0.40494794256131084,99.5,115.0,Differentiated
-Western Placer Unified (Placer),Expected Performer,-0.40676851384235535,88.0,58.0,Differentiated
-Perris Union High (Riverside),Mixed/Volatile Results,-0.40803059235660055,225.5,495.0,Differentiated
-Chawanakee Unified (Madera),Expected Performer,-0.4086973827178873,133.0,215.0,Differentiated
-Plumas Lake Elementary (Yuba),Expected Performer,-0.4134841142893983,139.0,250.0,General
-Bennett Valley Union Elementary (Sonoma),Expected Performer,-0.4171926018117444,143.0,269.0,General
-Fort Bragg Unified (Mendocino),Expected Performer,-0.4183458187935142,125.5,186.0,Differentiated
-Pleasant Ridge Union Elementary (Nevada),Expected Performer,-0.42180545182183643,119.0,182.0,Differentiated
-Oroville City Elementary (Butte),Mixed/Volatile Results,-0.43101772137431577,173.0,435.0,Differentiated
-Colusa Unified (Colusa),Expected Performer,-0.43271315345268346,136.0,266.0,General
-Oxnard (Ventura),Expected Performer,-0.4343125373851229,87.0,64.0,General
-Washington Unified (Yolo),Expected Performer,-0.43942079467002726,91.0,78.0,Differentiated
-New Jerusalem Elementary (San Joaquin),Expected Performer,-0.4455335877217046,149.5,310.0,General
-El Tejon Unified (Kern),Expected Performer,-0.44596473570950534,104.0,121.0,Differentiated
-Santa Ana Unified (Orange),Expected Performer,-0.4471681283442448,124.0,174.0,Differentiated
-Keyes Union (Stanislaus),Expected Performer,-0.45702967933166655,109.5,132.0,Differentiated
-Petaluma Joint Union High (Sonoma),Expected Performer,-0.4608940408554937,131.5,218.0,Differentiated
-Moreno Valley Unified (Riverside),Expected Performer,-0.46207991296006995,118.5,191.0,Differentiated
-Chowchilla Elementary (Madera),Expected Performer,-0.4700495602025565,167.5,329.0,Differentiated
-Mt. Shasta Union Elementary (Siskiyou),Mixed/Volatile Results,-0.47179102412011487,264.0,694.0,General
-Anderson Valley Unified (Mendocino),Expected Performer,-0.47354632593963325,135.5,273.0,Differentiated
-Livermore Valley Joint Unified (Alameda),Expected Performer,-0.4745949305481208,91.5,78.0,Differentiated
-Forestville Union Elementary (Sonoma),Expected Performer,-0.47533985416281216,159.5,285.0,General
-Burbank Unified (Los Angeles),Expected Performer,-0.4755062751630563,94.5,106.0,Differentiated
-Biggs Unified (Butte),Expected Performer,-0.4770566012345844,135.5,254.0,Differentiated
-Campbell Union (Santa Clara),Expected Performer,-0.4779889234667296,123.0,211.0,General
-Ukiah Unified (Mendocino),Expected Performer,-0.4792188160963562,146.0,327.0,Differentiated
-Gratton Elementary (Stanislaus),Mixed/Volatile Results,-0.482204586277946,190.5,485.0,General
-Dry Creek Joint Elementary (Placer),Expected Performer,-0.4864219263703349,96.0,104.0,General
-Fortuna Elementary (Humboldt),Moderate Underperformer,-0.5002876198318646,142.0,234.0,Differentiated
-Maxwell Unified (Colusa),Moderate Underperformer,-0.5018970333773035,108.5,131.0,Differentiated
-Coalinga-Huron Unified (Fresno),Moderate Underperformer,-0.502574638151774,163.0,394.0,Differentiated
-Escondido Union (San Diego),Moderate Underperformer,-0.5110115136828781,140.5,287.0,Differentiated
-Turlock Unified (Stanislaus),Moderate Underperformer,-0.5113600444745948,121.0,196.0,Differentiated
-Roseville Joint Union High (Placer),Mixed/Volatile Results,-0.5176550972777217,185.5,401.0,Differentiated
-Brisbane Elementary (San Mateo),Moderate Underperformer,-0.5194738652230718,165.5,344.0,General
-Merced City Elementary (Merced),Moderate Underperformer,-0.5214470456386109,99.0,124.0,Differentiated
-Hollister (San Benito),Moderate Underperformer,-0.5217265166703278,94.5,80.0,Differentiated
-Perris Elementary (Riverside),Moderate Underperformer,-0.522053233678701,110.5,171.0,Differentiated
-Mt. Diablo Unified (Contra Costa),Moderate Underperformer,-0.522876256274143,86.5,79.0,Differentiated
-Merced Union High (Merced),Mixed/Volatile Results,-0.5244186884151909,216.0,441.0,Differentiated
-South Bay Union (San Diego),Moderate Underperformer,-0.5269851035591079,114.0,148.0,Differentiated
-San Pasqual Valley Unified (Imperial),Mixed/Volatile Results,-0.5276259087450161,178.5,418.0,Differentiated
-Kernville Union Elementary (Kern),Moderate Underperformer,-0.5290758087010049,114.0,200.0,Differentiated
-Petaluma City Elementary (Sonoma),Mixed/Volatile Results,-0.529305655376596,182.5,471.0,Differentiated
-Norris Elementary (Kern),Moderate Underperformer,-0.5297677553516813,106.0,144.0,General
-Yuba City Unified (Sutter),Moderate Underperformer,-0.5357660028734006,83.0,69.0,Differentiated
-South San Francisco Unified (San Mateo),Moderate Underperformer,-0.5526399897189244,121.51249999999982,184.0,Differentiated
-Meadows Union (Imperial),Moderate Underperformer,-0.5537002076262797,138.0,282.0,Differentiated
-Mark West Union Elementary (Sonoma),Moderate Underperformer,-0.5570868684467624,124.5,187.0,Differentiated
-Inglewood Unified (Los Angeles),Moderate Underperformer,-0.5599417511388629,94.0,120.0,Differentiated
-Geyserville Unified (Sonoma),Moderate Underperformer,-0.5609913009189914,169.5,362.0,General
-Modesto City Elementary (Stanislaus),Moderate Underperformer,-0.5675708552705533,117.0,193.0,Differentiated
-Oak Grove Elementary (Santa Clara),Moderate Underperformer,-0.5727526451016055,138.0,270.0,General
-Banning Unified (Riverside),Moderate Underperformer,-0.5735134405188392,115.5,208.0,Differentiated
-Alisal Union (Monterey),Moderate Underperformer,-0.5768816986387516,116.0,204.0,General
-Gold Trail Union Elementary (El Dorado),Moderate Underperformer,-0.577459204834016,103.0,117.0,General
-Big Valley Joint Unified (Lassen),Moderate Underperformer,-0.5804868395853249,170.5,356.0,Differentiated
-Marysville Joint Unified (Yuba),Moderate Underperformer,-0.5813245845344291,84.0,84.0,Differentiated
-Eastside Union Elementary (Los Angeles),Mixed/Volatile Results,-0.5849581077821694,188.0,511.0,Differentiated
-Mission Union Elementary (Monterey),Mixed/Volatile Results,-0.5874757209184338,292.0,691.0,General
-Jefferson Union High (San Mateo),Mixed/Volatile Results,-0.5877133944538033,210.5,462.0,General
-Reef-Sunset Unified (Kings),Moderate Underperformer,-0.5893280242468114,160.5,322.0,Differentiated
-Moorpark Unified (Ventura),Moderate Underperformer,-0.6026046719720458,119.0,190.0,Differentiated
-Livingston Union (Merced),Moderate Underperformer,-0.6058027786325328,123.0,244.0,General
-San Jacinto Unified (Riverside),Moderate Underperformer,-0.6076195135328762,103.0,152.0,Differentiated
-Riverbank Unified (Stanislaus),Moderate Underperformer,-0.6133681196818491,90.5,71.0,Differentiated
-North Monterey County Unified (Monterey),Moderate Underperformer,-0.6202199627413228,102.5,150.0,Differentiated
-Black Oak Mine Unified (El Dorado),Moderate Underperformer,-0.6220528485505702,141.0,308.0,Differentiated
-Fairfax Elementary (Kern),Moderate Underperformer,-0.6236798908797732,83.5,77.0,Differentiated
-Brentwood Union (Contra Costa),Moderate Underperformer,-0.6244688068182552,97.5,154.0,Differentiated
-Sierra-Plumas Joint Unified (Sierra),Moderate Underperformer,-0.6273480677004573,85.5,77.0,Differentiated
-Southside Elementary (San Benito),Moderate Underperformer,-0.6293350273834571,131.0,235.0,General
-Earlimart Elementary (Tulare),Moderate Underperformer,-0.635933120361287,131.5,272.0,General
-Palmdale Elementary (Los Angeles),Moderate Underperformer,-0.6359863316492836,128.5,278.0,Differentiated
-Southern Kern Unified (Kern),Moderate Underperformer,-0.6397558939927354,148.0,273.0,Differentiated
-San Lorenzo Valley Unified (Santa Cruz),Moderate Underperformer,-0.6496969423657483,138.0,270.0,Differentiated
-Aromas - San Juan Unified (San Benito),Moderate Underperformer,-0.6499013064934419,123.0,215.0,Differentiated
-Round Valley Unified (Mendocino),Mixed/Volatile Results,-0.6629105132445428,238.0,639.0,Differentiated
-Byron Union Elementary (Contra Costa),Moderate Underperformer,-0.666054939820636,110.5,187.0,Differentiated
-Greenfield Union Elementary (Monterey),Moderate Underperformer,-0.6719633216623919,100.5,185.0,Differentiated
-Briggs Elementary (Ventura),Moderate Underperformer,-0.6726253922667179,125.0,257.0,Differentiated
-Napa Valley Unified (Napa),Moderate Underperformer,-0.6796466500178834,106.0,156.0,Differentiated
-Santa Rosa High (Sonoma),Moderate Underperformer,-0.6804603967973587,94.0,102.0,Differentiated
-Hesperia Unified (San Bernardino),Moderate Underperformer,-0.6822762087123615,120.0,247.0,Differentiated
-Esparto Unified (Yolo),Moderate Underperformer,-0.6824293918264734,110.5,200.0,Differentiated
-Beardsley Elementary (Kern),Moderate Underperformer,-0.6851857726381809,95.0,151.0,Differentiated
-Blochman Union Elementary (Santa Barbara),Mixed/Volatile Results,-0.6875016896721712,192.5,478.0,General
-Vallejo City Unified (Solano),Moderate Underperformer,-0.688197405188038,133.0,277.0,Differentiated
-Kings River Union Elementary (Tulare),Moderate Underperformer,-0.6973572237391781,145.5,288.0,General
-Lake Elsinore Unified (Riverside),Moderate Underperformer,-0.7120966942412689,68.5,52.0,Differentiated
-San Juan Unified (Sacramento),Moderate Underperformer,-0.7132053823373027,68.0,53.0,Differentiated
-Center Joint Unified (Sacramento),Moderate Underperformer,-0.7217537961435596,75.0,62.0,Differentiated
-Yosemite Unified (Madera),Moderate Underperformer,-0.7253389363631956,92.0,142.0,Differentiated
-Hilmar Unified (Merced),Moderate Underperformer,-0.7354620351093506,78.5,65.0,General
-Gilroy Unified (Santa Clara),Moderate Underperformer,-0.7364235875500018,123.0,249.0,Differentiated
-New Hope Elementary (San Joaquin),Mixed/Volatile Results,-0.7382301576088696,170.0,429.0,General
-Rim of the World Unified (San Bernardino),Moderate Underperformer,-0.7383514801076386,88.5,115.0,Differentiated
-Hughson Unified (Stanislaus),Moderate Underperformer,-0.751815756611478,104.0,178.0,Differentiated
-Liberty Elementary (Tulare),Moderate Underperformer,-0.7526805441668445,181.5,388.0,General
-Romoland Elementary (Riverside),Moderate Underperformer,-0.753359805302413,79.5,63.0,Differentiated
-Standard Elementary (Kern),Moderate Underperformer,-0.7544908844239615,107.5,204.0,Differentiated
-Monterey Peninsula Unified (Monterey),Moderate Underperformer,-0.76170831999341,110.0,197.0,Differentiated
-Julian Union Elementary (San Diego),Moderate Underperformer,-0.7660874146255173,94.0,149.0,Differentiated
-Pittsburg Unified (Contra Costa),Moderate Underperformer,-0.7719878787845924,101.5,185.0,Differentiated
-Richfield Elementary (Tehama),Moderate Underperformer,-0.7836713304719626,105.5,217.0,General
-Pioneer Union Elementary (Butte),Mixed/Volatile Results,-0.7840235214442564,163.0,455.0,Differentiated
-Colfax Elementary (Placer),Mixed/Volatile Results,-0.7845266979776429,195.0,443.0,General
-Needles Unified (San Bernardino),Moderate Underperformer,-0.7893548809393848,100.5,198.0,Differentiated
-Durham Unified (Butte),Moderate Underperformer,-0.7916024252233061,98.0,160.0,Differentiated
-Mark Twain Union Elementary (Calaveras),Moderate Underperformer,-0.7941191077513525,102.0,198.0,Differentiated
-Corning Union Elementary (Tehama),Moderate Underperformer,-0.8018949593782668,127.0,295.0,General
-Azusa Unified (Los Angeles),Moderate Underperformer,-0.8128847999835348,108.5,176.0,Differentiated
-Pollock Pines Elementary (El Dorado),Moderate Underperformer,-0.8129818324978455,94.0,131.0,Differentiated
-Oxnard Union High (Ventura),Moderate Underperformer,-0.814898726653191,145.0,309.0,Differentiated
-Williams Unified (Colusa),Moderate Underperformer,-0.8152631933745458,122.5,274.0,Differentiated
-Ventura Unified (Ventura),Moderate Underperformer,-0.8264686798967703,88.0,121.0,Differentiated
-Rio Elementary (Ventura),Moderate Underperformer,-0.8275914570099494,108.0,156.0,Differentiated
-Colton Joint Unified (San Bernardino),Moderate Underperformer,-0.8297287311135739,102.0,155.0,Differentiated
-Pioneer Union (El Dorado),Moderate Underperformer,-0.8346555078522614,89.5,168.0,Differentiated
-Santa Rosa Elementary (Sonoma),Moderate Underperformer,-0.8441221943692754,117.0,265.0,Differentiated
-Ducor Union Elementary (Tulare),Moderate Underperformer,-0.8504490542954973,70.0,95.0,Differentiated
-Yreka Union Elementary (Siskiyou),Mixed/Volatile Results,-0.8546131324134314,175.5,422.0,Differentiated
-Simi Valley Unified (Ventura),Moderate Underperformer,-0.8568223612541302,78.0,87.0,Differentiated
-John Swett Unified (Contra Costa),Moderate Underperformer,-0.8650948317798812,129.0,248.0,Differentiated
-Guadalupe Union Elementary (Santa Barbara),Moderate Underperformer,-0.869109169660291,71.5,83.0,Differentiated
-Waugh Elementary (Sonoma),Moderate Underperformer,-0.8703936144246635,127.0,253.0,Differentiated
-Bayshore Elementary (San Mateo),Moderate Underperformer,-0.8711873332218698,106.0,218.0,Differentiated
-River Delta Joint Unified (Sacramento),Moderate Underperformer,-0.8733259161058493,93.0,157.0,Differentiated
-Novato Unified (Marin),Moderate Underperformer,-0.8778085285831624,99.0,177.0,Differentiated
-San Lorenzo Unified (Alameda),Moderate Underperformer,-0.8911459375324587,102.0,203.0,Differentiated
-Twin Ridges Elementary (Nevada),Moderate Underperformer,-0.8949961629576558,126.0,256.0,Differentiated
-Manteca Unified (San Joaquin),Moderate Underperformer,-0.9014771926882273,70.5,77.0,Differentiated
-San Pasqual Union Elementary (San Diego),Moderate Underperformer,-0.9045817263783087,113.5,187.0,General
-Old Adobe Union (Sonoma),Moderate Underperformer,-0.9091078568637763,76.0,92.0,Differentiated
-Hughes-Elizabeth Lakes Union Elementary (Los Angeles),Moderate Underperformer,-0.916521888214301,104.5,220.0,General
-Washington Union Elementary (Monterey),Moderate Underperformer,-0.9172915702585498,68.0,64.0,General
-South Bay Union Elementary (Humboldt),Moderate Underperformer,-0.9233682669732014,105.0,206.0,Differentiated
-Benicia Unified (Solano),Moderate Underperformer,-0.9287682384733209,120.0,218.0,Differentiated
-Santa Maria-Bonita (Santa Barbara),Moderate Underperformer,-0.9292559646449299,82.0,113.0,Differentiated
-Lakeside Union (Kern),Moderate Underperformer,-0.9389031487270842,113.5,210.0,Differentiated
-Alum Rock Union Elementary (Santa Clara),Moderate Underperformer,-0.9414830201531775,113.5,217.0,Differentiated
-Pajaro Valley Unified (Santa Cruz),Moderate Underperformer,-0.9435835184702016,93.5,144.0,Differentiated
-Dixon Unified (Solano),Moderate Underperformer,-0.9531767238356742,93.0,172.0,Differentiated
-Antelope Valley Union High (Los Angeles),Moderate Underperformer,-0.953794114365293,139.0,375.0,Differentiated
-Anaheim Elementary (Orange),Moderate Underperformer,-0.9549081272533749,117.5,248.0,General
-Summerville Elementary (Tuolumne),Moderate Underperformer,-0.9635554435504408,128.5,257.0,Differentiated
-Tamalpais Union High (Marin),Moderate Underperformer,-0.9727352062479032,73.0,91.0,Differentiated
-Barstow Unified (San Bernardino),Mixed/Volatile Results,-0.9773133068103291,198.0,623.0,Differentiated
-Fillmore Unified (Ventura),Moderate Underperformer,-0.9885015172009358,69.0,71.0,General
-Modoc Joint Unified (Modoc),Moderate Underperformer,-0.9905922855397469,76.5,126.0,Differentiated
-Martinez Unified (Contra Costa),Moderate Underperformer,-0.9917158077914696,53.0,26.0,General
-Hayward Unified (Alameda),Moderate Underperformer,-0.9928980069821165,78.0,91.0,Differentiated
-Dos Palos Oro Loma Joint Unified (Merced),Moderate Underperformer,-0.9986530735886042,119.0,295.0,Differentiated
-Mount Pleasant Elementary (Santa Clara),Moderate Underperformer,-1.0064729708367832,89.0,144.0,Differentiated
-Mother Lode Union Elementary (El Dorado),Moderate Underperformer,-1.0098693093975262,76.0,112.0,Differentiated
-Richmond Elementary (Lassen),Moderate Underperformer,-1.0110516758267254,110.5,285.0,General
-Weed Union Elementary (Siskiyou),Mixed/Volatile Results,-1.0224537754608576,202.0,592.0,Differentiated
-Siskiyou Union High (Siskiyou),Mixed/Volatile Results,-1.0247818562446918,170.0,436.0,General
-Rockford Elementary (Tulare),Moderate Underperformer,-1.0332913193166964,108.0,226.0,General
-Lompoc Unified (Santa Barbara),Moderate Underperformer,-1.037661352752322,79.0,137.0,Differentiated
-Lamont Elementary (Kern),Moderate Underperformer,-1.0519800766889404,49.0,53.0,Differentiated
-Tulare City (Tulare),Moderate Underperformer,-1.0595928542323632,61.0,30.0,Differentiated
-Cinnabar Elementary (Sonoma),Moderate Underperformer,-1.0620714569362344,67.0,92.0,General
-Rosedale Union Elementary (Kern),Moderate Underperformer,-1.0689380782518452,85.5,174.0,Differentiated
-Acton-Agua Dulce Unified (Los Angeles),Moderate Underperformer,-1.072052335268339,101.5,217.0,Differentiated
-Cotati-Rohnert Park Unified (Sonoma),Moderate Underperformer,-1.0740190992801713,78.0,121.0,Differentiated
-Capay Joint Union Elementary (Glenn),Moderate Underperformer,-1.0746837528181814,120.5,291.0,General
-Liberty Union High (Contra Costa),Mixed/Volatile Results,-1.0761606951400675,235.5,603.0,Differentiated
-Lakeside Union Elementary (San Diego),Moderate Underperformer,-1.0851924017306147,72.0,110.0,Differentiated
-Union Hill Elementary (Nevada),Mixed/Volatile Results,-1.0866909320277767,152.5,407.0,Differentiated
-Santa Rita Union Elementary (Monterey),Moderate Underperformer,-1.0886077859189482,75.5,129.0,General
-Lakeport Unified (Lake),Mixed/Volatile Results,-1.0901295721677025,139.5,405.0,Differentiated
-Natomas Unified (Sacramento),Moderate Underperformer,-1.0939007731246944,44.0,29.0,Differentiated
-Johnstonville Elementary (Lassen),Moderate Underperformer,-1.104050867302057,90.5,178.0,General
-Shasta Union Elementary (Shasta),Mixed/Volatile Results,-1.1068030781916098,162.0,491.0,General
-Lassen Union High (Lassen),Mixed/Volatile Results,-1.1184573295968816,165.0,463.0,Differentiated
-Knightsen Elementary (Contra Costa),Moderate Underperformer,-1.1211790057845425,48.5,56.0,General
-Escalon Unified (San Joaquin),Moderate Underperformer,-1.12353616485727,74.0,148.0,Differentiated
-Jurupa Unified (Riverside),Moderate Underperformer,-1.1294702620817205,66.0,87.0,Differentiated
-Saint Helena Unified (Napa),Moderate Underperformer,-1.1436156477987067,107.5,280.0,Differentiated
-Blue Lake Union Elementary (Humboldt),Moderate Underperformer,-1.1493809614867623,81.5,182.0,General
-Vacaville Unified (Solano),Moderate Underperformer,-1.1501645641679845,72.5,117.0,Differentiated
-Edison Elementary (Kern),Moderate Underperformer,-1.155473251466529,62.5,123.0,Differentiated
-Tehachapi Unified (Kern),Moderate Underperformer,-1.158955908387926,72.0,151.0,Differentiated
-Guerneville Elementary (Sonoma),Moderate Underperformer,-1.163231169675223,85.0,149.0,General
-Willows Unified (Glenn),Moderate Underperformer,-1.1759806244344748,101.5,191.0,General
-Morgan Hill Unified (Santa Clara),Moderate Underperformer,-1.1796467600182574,68.5,128.0,Differentiated
-Apple Valley Unified (San Bernardino),Moderate Underperformer,-1.185513671726936,60.0,119.0,Differentiated
-Warner Unified (San Diego),Mixed/Volatile Results,-1.1876422455525648,134.5,416.0,Differentiated
-Calaveras Unified (Calaveras),Mixed/Volatile Results,-1.1964288832545276,129.5,413.0,Differentiated
-North Cow Creek Elementary (Shasta),Moderate Underperformer,-1.2074144996715825,93.0,214.0,General
-Windsor Unified (Sonoma),Moderate Underperformer,-1.2102099094743,84.0,140.0,Differentiated
-Tulelake Basin Joint Unified (Modoc),Moderate Underperformer,-1.215006593985266,78.5,186.0,General
-Ocean View (Ventura),Moderate Underperformer,-1.2174870175493342,81.0,167.0,Differentiated
-Bakersfield City (Kern),Moderate Underperformer,-1.2214506650228467,48.5,60.0,Differentiated
-Pacifica (San Mateo),Moderate Underperformer,-1.2221930233455722,69.5,111.0,Differentiated
-Red Bluff Union Elementary (Tehama),Moderate Underperformer,-1.2390143468341932,120.0,363.0,Differentiated
-Willits Unified (Mendocino),Moderate Underperformer,-1.2395344364068532,116.0,371.0,Differentiated
-Washington Unified (Fresno),Moderate Underperformer,-1.2490440088632224,70.0,127.0,Differentiated
-Buena Vista Elementary (Tulare),Moderate Underperformer,-1.2520433097886143,80.0,193.0,General
-Bellevue Union (Sonoma),Moderate Underperformer,-1.2651936567074915,39.5,40.0,Differentiated
-Emery Unified (Alameda),Moderate Underperformer,-1.2719651089505672,75.0,163.0,General
-San Antonio Union Elementary (Monterey),Moderate Underperformer,-1.2720523598437632,124.5,310.0,General
-Wilmar Union Elementary (Sonoma),Moderate Underperformer,-1.2720950892142222,65.01249999999709,119.0,General
-Lancaster Elementary (Los Angeles),Moderate Underperformer,-1.2824795842696968,74.5,198.0,Differentiated
-Travis Unified (Solano),Moderate Underperformer,-1.2871596744124,40.5,51.0,Differentiated
-Amador County Unified (Amador),Moderate Underperformer,-1.2877443926188714,57.5,96.0,Differentiated
-Hickman Community Charter (Stanislaus),Moderate Underperformer,-1.3030277367070486,79.0,197.0,General
-East Nicolaus Joint Union High (Sutter),Mixed/Volatile Results,-1.3172206630010053,187.5,436.0,General
-Hamilton Unified (Glenn),Moderate Underperformer,-1.3438479772622551,53.5,87.0,Differentiated
-Salinas City Elementary (Monterey),Moderate Underperformer,-1.3733905814351908,78.0,158.0,General
-Wilsona Elementary (Los Angeles),Moderate Underperformer,-1.383851653416623,83.5,261.0,Differentiated
-Adelanto Elementary (San Bernardino),Moderate Underperformer,-1.402131168971565,71.0,185.0,Differentiated
-Ravenswood City Elementary (San Mateo),Moderate Underperformer,-1.4160130496401624,74.0,222.0,Differentiated
-Luther Burbank (Santa Clara),Moderate Underperformer,-1.417418019094451,93.0,283.0,Differentiated
-Cuyama Joint Unified (Santa Barbara),Moderate Underperformer,-1.4220388686948806,106.0,354.0,General
-Soquel Union Elementary (Santa Cruz),Moderate Underperformer,-1.4225414425127074,53.5,85.0,General
-Lakeside Union Elementary (Kings),Moderate Underperformer,-1.426406224847581,50.0,79.0,Differentiated
-Antioch Unified (Contra Costa),Moderate Underperformer,-1.4566490852469858,33.5,42.0,Differentiated
-Upper Lake Unified (Lake),Moderate Underperformer,-1.4776077156632161,96.5,321.0,Differentiated
-Springville Union Elementary (Tulare),Moderate Underperformer,-1.4809947136853832,55.5,107.0,General
-Orchard Elementary (Santa Clara),Moderate Underperformer,-1.4823737538552286,69.0,145.0,Differentiated
-Ojai Unified (Ventura),Moderate Underperformer,-1.4871891729023459,69.0,155.0,Differentiated
-Semitropic Elementary (Kern),Moderate Underperformer,-1.4941865138745085,95.0,279.0,General
-Palo Verde Unified (Riverside),Moderate Underperformer,-1.4955856380824528,40.0,57.0,Differentiated
-Gold Oak Union Elementary (El Dorado),Significant Underperformer,-1.5076404606209615,47.5,84.0,Differentiated
-Orland Joint Unified (Glenn),Significant Underperformer,-1.5152149932951164,44.0,97.0,Differentiated
-Sunnyside Union Elementary (Tulare),Significant Underperformer,-1.515349350394534,31.0,43.0,General
-Pond Union Elementary (Kern),Significant Underperformer,-1.5252392887986133,67.0,141.0,General
-Muroc Joint Unified (Kern),Significant Underperformer,-1.5344268265502001,38.0,64.0,Differentiated
-Pleasant View Elementary (Tulare),Significant Underperformer,-1.551235957077033,57.0,164.0,Differentiated
-Potter Valley Community Unified (Mendocino),Significant Underperformer,-1.5713677438010372,62.0,157.0,Differentiated
-Kelseyville Unified (Lake),Significant Underperformer,-1.5714230415809198,38.5,62.0,Differentiated
-Grenada Elementary (Siskiyou),Significant Underperformer,-1.5756465885924,50.0,92.0,General
-Elverta Joint Elementary (Sacramento),Significant Underperformer,-1.5886174316785726,30.5,42.0,General
-Richgrove Elementary (Tulare),Significant Underperformer,-1.596716655806496,51.5,134.0,General
-Cucamonga Elementary (San Bernardino),Significant Underperformer,-1.599806749516238,48.0,91.0,Differentiated
-Piner-Olivet Union Elementary (Sonoma),Significant Underperformer,-1.608773827537967,53.5,142.0,Differentiated
-Valley Center-Pauma Unified (San Diego),Significant Underperformer,-1.6133550222995858,28.5,44.0,Differentiated
-Oro Grande (San Bernardino),Significant Underperformer,-1.6239596270942538,37.5,70.0,General
-Mesa Union Elementary (Ventura),Significant Underperformer,-1.6256925737231729,62.0,174.0,General
-Sutter Union High (Sutter),Significant Underperformer,-1.661276302710716,68.5,145.0,General
-Denair Unified (Stanislaus),Significant Underperformer,-1.6622199842805074,53.5,120.0,Differentiated
-Winship-Robbins (Sutter),Significant Underperformer,-1.6635036885803083,56.0,150.0,General
-Alpaugh Unified (Tulare),Significant Underperformer,-1.6958240990305586,37.0,73.0,General
-Lucerne Valley Unified (San Bernardino),Significant Underperformer,-1.7237794891889862,34.0,55.0,Differentiated
-Helendale Elementary (San Bernardino),Significant Underperformer,-1.7313737427422242,37.5,66.0,Differentiated
-Arena Union Elementary (Mendocino),Significant Underperformer,-1.7464022975818256,38.0,83.0,Differentiated
-Allensworth Elementary (Tulare),Significant Underperformer,-1.7613213226074138,73.0,292.0,Differentiated
-Oakley Union Elementary (Contra Costa),Significant Underperformer,-1.798281137543333,21.0,13.0,Differentiated
-Keppel Union Elementary (Los Angeles),Significant Underperformer,-1.839804776838548,39.0,123.0,Differentiated
-Templeton Unified (San Luis Obispo),Significant Underperformer,-1.839911917911545,46.0,132.0,Differentiated
-Mountain View Elementary (San Bernardino),Significant Underperformer,-1.8488913713356954,26.5,50.0,Differentiated
-Hueneme Elementary (Ventura),Significant Underperformer,-1.8668514978743334,24.5,34.0,Differentiated
-Brittan Elementary (Sutter),Significant Underperformer,-1.8732881863468753,50.0,114.0,General
-Jamul-Dulzura Union Elementary (San Diego),Significant Underperformer,-1.8991124758037359,42.5,99.0,General
-Winters Joint Unified (Yolo),Significant Underperformer,-1.9009005438607025,26.5,37.0,Differentiated
-Di Giorgio Elementary (Kern),Significant Underperformer,-1.90516120778903,25.0,54.0,General
-Spreckels Union Elementary (Monterey),Significant Underperformer,-1.908216109055233,27.0,54.0,General
-Cloverdale Unified (Sonoma),Significant Underperformer,-1.9417195436191232,20.0,27.0,General
-Butte Valley Unified (Siskiyou),Significant Underperformer,-1.9604796587920654,32.0,96.0,General
-Columbia Elementary (Shasta),Significant Underperformer,-1.9849026155395235,52.0,184.0,Differentiated
-Baker Valley Unified (San Bernardino),Significant Underperformer,-2.00452336497049,31.0,90.0,Differentiated
-Cabrillo Unified (San Mateo),Significant Underperformer,-2.0162727250742303,26.5,52.0,Differentiated
-Junction Elementary (Shasta),Significant Underperformer,-2.020256305225904,54.0,213.0,General
-Arcohe Union Elementary (Sacramento),Significant Underperformer,-2.0865704686992244,42.5,138.0,Differentiated
-Big Oak Flat-Groveland Unified (Tuolumne),Significant Underperformer,-2.0951256378102556,18.0,42.0,General
-Meridian Elementary (Sutter),Significant Underperformer,-2.1138922467341694,14.5,15.0,General
-Sonoma Valley Unified (Sonoma),Significant Underperformer,-2.255592470102811,18.0,46.0,Differentiated
-Big Springs Union Elementary (Siskiyou),Significant Underperformer,-2.25658424904762,15.0,47.0,Differentiated
-Valley Home Joint Elementary (Stanislaus),Significant Underperformer,-2.382232533809155,19.0,45.0,Differentiated
-Kirkwood Elementary (Tehama),Significant Underperformer,-2.3868416827969963,18.5,38.0,General
-Point Arena Joint Union High (Mendocino),Significant Underperformer,-2.396247583553912,22.5,111.0,General
-Nuestro Elementary (Sutter),Significant Underperformer,-2.4263681021881798,14.0,22.0,General
-Gerber Union Elementary (Tehama),Significant Underperformer,-2.5089242357608725,9.5,19.0,Differentiated
-Mountain Empire Unified (San Diego),Significant Underperformer,-2.604496743919624,7.5,12.0,Differentiated
-Magnolia Union Elementary (Imperial),Significant Underperformer,-2.7363904482199026,6.0,11.0,General
-Reeds Creek Elementary (Tehama),Significant Underperformer,-2.7370598878720713,5.5,4.0,General
-Alta Vista Elementary (Tulare),Significant Underperformer,-2.7520724611346257,6.0,7.0,Differentiated
-Fort Sage Unified (Lassen),Significant Underperformer,-2.859388281923111,4.5,1.0,Differentiated
-Dehesa Elementary (San Diego),Significant Underperformer,-2.8611380855926587,4.5,0.0,General
-Maricopa Unified (Kern),Significant Underperformer,-2.8611380855926587,4.5,0.0,Differentiated
+Garden Grove Unified (Orange),Significant Overperformer,2.6343794469137003,4.0,0.0,General
+Jacoby Creek Elementary (Humboldt),Significant Overperformer,2.6343794469137003,4.0,0.0,General
+Rosemead Elementary (Los Angeles),Significant Overperformer,2.61751056447204,4.5,9.0,General
+Westminster (Orange),Significant Overperformer,2.5323257881615007,6.0,4.0,Differentiated
+Savanna Elementary (Orange),Significant Overperformer,2.5221716284441866,7.5,19.0,General
+Cypress Elementary (Orange),Significant Overperformer,2.4803649826604555,9.0,29.0,General
+Mountain Valley Unified (Trinity),Significant Overperformer,2.457532807296193,9.0,28.0,General
+Garvey Elementary (Los Angeles),Significant Overperformer,2.408748415883222,10.0,27.0,General
+Ocean View (Ventura),Significant Overperformer,2.3414856373850546,8.5,11.0,Differentiated
+Pacific Union Elementary (Fresno),Significant Overperformer,2.294622688682017,10.0,19.0,Differentiated
+Little Lake City Elementary (Los Angeles),Significant Overperformer,2.2774470917475287,10.0,20.0,Differentiated
+Fallbrook Union Elementary (San Diego),Significant Overperformer,2.246345279370046,13.0,33.0,Differentiated
+Fountain Valley Elementary (Orange),Significant Overperformer,2.243849148368012,10.5,11.0,Differentiated
+Compton Unified (Los Angeles),Significant Overperformer,2.1985261938365444,13.0,27.0,General
+Centralia Elementary (Orange),Significant Overperformer,2.1408441646054035,21.5,71.0,General
+Temple City Unified (Los Angeles),Significant Overperformer,2.1163326005312877,19.5,61.0,General
+Magnolia Elementary (Orange),Significant Overperformer,2.1070389120540636,15.0,33.0,Differentiated
+Kings Canyon Joint Unified (Fresno),Significant Overperformer,2.0287810565508204,15.0,17.0,Differentiated
+Valle Lindo Elementary (Los Angeles),Significant Overperformer,2.0141949037197424,24.0,46.0,Differentiated
+Los Nietos (Los Angeles),Significant Overperformer,1.9663175903591894,15.0,22.0,Differentiated
+Woodside Elementary (San Mateo),Significant Overperformer,1.9620615958886125,31.0,80.0,General
+Hanford Elementary (Kings),Significant Overperformer,1.9337233233160604,20.0,38.0,Differentiated
+Ferndale Unified (Humboldt),Significant Overperformer,1.9262167621537198,38.0,120.0,Differentiated
+South Pasadena Unified (Los Angeles),Significant Overperformer,1.8661779640700906,17.5,24.0,General
+El Monte Union High (Los Angeles),Significant Overperformer,1.8546638405171862,40.0,110.0,Differentiated
+Rio Dell Elementary (Humboldt),Significant Overperformer,1.8419367380276692,34.5,95.0,General
+Whittier Union High (Los Angeles),Significant Overperformer,1.8404018953422971,34.5,104.0,Differentiated
+Las Lomitas Elementary (San Mateo),Significant Overperformer,1.8295501050701082,37.0,116.0,General
+Bonita Unified (Los Angeles),Significant Overperformer,1.8003098697069175,26.5,60.0,General
+Oak View Union Elementary (San Joaquin),Significant Overperformer,1.7912816389719914,26.0,49.0,Differentiated
+Live Oak Unified (Sutter),Significant Overperformer,1.7872402413577133,18.5,19.0,Differentiated
+Los Alamitos Unified (Orange),Significant Overperformer,1.7716589927505857,15.5,10.0,General
+San Gabriel Unified (Los Angeles),Significant Overperformer,1.7613005767912904,19.5,26.0,Differentiated
+Lassen View Union Elementary (Tehama),Significant Overperformer,1.755329479535582,24.0,53.0,General
+ABC Unified (Los Angeles),Significant Overperformer,1.744954083371108,15.5,11.0,Differentiated
+East Whittier City Elementary (Los Angeles),Significant Overperformer,1.7425312315864718,28.5,66.0,Differentiated
+Huntington Beach Union High (Orange),Significant Overperformer,1.7358675862879176,33.0,65.0,Differentiated
+San Marino Unified (Los Angeles),Significant Overperformer,1.7272672817680268,34.5,104.0,General
+El Monte City (Los Angeles),Significant Overperformer,1.721203724205999,24.0,37.0,Differentiated
+Delano Union Elementary (Kern),Significant Overperformer,1.6766456774072824,24.0,43.0,General
+Cupertino Union (Santa Clara),Significant Overperformer,1.6402503399474508,44.5,146.0,General
+Winton (Merced),Significant Overperformer,1.5986503901883506,29.5,47.0,General
+Monson-Sultana Joint Union Elementary (Tulare),Significant Overperformer,1.5933760390050447,66.5,157.0,Differentiated
+Central Union Elementary (Kings),Significant Overperformer,1.5898207630669845,21.5,28.0,Differentiated
+Holtville Unified (Imperial),Significant Overperformer,1.5896171766999196,52.5,146.0,General
+Ocean View (Orange),Significant Overperformer,1.5857660032665817,33.5,82.0,Differentiated
+Delano Joint Union High (Kern),Significant Overperformer,1.5813807284652048,73.5,262.0,General
+Newhall (Los Angeles),Significant Overperformer,1.5812214885038915,20.0,20.0,General
+Los Altos Elementary (Santa Clara),Significant Overperformer,1.5715744854607498,50.5,128.0,General
+Grant Elementary (Shasta),Significant Overperformer,1.5707290471192341,67.5,205.0,General
+Trinity Alps Unified (Trinity),Significant Overperformer,1.5144510538865763,35.0,78.0,Differentiated
+Palo Alto Unified (Santa Clara),Significant Overperformer,1.50621591884601,47.0,103.0,General
+Lemoore Union Elementary (Kings),Significant Overperformer,1.5050216334257973,19.0,16.0,Differentiated
+Alhambra Unified (Los Angeles),Moderate Overperformer,1.4934731596816377,33.0,57.0,Differentiated
+Pacific Union Elementary (Humboldt),Moderate Overperformer,1.479635170824241,29.5,48.0,Differentiated
+McCabe Union Elementary (Imperial),Moderate Overperformer,1.451056224610012,47.5,111.0,Differentiated
+Murrieta Valley Unified (Riverside),Moderate Overperformer,1.4361324816750392,47.5,114.0,Differentiated
+Gridley Unified (Butte),Moderate Overperformer,1.4138102047896959,39.5,80.0,Differentiated
+Downey Unified (Los Angeles),Moderate Overperformer,1.4075839975495394,30.0,46.0,Differentiated
+Oak Valley Union Elementary (Tulare),Moderate Overperformer,1.4013590789930939,40.5,79.0,General
+Cambrian (Santa Clara),Moderate Overperformer,1.3749365401952656,53.0,129.0,General
+Portola Valley Elementary (San Mateo),Moderate Overperformer,1.369638372869084,74.0,196.0,General
+Cutler-Orosi Joint Unified (Tulare),Moderate Overperformer,1.3556618026601512,31.5,40.0,General
+Brawley Union High (Imperial),Moderate Overperformer,1.3535997283708383,108.5,282.0,Differentiated
+Junction Elementary (Siskiyou),Moderate Overperformer,1.3447902179707747,40.5,69.0,General
+Kingsburg Joint Union High (Fresno),Moderate Overperformer,1.342571060874624,100.0,275.0,Differentiated
+Huntington Beach City Elementary (Orange),Moderate Overperformer,1.3395171281505365,29.5,38.0,Differentiated
+Chaffey Joint Union High (San Bernardino),Moderate Overperformer,1.3299739721793762,110.0,302.0,Differentiated
+Heber Elementary (Imperial),Moderate Overperformer,1.317188769046956,52.5,126.0,Differentiated
+Cutten Elementary (Humboldt),Moderate Overperformer,1.3040709210260542,81.0,201.0,General
+Solana Beach Elementary (San Diego),Moderate Overperformer,1.3007599559978833,52.0,121.0,General
+Weaver Union (Merced),Moderate Overperformer,1.2921043514781925,46.5,97.0,Differentiated
+Calipatria Unified (Imperial),Moderate Overperformer,1.2847825527770347,53.5,113.0,Differentiated
+Lowell Joint (Orange),Moderate Overperformer,1.250605467146209,33.5,32.0,Differentiated
+Montecito Union Elementary (Santa Barbara),Moderate Overperformer,1.2503319171898963,85.0,230.0,General
+Galt Joint Union Elementary (Sacramento),Moderate Overperformer,1.2464056586171375,29.5,26.0,Differentiated
+Caruthers Unified (Fresno),Moderate Overperformer,1.2332137069382698,47.0,99.0,Differentiated
+El Centro Elementary (Imperial),Moderate Overperformer,1.2302447957107332,40.5,56.0,Differentiated
+La Canada Unified (Los Angeles),Moderate Overperformer,1.2171885267055402,41.0,84.0,General
+Chino Valley Unified (San Bernardino),Moderate Overperformer,1.2067505761237398,31.0,20.0,Differentiated
+Imperial Unified (Imperial),Moderate Overperformer,1.2028912814324861,66.5,184.0,Differentiated
+Chula Vista Elementary (San Diego),Moderate Overperformer,1.1911793092736198,66.5,136.0,Differentiated
+Ontario-Montclair (San Bernardino),Moderate Overperformer,1.1857530557949134,36.0,44.0,General
+San Carlos Elementary (San Mateo),Moderate Overperformer,1.1824019525534701,60.0,109.0,Differentiated
+Del Mar Union Elementary (San Diego),Moderate Overperformer,1.1809985282404403,64.5,152.0,General
+Bellflower Unified (Los Angeles),Moderate Overperformer,1.1804055896654102,46.5,55.0,Differentiated
+Albany City Unified (Alameda),Moderate Overperformer,1.1661625125896438,41.5,63.0,General
+Saugus Union (Los Angeles),Moderate Overperformer,1.1511179613387652,54.5,128.0,General
+Tipton Elementary (Tulare),Moderate Overperformer,1.1460721223951817,43.5,51.0,Differentiated
+Wasco Union High (Kern),Moderate Overperformer,1.1190824531733543,102.0,236.0,Differentiated
+Dinuba Unified (Tulare),Moderate Overperformer,1.1170335231185242,58.0,100.0,General
+Tustin Unified (Orange),Moderate Overperformer,1.11103841825696,42.0,65.0,Differentiated
+Evergreen Union (Tehama),Moderate Overperformer,1.1080096779206527,49.5,103.0,General
+Vallecito Union (Calaveras),Moderate Overperformer,1.0842331228603184,46.0,72.0,Differentiated
+Ripon Unified (San Joaquin),Moderate Overperformer,1.0767185684231504,54.0,111.0,General
+Antelope Elementary (Tehama),Moderate Overperformer,1.0743408266926273,83.5,212.0,General
+Placentia-Yorba Linda Unified (Orange),Moderate Overperformer,1.073735388057262,40.5,31.0,General
+Manzanita Elementary (Butte),Moderate Overperformer,1.0700330466842634,64.5,123.0,General
+Bassett Unified (Los Angeles),Moderate Overperformer,1.0632105964145468,38.5,27.0,Differentiated
+Fallbrook Union High (San Diego),Mixed/Volatile Results,1.0612279597696843,145.0,422.0,Differentiated
+Clovis Unified (Fresno),Moderate Overperformer,1.0603180449800866,57.5,97.0,Differentiated
+Lakeside Union Elementary (Kings),Moderate Overperformer,1.0557318147205021,70.0,176.0,Differentiated
+Palermo Union Elementary (Butte),Moderate Overperformer,1.0526718272956077,71.0,144.0,Differentiated
+Lawndale Elementary (Los Angeles),Moderate Overperformer,1.0512882238401553,42.5,43.0,Differentiated
+Capistrano Unified (Orange),Moderate Overperformer,1.0450021550120614,45.5,75.0,Differentiated
+Franklin Elementary (Sutter),Moderate Overperformer,1.0419390805957718,82.5,201.0,General
+Tulare Joint Union High (Tulare),Mixed/Volatile Results,1.0380180757795525,138.0,441.0,Differentiated
+Piedmont City Unified (Alameda),Moderate Overperformer,1.0266111009646908,81.0,232.0,General
+Rancho Santa Fe Elementary (San Diego),Moderate Overperformer,1.0226944907593465,77.5,199.0,General
+Whittier City (Los Angeles),Moderate Overperformer,1.0220459319296908,67.5,133.0,Differentiated
+Newport-Mesa Unified (Orange),Moderate Overperformer,1.0200564935411294,56.0,89.0,Differentiated
+Hillsborough City Elementary (San Mateo),Moderate Overperformer,1.0179901575157837,98.0,289.0,General
+Thermalito Union Elementary (Butte),Moderate Overperformer,1.0055555232970999,87.5,185.0,Differentiated
+San Luis Coastal Unified (San Luis Obispo),Moderate Overperformer,1.0025691757989768,70.0,143.0,General
+Saratoga Union Elementary (Santa Clara),Moderate Overperformer,0.9916981543562442,83.0,170.0,General
+Paramount Unified (Los Angeles),Moderate Overperformer,0.9779905389241513,59.0,116.0,General
+Berkeley Unified (Alameda),Moderate Overperformer,0.9714661816326472,65.5,127.0,Differentiated
+Enterprise Elementary (Shasta),Moderate Overperformer,0.9638586745158878,70.0,156.0,Differentiated
+Palo Verde Union Elementary (Tulare),Moderate Overperformer,0.961618606128181,45.0,51.0,General
+Brea-Olinda Unified (Orange),Moderate Overperformer,0.9585850855178846,54.5,83.0,Differentiated
+Wheatland (Yuba),Moderate Overperformer,0.9583819175987816,50.0,68.0,Differentiated
+Atwater Elementary (Merced),Moderate Overperformer,0.9577439641787456,44.0,42.0,General
+Walnut Valley Unified (Los Angeles),Moderate Overperformer,0.9575754747655912,100.0,280.0,Differentiated
+Bella Vista Elementary (Shasta),Moderate Overperformer,0.9535012372784777,42.5,43.0,General
+Galt Joint Union High (Sacramento),Moderate Overperformer,0.9439300584492469,156.0,377.0,General
+Happy Valley Union Elementary (Shasta),Moderate Overperformer,0.9410789049369878,80.0,223.0,Differentiated
+Santee (San Diego),Moderate Overperformer,0.9307991574252988,66.5,130.0,Differentiated
+Buena Park Elementary (Orange),Moderate Overperformer,0.9226946342133575,75.0,189.0,Differentiated
+Sanger Unified (Fresno),Moderate Overperformer,0.9193178814262234,80.5,174.0,Differentiated
+Seeley Union Elementary (Imperial),Moderate Overperformer,0.9154752964155685,84.5,176.0,Differentiated
+Red Bluff Joint Union High (Tehama),Moderate Overperformer,0.9130798788184068,115.0,316.0,Differentiated
+Corona-Norco Unified (Riverside),Moderate Overperformer,0.9074275272689631,55.5,78.0,Differentiated
+Sulphur Springs Union (Los Angeles),Moderate Overperformer,0.9020132597976843,47.0,51.0,General
+Alview-Dairyland Union Elementary (Madera),Moderate Overperformer,0.9001278993552442,79.0,156.0,General
+Lindsay Unified (Tulare),Moderate Overperformer,0.8858849361605113,64.5,113.0,Differentiated
+Orinda Union (Contra Costa),Moderate Overperformer,0.8758771582474305,69.5,128.0,General
+Hacienda la Puente Unified (Los Angeles),Moderate Overperformer,0.8690999688063161,74.5,162.0,Differentiated
+Fremont Union High (Santa Clara),Moderate Overperformer,0.8613781065505053,62.0,95.0,Differentiated
+Rincon Valley Union Elementary (Sonoma),Moderate Overperformer,0.8610341909061948,99.0,248.0,General
+South Fork Union (Kern),Moderate Overperformer,0.8484542121708674,66.0,109.0,Differentiated
+Claremont Unified (Los Angeles),Moderate Overperformer,0.8462441178128609,53.5,62.0,Differentiated
+Montebello Unified (Los Angeles),Moderate Overperformer,0.8364330192518094,70.0,115.0,Differentiated
+Sundale Union Elementary (Tulare),Moderate Overperformer,0.8349161093471467,58.0,80.0,General
+Belmont-Redwood Shores Elementary (San Mateo),Moderate Overperformer,0.834821213256838,81.5,179.0,Differentiated
+Loma Prieta Joint Union Elementary (Santa Clara),Moderate Overperformer,0.8342205711040306,76.0,172.0,Differentiated
+Shasta Union High (Shasta),Moderate Overperformer,0.8292062035016236,104.5,222.0,Differentiated
+Alta Loma Elementary (San Bernardino),Moderate Overperformer,0.8208947096102949,56.5,79.0,General
+Long Beach Unified (Los Angeles),Moderate Overperformer,0.81811322971616,52.0,59.0,Differentiated
+Mountain View-Los Altos Union High (Santa Clara),Moderate Overperformer,0.8145196348346991,86.5,204.0,Differentiated
+Lennox (Los Angeles),Moderate Overperformer,0.8042811849912261,53.0,59.0,General
+Woodville Union Elementary (Tulare),Moderate Overperformer,0.8024092726212416,75.5,181.0,Differentiated
+Elk Grove Unified (Sacramento),Moderate Overperformer,0.7901951457972259,50.0,42.0,Differentiated
+Glendale Unified (Los Angeles),Moderate Overperformer,0.7848629709127788,88.0,213.0,Differentiated
+Rowland Unified (Los Angeles),Moderate Overperformer,0.7754208048481926,57.0,77.0,Differentiated
+San Diego Unified (San Diego),Moderate Overperformer,0.7750423765172593,51.0,47.0,Differentiated
+Arcadia Unified (Los Angeles),Moderate Overperformer,0.7749870251013269,83.0,185.0,Differentiated
+Lemoore Union High (Kings),Mixed/Volatile Results,0.7738843058290298,208.0,505.0,Differentiated
+Brawley Elementary (Imperial),Moderate Overperformer,0.7731373237583211,81.0,177.0,Differentiated
+Fullerton Joint Union High (Orange),Moderate Overperformer,0.7696914059316146,87.5,176.0,Differentiated
+Etiwanda Elementary (San Bernardino),Moderate Overperformer,0.7649146008423968,54.5,61.0,Differentiated
+La Mesa-Spring Valley (San Diego),Moderate Overperformer,0.7642520496490742,57.0,77.0,Differentiated
+Fullerton Elementary (Orange),Moderate Overperformer,0.7575343008821193,68.5,138.0,Differentiated
+Washington Colony Elementary (Fresno),Moderate Overperformer,0.7549291099414563,70.0,131.0,Differentiated
+Los Molinos Unified (Tehama),Moderate Overperformer,0.75369730167163,111.5,320.0,General
+McFarland Unified (Kern),Moderate Overperformer,0.7474327656611696,57.5,71.0,Differentiated
+Silver Valley Unified (San Bernardino),Moderate Overperformer,0.7467285223335155,52.5,52.0,General
+Exeter Unified (Tulare),Moderate Overperformer,0.7389045856079524,52.0,57.0,Differentiated
+Covina-Valley Unified (Los Angeles),Moderate Overperformer,0.7363759983860534,57.5,71.0,Differentiated
+Fruitvale Elementary (Kern),Moderate Overperformer,0.7270065332055758,64.5,108.0,General
+Riverdale Joint Unified (Fresno),Moderate Overperformer,0.7268370457217788,76.0,153.0,Differentiated
+Terra Bella Union Elementary (Tulare),Moderate Overperformer,0.7217854981059878,101.0,229.0,General
+Mendocino Unified (Mendocino),Moderate Overperformer,0.7129240129685875,77.5,153.0,General
+Upland Unified (San Bernardino),Moderate Overperformer,0.7097952124467889,60.0,81.0,Differentiated
+Cardiff Elementary (San Diego),Moderate Overperformer,0.6795215627505651,51.5,48.0,General
+Menlo Park City Elementary (San Mateo),Moderate Overperformer,0.6787946463285868,109.5,268.0,General
+Laguna Beach Unified (Orange),Moderate Overperformer,0.6750188161651942,101.0,244.0,General
+North County Joint Union Elementary (San Benito),Moderate Overperformer,0.6738126952090643,97.0,203.0,General
+Redding Elementary (Shasta),Moderate Overperformer,0.66902783383669,102.0,249.0,Differentiated
+Baldwin Park Unified (Los Angeles),Moderate Overperformer,0.6666440522485744,75.0,114.0,Differentiated
+Moreland (Santa Clara),Moderate Overperformer,0.6657404635578444,64.0,95.0,General
+Northern Humboldt Union High (Humboldt),Moderate Overperformer,0.6566337720033689,122.5,294.0,Differentiated
+Wheatland Union High (Yuba),Mixed/Volatile Results,0.6514752941489901,206.5,563.0,Differentiated
+Buellton Union Elementary (Santa Barbara),Moderate Overperformer,0.6497609107166138,84.5,163.0,Differentiated
+Irvine Unified (Orange),Moderate Overperformer,0.6465636286268426,105.0,261.0,Differentiated
+Planada Elementary (Merced),Moderate Overperformer,0.6386378361949624,107.0,252.0,Differentiated
+Castro Valley Unified (Alameda),Moderate Overperformer,0.6336267967199191,72.5,121.0,Differentiated
+Carlsbad Unified (San Diego),Moderate Overperformer,0.6321293737736985,70.0,140.0,Differentiated
+Ross Elementary (Marin),Moderate Overperformer,0.6267125201460932,76.0,129.0,General
+Selma Unified (Fresno),Moderate Overperformer,0.6145577567896748,89.0,188.0,Differentiated
+Le Grand Union Elementary (Merced),Moderate Overperformer,0.6062345100173852,91.5,171.0,General
+South Bay Union Elementary (Humboldt),Moderate Overperformer,0.6054700102472353,110.5,307.0,Differentiated
+Fowler Unified (Fresno),Moderate Overperformer,0.6050838015250016,75.5,133.0,General
+Redwood City Elementary (San Mateo),Moderate Overperformer,0.6050134694892974,45.0,17.0,Differentiated
+Fortuna Elementary (Humboldt),Moderate Overperformer,0.5951384309713165,99.0,250.0,Differentiated
+Kit Carson Union Elementary (Kings),Moderate Overperformer,0.5934409111443889,126.0,341.0,Differentiated
+Santa Monica-Malibu Unified (Los Angeles),Moderate Overperformer,0.5858342343164168,81.0,174.0,Differentiated
+San Miguel Joint Union (San Luis Obispo),Moderate Overperformer,0.584766682171596,115.0,284.0,Differentiated
+South Whittier Elementary (Los Angeles),Moderate Overperformer,0.5688042992818747,91.0,227.0,Differentiated
+Fortuna Union High (Humboldt),Moderate Overperformer,0.566469583232994,111.5,271.0,Differentiated
+Charter Oak Unified (Los Angeles),Moderate Overperformer,0.5646564582075775,66.0,116.0,Differentiated
+La Habra City Elementary (Orange),Moderate Overperformer,0.5605595107894259,71.0,114.0,Differentiated
+Torrance Unified (Los Angeles),Moderate Overperformer,0.5568791689755642,70.0,136.0,General
+Meadows Union (Imperial),Moderate Overperformer,0.5563349679217618,71.5,125.0,Differentiated
+Hanford Joint Union High (Kings),Mixed/Volatile Results,0.5534960792437191,199.5,512.0,Differentiated
+Lynwood Unified (Los Angeles),Moderate Overperformer,0.5533354981313646,78.0,144.0,Differentiated
+Calistoga Joint Unified (Napa),Moderate Overperformer,0.5528913126709043,72.0,111.0,Differentiated
+Armona Union Elementary (Kings),Moderate Overperformer,0.5489034703901121,67.5,112.0,Differentiated
+Le Grand Union High (Merced),Mixed/Volatile Results,0.5353629238275033,175.5,436.0,General
+Lemon Grove (San Diego),Moderate Overperformer,0.5315400939025088,66.0,107.0,Differentiated
+Bennett Valley Union Elementary (Sonoma),Moderate Overperformer,0.5266285516413466,93.0,190.0,General
+Mountain View Whisman (Santa Clara),Moderate Overperformer,0.5240403675448646,69.0,89.0,Differentiated
+El Tejon Unified (Kern),Moderate Overperformer,0.5152866626538976,84.5,154.0,Differentiated
+National Elementary (San Diego),Moderate Overperformer,0.5149302797455063,70.5,128.0,General
+Palos Verdes Peninsula Unified (Los Angeles),Moderate Overperformer,0.5139781761398526,61.5,75.0,General
+Manhattan Beach Unified (Los Angeles),Moderate Overperformer,0.5072562222092885,59.5,58.0,General
+Saddleback Valley Unified (Orange),Expected Performer,0.4970598367452985,83.0,159.0,Differentiated
+Gateway Unified (Shasta),Expected Performer,0.4890338753099712,79.0,123.0,Differentiated
+Beverly Hills Unified (Los Angeles),Expected Performer,0.4887936975445504,64.0,69.0,Differentiated
+Fresno Unified (Fresno),Expected Performer,0.48144278650581807,101.5,202.0,Differentiated
+Camino Union Elementary (El Dorado),Expected Performer,0.46954269939106485,84.0,150.0,Differentiated
+Taft Union High (Kern),Mixed/Volatile Results,0.4681934274349563,227.0,590.0,Differentiated
+Goleta Union Elementary (Santa Barbara),Expected Performer,0.4601906950149794,93.5,172.0,General
+Chatom Union (Stanislaus),Expected Performer,0.4558400207289152,75.0,137.0,Differentiated
+Penn Valley Union Elementary (Nevada),Expected Performer,0.45519992576450946,91.5,182.0,General
+Davis Joint Unified (Yolo),Expected Performer,0.45462548244743073,89.5,167.0,Differentiated
+Fall River Joint Unified (Shasta),Expected Performer,0.4497622255315246,83.5,142.0,Differentiated
+El Rancho Unified (Los Angeles),Expected Performer,0.44497508802034336,101.5,226.0,Differentiated
+Mendota Unified (Fresno),Expected Performer,0.44354237718601625,65.5,94.0,Differentiated
+Rio Bravo-Greeley Union Elementary (Kern),Expected Performer,0.4366916277292886,68.0,84.0,General
+Central Elementary (San Bernardino),Expected Performer,0.42826987242114556,95.0,195.0,Differentiated
+Poway Unified (San Diego),Expected Performer,0.4254070343278963,96.0,177.0,General
+Temecula Valley Unified (Riverside),Expected Performer,0.42514519358292396,106.5,250.0,Differentiated
+Woodlake Unified (Tulare),Expected Performer,0.41638721855646627,117.0,224.0,Differentiated
+Anderson Union High (Shasta),Expected Performer,0.41564182596330834,85.5,155.0,Differentiated
+Sequoia Union High (San Mateo),Expected Performer,0.4129089193011193,96.5,162.0,Differentiated
+Wright Elementary (Sonoma),Expected Performer,0.4118830986066709,100.0,180.0,Differentiated
+Central Unified (Fresno),Expected Performer,0.40719560903191293,79.0,132.0,Differentiated
+Alameda Unified (Alameda),Expected Performer,0.39787480781706636,97.0,195.0,Differentiated
+Central Union High (Imperial),Mixed/Volatile Results,0.3970750582953161,183.5,477.0,Differentiated
+Cottonwood Union Elementary (Shasta),Expected Performer,0.3939408008276361,77.0,122.0,Differentiated
+San Dieguito Union High (San Diego),Expected Performer,0.3890176446570477,79.0,134.0,General
+Burlingame Elementary (San Mateo),Expected Performer,0.3879975220831228,89.5,200.0,Differentiated
+Monrovia Unified (Los Angeles),Expected Performer,0.38568564045892484,64.0,80.0,Differentiated
+Orange Unified (Orange),Expected Performer,0.3840784310076963,50.0,31.0,Differentiated
+Kentfield Elementary (Marin),Expected Performer,0.3672001181125092,71.5,122.0,Differentiated
+Glendora Unified (Los Angeles),Expected Performer,0.361604032123004,91.5,196.0,Differentiated
+Eureka Union (Placer),Expected Performer,0.3612847399751396,72.5,99.0,General
+Milpitas Unified (Santa Clara),Expected Performer,0.35573936139571155,101.0,196.0,Differentiated
+Castaic Union (Los Angeles),Expected Performer,0.35538677050869655,54.0,52.0,General
+Anaheim Union High (Orange),Expected Performer,0.3435322083720289,65.0,84.0,Differentiated
+Roseland (Sonoma),Expected Performer,0.3402623447541143,100.0,213.0,General
+Scott Valley Unified (Siskiyou),Expected Performer,0.32434061417769344,121.0,290.0,Differentiated
+Kerman Unified (Fresno),Expected Performer,0.31644316214010887,81.0,139.0,Differentiated
+Taft City (Kern),Expected Performer,0.31304544323706524,103.5,213.0,Differentiated
+Pixley Union Elementary (Tulare),Expected Performer,0.3085947788306552,135.5,342.0,Differentiated
+Pasadena Unified (Los Angeles),Expected Performer,0.3082844848106392,68.5,75.0,Differentiated
+Duarte Unified (Los Angeles),Expected Performer,0.30435041481818875,62.0,60.0,Differentiated
+Coronado Unified (San Diego),Expected Performer,0.2971401181266706,68.0,64.0,General
+Vista Unified (San Diego),Expected Performer,0.2954654736245751,67.0,97.0,Differentiated
+Mill Valley Elementary (Marin),Expected Performer,0.284100241635626,80.5,123.0,Differentiated
+Visalia Unified (Tulare),Expected Performer,0.2788358541157838,102.5,178.0,Differentiated
+Vineland Elementary (Kern),Expected Performer,0.27847041031218767,128.0,316.0,Differentiated
+Soulsbyville Elementary (Tuolumne),Mixed/Volatile Results,0.27808363029416266,149.5,414.0,General
+Liberty Elementary (Sonoma),Expected Performer,0.27723223127165303,79.5,125.0,General
+Waterford Unified (Stanislaus),Expected Performer,0.27627149432894815,113.5,290.0,General
+Delhi Unified (Merced),Expected Performer,0.27600579213269133,107.5,210.0,Differentiated
+Los Angeles Unified (Los Angeles),Expected Performer,0.27448706263461387,115.5,282.0,Differentiated
+William S. Hart Union High (Los Angeles),Expected Performer,0.27179357030341655,126.5,289.0,Differentiated
+Encinitas Union Elementary (San Diego),Expected Performer,0.2699725849902913,89.5,134.0,General
+Summerville Union High (Tuolumne),Mixed/Volatile Results,0.26653374996211543,253.5,622.0,General
+Oroville Union High (Butte),Mixed/Volatile Results,0.2645636448079815,168.5,484.0,Differentiated
+Menifee Union (Riverside),Expected Performer,0.26396321509919185,79.0,133.0,Differentiated
+Linden Unified (San Joaquin),Expected Performer,0.2606199790930876,112.0,258.0,Differentiated
+Fremont Unified (Alameda),Expected Performer,0.25075954689828484,70.5,88.0,Differentiated
+Lucia Mar Unified (San Luis Obispo),Expected Performer,0.24238676971434225,108.0,255.0,Differentiated
+Greenfield Union (Kern),Expected Performer,0.23829564455127955,63.0,55.0,Differentiated
+Lodi Unified (San Joaquin),Expected Performer,0.23663434791018495,100.5,198.0,Differentiated
+Wasco Union Elementary (Kern),Expected Performer,0.23618879104326562,80.0,132.0,General
+Columbia Union (Tuolumne),Expected Performer,0.22861966462509528,83.0,120.0,Differentiated
+Oakdale Joint Unified (Stanislaus),Expected Performer,0.225607241236251,99.0,199.0,Differentiated
+Sweetwater Union High (San Diego),Expected Performer,0.2188222438938757,125.0,303.0,Differentiated
+Nevada Joint Union High (Nevada),Mixed/Volatile Results,0.2176087478281873,185.0,507.0,Differentiated
+Arvin Union (Kern),Expected Performer,0.21212214992464024,96.0,203.0,General
+Pacific Grove Unified (Monterey),Expected Performer,0.20936534890896585,89.5,166.0,General
+Millbrae Elementary (San Mateo),Expected Performer,0.2084410187669745,100.0,202.0,Differentiated
+West Covina Unified (Los Angeles),Expected Performer,0.20625603649207572,81.0,121.0,Differentiated
+Hawthorne (Los Angeles),Expected Performer,0.20112391256841214,93.0,169.0,Differentiated
+South Monterey County Joint Union High (Monterey),Mixed/Volatile Results,0.19644227977748693,238.0,572.0,Differentiated
+Buckeye Union Elementary (El Dorado),Expected Performer,0.1939259300807388,87.0,151.0,General
+Eureka City Schools (Humboldt),Expected Performer,0.19019381915572198,69.0,96.0,Differentiated
+Richland Union Elementary (Kern),Expected Performer,0.1766891817969307,95.0,200.0,Differentiated
+Hart-Ransom Union Elementary (Stanislaus),Expected Performer,0.17349838891192226,104.5,221.0,Differentiated
+Folsom-Cordova Unified (Sacramento),Expected Performer,0.17091524005928702,67.5,97.0,Differentiated
+Lafayette Elementary (Contra Costa),Expected Performer,0.16394880570249154,122.5,324.0,General
+Westmorland Union Elementary (Imperial),Expected Performer,0.15867572266257987,109.0,223.0,Differentiated
+Pierce Joint Unified (Colusa),Expected Performer,0.1565922418220538,64.5,49.0,Differentiated
+Healdsburg Unified (Sonoma),Expected Performer,0.15557019348422796,117.0,290.0,General
+Mountain View Elementary (Los Angeles),Expected Performer,0.1546838779717064,64.0,59.0,Differentiated
+Janesville Union Elementary (Lassen),Expected Performer,0.15213577620487956,56.0,25.0,Differentiated
+Arcata Elementary (Humboldt),Expected Performer,0.1453587270686707,82.0,120.0,Differentiated
+Pleasant Valley (Ventura),Expected Performer,0.14499941199133737,64.5,81.0,Differentiated
+Grossmont Union High (San Diego),Expected Performer,0.14382563681487576,151.5,350.0,Differentiated
+Kings River Union Elementary (Tulare),Expected Performer,0.14373515350305371,63.5,66.0,General
+Liberty Elementary (Tulare),Expected Performer,0.14073207712879002,91.5,122.0,General
+Laytonville Unified (Mendocino),Expected Performer,0.13762820459201228,96.5,191.0,Differentiated
+Sylvan Union Elementary (Stanislaus),Expected Performer,0.13678506615667843,114.5,257.0,Differentiated
+Roseville City (Placer),Expected Performer,0.1361214760262804,76.5,119.0,Differentiated
+Nuview Union (Riverside),Expected Performer,0.13074739156310372,80.5,144.0,Differentiated
+Pacheco Union Elementary (Shasta),Expected Performer,0.13004927023050675,99.0,202.0,Differentiated
+Pomona Unified (Los Angeles),Expected Performer,0.12606538270331089,81.0,104.0,Differentiated
+Moraga Elementary (Contra Costa),Expected Performer,0.12605167777475018,76.0,109.0,General
+Rocklin Unified (Placer),Expected Performer,0.11791226952779002,92.0,156.0,Differentiated
+Bonsall Unified (San Diego),Expected Performer,0.11614846277158355,88.5,167.0,Differentiated
+Panama-Buena Vista Union (Kern),Expected Performer,0.11366357341525553,79.0,106.0,Differentiated
+San Pasqual Valley Unified (Imperial),Expected Performer,0.1134055699101036,140.0,362.0,Differentiated
+Golden Plains Unified (Fresno),Expected Performer,0.11309961335408544,102.5,198.0,Differentiated
+Lincoln Unified (San Joaquin),Expected Performer,0.1053575726384376,64.0,62.0,Differentiated
+Bret Harte Union High (Calaveras),Mixed/Volatile Results,0.1043311125245739,275.0,624.0,Differentiated
+Oak Park Unified (Ventura),Expected Performer,0.10130959304993122,64.0,58.0,General
+Corcoran Joint Unified (Kings),Expected Performer,0.09689234258248379,102.5,237.0,Differentiated
+Newman-Crows Landing Unified (Stanislaus),Expected Performer,0.07963240646408291,87.5,146.0,Differentiated
+Colusa Unified (Colusa),Expected Performer,0.07921304595383015,111.0,218.0,General
+Rescue Union Elementary (El Dorado),Expected Performer,0.06952832967754917,96.5,176.0,General
+Santa Ana Unified (Orange),Expected Performer,0.06398937780484189,90.5,164.0,Differentiated
+Firebaugh-Las Deltas Unified (Fresno),Expected Performer,0.0596145439885337,68.0,68.0,Differentiated
+Cascade Union Elementary (Shasta),Expected Performer,0.04871962368064509,92.0,162.0,Differentiated
+Redlands Unified (San Bernardino),Expected Performer,0.04336148399653805,69.0,71.0,Differentiated
+Sonora Union High (Tuolumne),Mixed/Volatile Results,0.043064976199073936,211.0,501.0,Differentiated
+Chico Unified (Butte),Expected Performer,0.04298875959405664,101.0,164.0,Differentiated
+Needles Unified (San Bernardino),Expected Performer,0.040526337521736025,122.0,269.0,Differentiated
+Victor Valley Union High (San Bernardino),Expected Performer,0.03778747435767097,109.0,247.0,Differentiated
+Jamestown Elementary (Tuolumne),Expected Performer,0.03730186779276254,126.5,333.0,Differentiated
+Union Elementary (Santa Clara),Expected Performer,0.03335283465745702,121.5,311.0,General
+Santa Cruz City Elementary (Santa Cruz),Expected Performer,0.031144296769139684,76.0,129.0,General
+Evergreen Elementary (Santa Clara),Expected Performer,0.025549192271155804,114.5,256.0,Differentiated
+Patterson Joint Unified (Stanislaus),Expected Performer,0.02264238779445471,106.0,218.0,Differentiated
+Atascadero Unified (San Luis Obispo),Expected Performer,0.020066647952085976,107.5,196.0,Differentiated
+Ceres Unified (Stanislaus),Expected Performer,0.018341726000619177,90.0,155.0,Differentiated
+Sonora Elementary (Tuolumne),Expected Performer,0.01013826624429357,87.5,132.0,General
+Susanville Elementary (Lassen),Expected Performer,0.008001956757253062,87.0,146.0,Differentiated
+San Ramon Valley Unified (Contra Costa),Expected Performer,0.003620656467358212,85.0,141.0,Differentiated
+San Ysidro Elementary (San Diego),Expected Performer,0.002142690823953561,89.5,134.0,Differentiated
+Larkspur-Corte Madera (Marin),Expected Performer,-0.005461228406287561,84.0,131.0,Differentiated
+Yuba City Unified (Sutter),Expected Performer,-0.00803617562914724,68.5,69.0,Differentiated
+Beaumont Unified (Riverside),Expected Performer,-0.013045286633940802,64.0,35.0,Differentiated
+Sunnyvale (Santa Clara),Expected Performer,-0.013151273807020546,92.5,188.0,General
+Calexico Unified (Imperial),Expected Performer,-0.017032770230103196,77.0,79.0,Differentiated
+Middletown Unified (Lake),Expected Performer,-0.017921827308644202,82.0,106.0,Differentiated
+Laton Joint Unified (Fresno),Expected Performer,-0.03214793191991224,99.0,210.0,Differentiated
+Kern High (Kern),Mixed/Volatile Results,-0.03636986857653591,186.0,491.0,Differentiated
+Campbell Union High (Santa Clara),Expected Performer,-0.0366308652061528,112.5,219.0,General
+Oroville City Elementary (Butte),Expected Performer,-0.03678894998964604,128.5,321.0,Differentiated
+Coast Unified (San Luis Obispo),Expected Performer,-0.03824606734771004,72.0,88.0,Differentiated
+San Mateo Union High (San Mateo),Mixed/Volatile Results,-0.04374362884122116,169.0,436.0,Differentiated
+Santa Barbara Unified (Santa Barbara),Expected Performer,-0.04432444948826918,127.5,291.0,Differentiated
+Pleasant Ridge Union Elementary (Nevada),Expected Performer,-0.044687347065008605,130.0,292.0,Differentiated
+Val Verde Unified (Riverside),Expected Performer,-0.05668280229250423,96.0,175.0,Differentiated
+Hermosa Beach City Elementary (Los Angeles),Expected Performer,-0.06329960778143792,110.5,207.0,General
+Western Placer Unified (Placer),Expected Performer,-0.07103487919563356,58.0,49.0,Differentiated
+Riverside Unified (Riverside),Expected Performer,-0.07981791131905193,68.0,67.0,Differentiated
+West Sonoma County Union High (Sonoma),Expected Performer,-0.08658016514223511,146.0,378.0,Differentiated
+Maxwell Unified (Colusa),Expected Performer,-0.08699021775950436,70.0,90.0,Differentiated
+McKinleyville Union Elementary (Humboldt),Expected Performer,-0.08744146962367533,117.5,244.0,Differentiated
+McSwain Union Elementary (Merced),Expected Performer,-0.0877255547193204,92.0,143.0,General
+East Side Union High (Santa Clara),Mixed/Volatile Results,-0.0897680863602987,178.0,497.0,Differentiated
+Del Norte County Unified (Del Norte),Expected Performer,-0.09605894240657663,118.5,288.0,Differentiated
+Loomis Union Elementary (Placer),Expected Performer,-0.11995928613486705,79.0,107.0,General
+Conejo Valley Unified (Ventura),Expected Performer,-0.12272373351292798,78.5,109.0,Differentiated
+Bear Valley Unified (San Bernardino),Expected Performer,-0.12398394568053997,93.0,184.0,Differentiated
+El Segundo Unified (Los Angeles),Expected Performer,-0.12542534022111798,67.0,83.0,General
+Alvord Unified (Riverside),Expected Performer,-0.13225558048050962,67.5,70.0,Differentiated
+Walnut Creek Elementary (Contra Costa),Expected Performer,-0.14243003524976672,106.5,250.0,Differentiated
+Stanislaus Union Elementary (Stanislaus),Expected Performer,-0.14367579084260657,92.5,187.0,Differentiated
+Solvang Elementary (Santa Barbara),Expected Performer,-0.14854008151518572,121.5,250.0,Differentiated
+Pleasanton Unified (Alameda),Expected Performer,-0.15733331910943696,90.0,174.0,Differentiated
+Chowchilla Union High (Madera),Mixed/Volatile Results,-0.1578069505798518,216.0,510.0,Differentiated
+Redondo Beach Unified (Los Angeles),Expected Performer,-0.16520454225364833,76.0,113.0,General
+Miller Creek Elementary (Marin),Expected Performer,-0.16805537262484715,88.0,129.0,Differentiated
+Empire Union Elementary (Stanislaus),Expected Performer,-0.16831350956131616,61.5,44.0,Differentiated
+Bishop Unified (Inyo),Expected Performer,-0.1730179611109759,116.0,269.0,Differentiated
+King City Union (Monterey),Expected Performer,-0.17387127268718466,121.0,275.0,Differentiated
+Escondido Union High (San Diego),Mixed/Volatile Results,-0.17608649283230912,212.0,520.0,General
+Fontana Unified (San Bernardino),Expected Performer,-0.17739050526510994,109.5,230.0,Differentiated
+Keyes Union (Stanislaus),Expected Performer,-0.17771317248813165,90.0,154.0,Differentiated
+Porterville Unified (Tulare),Expected Performer,-0.17810307168351774,62.0,49.0,Differentiated
+Dry Creek Joint Elementary (Placer),Expected Performer,-0.18063041713917885,72.0,105.0,General
+Placerville Union Elementary (El Dorado),Expected Performer,-0.18292407627370988,67.0,61.0,Differentiated
+Marysville Joint Unified (Yuba),Expected Performer,-0.1854949348748441,77.5,111.0,Differentiated
+Corning Union High (Tehama),Expected Performer,-0.18568106648887586,123.5,317.0,Differentiated
+Tulare City (Tulare),Expected Performer,-0.1875692724980519,87.5,145.0,Differentiated
+Ross Valley Elementary (Marin),Expected Performer,-0.18856688173590744,82.0,107.0,Differentiated
+Yreka Union Elementary (Siskiyou),Expected Performer,-0.1943901357780201,148.0,365.0,Differentiated
+Hughson Unified (Stanislaus),Expected Performer,-0.19887682422580735,95.0,173.0,Differentiated
+Golden Valley Unified (Madera),Expected Performer,-0.2002784376455522,95.5,160.0,Differentiated
+Alpine Union Elementary (San Diego),Expected Performer,-0.20094235196128338,103.0,200.0,Differentiated
+Modesto City High (Stanislaus),Mixed/Volatile Results,-0.20265085791298185,158.5,444.0,Differentiated
+Parlier Unified (Fresno),Expected Performer,-0.20412608673349283,109.0,243.0,Differentiated
+Livingston Union (Merced),Expected Performer,-0.20924853938146804,90.0,156.0,General
+Lakeside Union Elementary (San Diego),Expected Performer,-0.21306385002116734,78.0,118.0,Differentiated
+Paso Robles Joint Unified (San Luis Obispo),Expected Performer,-0.21459675307821469,86.0,153.0,Differentiated
+Junction Elementary (Shasta),Expected Performer,-0.22185572880006796,117.0,280.0,General
+Placer Hills Union Elementary (Placer),Mixed/Volatile Results,-0.22563506900743896,157.0,438.0,General
+Paradise Unified (Butte),Expected Performer,-0.22803303542452785,132.0,336.0,Differentiated
+Turlock Unified (Stanislaus),Expected Performer,-0.23309282785186447,85.0,139.0,Differentiated
+Hilmar Unified (Merced),Expected Performer,-0.2335008369580824,66.0,60.0,General
+Brisbane Elementary (San Mateo),Expected Performer,-0.23826297060170948,124.5,303.0,General
+Cajon Valley Union (San Diego),Expected Performer,-0.2504741373189854,100.0,197.0,Differentiated
+Reed Union Elementary (Marin),Expected Performer,-0.25111531379999696,89.0,145.0,General
+Bass Lake Joint Union Elementary (Madera),Expected Performer,-0.2521197857966655,89.0,183.0,Differentiated
+Byron Union Elementary (Contra Costa),Expected Performer,-0.25351546272060493,80.5,132.0,Differentiated
+Perris Union High (Riverside),Expected Performer,-0.26341388468411403,151.0,333.0,Differentiated
+Los Gatos Union Elementary (Santa Clara),Expected Performer,-0.2682007346332802,95.5,202.0,General
+Rialto Unified (San Bernardino),Expected Performer,-0.2715391297350861,96.5,170.0,Differentiated
+Wiseburn Unified (Los Angeles),Expected Performer,-0.2763585688104168,96.5,165.0,Differentiated
+Placer Union High (Placer),Mixed/Volatile Results,-0.28027974880920353,160.0,455.0,Differentiated
+San Mateo-Foster City (San Mateo),Expected Performer,-0.2809717373510039,89.5,149.0,Differentiated
+Oceanside Unified (San Diego),Expected Performer,-0.28286788701585625,76.5,133.0,Differentiated
+El Dorado Union High (El Dorado),Expected Performer,-0.2922421121018958,137.0,350.0,Differentiated
+San Bernardino City Unified (San Bernardino),Expected Performer,-0.3000488059897617,85.0,161.0,Differentiated
+San Marcos Unified (San Diego),Expected Performer,-0.30057374888776806,59.0,60.0,Differentiated
+Merced City Elementary (Merced),Expected Performer,-0.30230065095353775,67.5,53.0,Differentiated
+Salida Union Elementary (Stanislaus),Expected Performer,-0.3031713621902868,107.5,248.0,General
+Carpinteria Unified (Santa Barbara),Expected Performer,-0.30562121830496336,94.0,197.0,Differentiated
+Fairfax Elementary (Kern),Expected Performer,-0.3059171027903345,68.5,94.0,Differentiated
+Corning Union Elementary (Tehama),Mixed/Volatile Results,-0.31099203526191954,161.0,450.0,General
+Los Gatos-Saratoga Union High (Santa Clara),Expected Performer,-0.3159104118664527,135.5,356.0,General
+Modesto City Elementary (Stanislaus),Expected Performer,-0.31664392510407247,86.5,155.0,Differentiated
+Acalanes Union High (Contra Costa),Expected Performer,-0.31767412158935665,118.5,292.0,General
+Merced Union High (Merced),Expected Performer,-0.3191416911844901,148.5,345.0,Differentiated
+Plumas Lake Elementary (Yuba),Expected Performer,-0.3293283949485469,79.5,131.0,General
+Oxnard (Ventura),Expected Performer,-0.33589507974971167,64.5,52.0,General
+Norris Elementary (Kern),Expected Performer,-0.33716293519068147,87.0,144.0,General
+Kernville Union Elementary (Kern),Expected Performer,-0.3426004980467307,97.5,216.0,Differentiated
+Santa Paula Unified (Ventura),Expected Performer,-0.34450321970351094,91.5,169.0,Differentiated
+Soledad Unified (Monterey),Expected Performer,-0.3466341634481913,86.5,172.0,Differentiated
+Chowchilla Elementary (Madera),Expected Performer,-0.3516409822039724,124.5,315.0,Differentiated
+San Rafael City High (Marin),Mixed/Volatile Results,-0.35563933958078825,174.5,480.0,Differentiated
+Farmersville Unified (Tulare),Expected Performer,-0.3573747802420985,75.0,117.0,Differentiated
+Lammersville Joint Unified (San Joaquin),Expected Performer,-0.3580694648054823,64.5,73.0,Differentiated
+Dublin Unified (Alameda),Expected Performer,-0.3655979121329372,99.5,187.0,Differentiated
+Washington Unified (Fresno),Expected Performer,-0.37035036191959747,69.5,91.0,Differentiated
+San Rafael City Elementary (Marin),Expected Performer,-0.3728933864808534,86.5,160.0,Differentiated
+Nevada City Elementary (Nevada),Mixed/Volatile Results,-0.37733529078580025,166.5,430.0,Differentiated
+Orcutt Union Elementary (Santa Barbara),Expected Performer,-0.3793181569947623,86.0,144.0,Differentiated
+Burbank Unified (Los Angeles),Expected Performer,-0.37971409491138153,62.0,35.0,Differentiated
+Centinela Valley Union High (Los Angeles),Mixed/Volatile Results,-0.3798999370995684,183.5,506.0,Differentiated
+Azusa Unified (Los Angeles),Expected Performer,-0.3936637493900566,81.0,142.0,Differentiated
+Oak Grove Elementary (Santa Clara),Expected Performer,-0.3977866800904361,107.5,253.0,General
+Biggs Unified (Butte),Expected Performer,-0.40542793732985966,146.0,393.0,Differentiated
+Curtis Creek Elementary (Tuolumne),Expected Performer,-0.40556730216637454,97.0,189.0,Differentiated
+Beardsley Elementary (Kern),Expected Performer,-0.40596215209295716,64.5,80.0,Differentiated
+South Bay Union (San Diego),Expected Performer,-0.414654262297314,64.0,56.0,Differentiated
+Southern Humboldt Joint Unified (Humboldt),Expected Performer,-0.4175793301720815,144.0,337.0,General
+Strathmore Union Elementary (Tulare),Expected Performer,-0.42051748450039655,79.5,140.0,Differentiated
+Alpaugh Unified (Tulare),Expected Performer,-0.4277135457921663,128.5,283.0,General
+Carmel Unified (Monterey),Expected Performer,-0.4302685960423913,56.5,39.0,General
+Twin Rivers Unified (Sacramento),Expected Performer,-0.4354806363534656,80.0,163.0,Differentiated
+Morongo Unified (San Bernardino),Expected Performer,-0.4451930708179888,75.0,119.0,Differentiated
+Culver City Unified (Los Angeles),Expected Performer,-0.44770607234312804,91.0,204.0,Differentiated
+Mark West Union Elementary (Sonoma),Expected Performer,-0.45277842978072924,133.5,355.0,Differentiated
+Auburn Union Elementary (Placer),Expected Performer,-0.4690079959835586,91.5,166.0,Differentiated
+Lake Elsinore Unified (Riverside),Expected Performer,-0.4771979716864668,68.5,103.0,Differentiated
+Tracy Joint Unified (San Joaquin),Expected Performer,-0.4772996646338373,66.0,69.0,Differentiated
+Rosedale Union Elementary (Kern),Expected Performer,-0.4785185923637572,91.5,148.0,Differentiated
+Yreka Union High (Siskiyou),Mixed/Volatile Results,-0.4838216798558176,154.0,405.0,Differentiated
+Franklin-McKinley Elementary (Santa Clara),Expected Performer,-0.48647166989199064,77.5,112.0,Differentiated
+Las Virgenes Unified (Los Angeles),Expected Performer,-0.4875247829236418,93.5,168.0,General
+Escondido Union (San Diego),Expected Performer,-0.4887401448744604,79.5,123.0,Differentiated
+San Jacinto Unified (Riverside),Expected Performer,-0.49243239476510225,69.0,76.0,Differentiated
+Sacramento City Unified (Sacramento),Expected Performer,-0.4935118350852141,83.0,160.0,Differentiated
+Robla Elementary (Sacramento),Moderate Underperformer,-0.5085537456935629,117.0,290.0,Differentiated
+Foresthill Union Elementary (Placer),Moderate Underperformer,-0.509971571300773,90.5,155.0,Differentiated
+Richgrove Elementary (Tulare),Moderate Underperformer,-0.5160894291887271,118.5,289.0,General
+Sierra Unified (Fresno),Moderate Underperformer,-0.51663795441315,62.5,70.0,Differentiated
+Earlimart Elementary (Tulare),Moderate Underperformer,-0.5171367993616705,75.5,140.0,General
+Santa Maria Joint Union High (Santa Barbara),Mixed/Volatile Results,-0.5176239330986103,161.0,452.0,Differentiated
+Lamont Elementary (Kern),Moderate Underperformer,-0.5200315828083514,63.0,61.0,Differentiated
+Sierra-Plumas Joint Unified (Sierra),Moderate Underperformer,-0.5200545972988901,118.0,271.0,Differentiated
+Santa Ynez Valley Union High (Santa Barbara),Moderate Underperformer,-0.5206194999850229,127.5,318.0,General
+Durham Unified (Butte),Moderate Underperformer,-0.5221272967809213,67.5,77.0,Differentiated
+Grass Valley Elementary (Nevada),Moderate Underperformer,-0.5238817547474037,110.5,254.0,General
+Moreno Valley Unified (Riverside),Moderate Underperformer,-0.5254887111450836,57.0,38.0,Differentiated
+Stockton Unified (San Joaquin),Moderate Underperformer,-0.5324547370295502,93.5,163.0,Differentiated
+Tahoe-Truckee Unified (Placer),Moderate Underperformer,-0.5401962560012894,90.5,180.0,Differentiated
+San Francisco Unified (San Francisco),Moderate Underperformer,-0.5476710249852912,66.5,85.0,Differentiated
+Mammoth Unified (Mono),Moderate Underperformer,-0.5523734595623992,95.5,212.0,Differentiated
+Rockford Elementary (Tulare),Moderate Underperformer,-0.5581368415215423,92.0,170.0,General
+Los Banos Unified (Merced),Moderate Underperformer,-0.561505848895138,91.0,181.0,Differentiated
+Mountain View Elementary (San Bernardino),Moderate Underperformer,-0.5638638918863459,54.5,38.0,Differentiated
+Black Oak Mine Unified (El Dorado),Moderate Underperformer,-0.567302377257037,101.5,189.0,Differentiated
+Hemet Unified (Riverside),Moderate Underperformer,-0.5676294435555039,59.5,48.0,Differentiated
+Lake Tahoe Unified (El Dorado),Moderate Underperformer,-0.569760315770894,89.0,183.0,Differentiated
+Sebastopol Union Elementary (Sonoma),Moderate Underperformer,-0.581477869381905,104.0,196.0,General
+Ramona City Unified (San Diego),Moderate Underperformer,-0.5918507495030805,84.0,140.0,Differentiated
+Gonzales Unified (Monterey),Moderate Underperformer,-0.5933561273672566,66.5,93.0,Differentiated
+Escalon Unified (San Joaquin),Moderate Underperformer,-0.5949244204335271,107.0,228.0,Differentiated
+Guadalupe Union Elementary (Santa Barbara),Moderate Underperformer,-0.5960278494864393,77.5,126.0,Differentiated
+Romoland Elementary (Riverside),Moderate Underperformer,-0.6042337825050957,65.0,75.0,Differentiated
+Chawanakee Unified (Madera),Moderate Underperformer,-0.6079821485543107,73.0,110.0,Differentiated
+San Pasqual Union Elementary (San Diego),Moderate Underperformer,-0.614434364089714,85.5,163.0,General
+Modoc Joint Unified (Modoc),Moderate Underperformer,-0.6205471021994139,74.5,116.0,Differentiated
+Snowline Joint Unified (San Bernardino),Moderate Underperformer,-0.6252168025075895,91.5,213.0,Differentiated
+Anaheim Elementary (Orange),Moderate Underperformer,-0.6389075228914661,77.5,116.0,General
+Washington Unified (Yolo),Moderate Underperformer,-0.6403697918028489,70.0,108.0,Differentiated
+Berryessa Union Elementary (Santa Clara),Moderate Underperformer,-0.6437612169560292,74.5,120.0,Differentiated
+Live Oak Elementary (Santa Cruz),Moderate Underperformer,-0.6548865808754223,66.0,90.0,Differentiated
+Hamilton Unified (Glenn),Moderate Underperformer,-0.6569983294165394,101.5,262.0,Differentiated
+Perris Elementary (Riverside),Moderate Underperformer,-0.657684916531606,51.5,45.0,Differentiated
+Roseville Joint Union High (Placer),Moderate Underperformer,-0.6634423077987072,123.5,281.0,Differentiated
+Reef-Sunset Unified (Kings),Moderate Underperformer,-0.6655922917457241,86.5,148.0,Differentiated
+Mariposa County Unified (Mariposa),Moderate Underperformer,-0.6668134515209444,46.0,18.0,Differentiated
+Oakland Unified (Alameda),Moderate Underperformer,-0.6700782160737783,95.5,240.0,Differentiated
+Brentwood Union (Contra Costa),Moderate Underperformer,-0.6712735546344706,76.0,152.0,Differentiated
+San Leandro Unified (Alameda),Moderate Underperformer,-0.6783169084152944,80.5,157.0,Differentiated
+Summerville Elementary (Tuolumne),Moderate Underperformer,-0.6787413189875524,125.5,333.0,Differentiated
+Madera Unified (Madera),Moderate Underperformer,-0.680260980764306,64.5,78.0,Differentiated
+Waugh Elementary (Sonoma),Moderate Underperformer,-0.6898772214969873,63.0,92.0,Differentiated
+South San Francisco Unified (San Mateo),Moderate Underperformer,-0.7095014379944607,62.0,93.0,Differentiated
+Palo Verde Unified (Riverside),Moderate Underperformer,-0.7118787217846043,83.5,189.0,Differentiated
+Helendale Elementary (San Bernardino),Moderate Underperformer,-0.7148368927750715,86.0,180.0,Differentiated
+Hollister (San Benito),Moderate Underperformer,-0.7194143131312324,105.0,233.0,Differentiated
+Woodland Joint Unified (Yolo),Moderate Underperformer,-0.7337764247219557,59.5,75.0,Differentiated
+Yucaipa-Calimesa Joint Unified (San Bernardino),Moderate Underperformer,-0.7350024593844153,68.5,104.0,Differentiated
+Edison Elementary (Kern),Moderate Underperformer,-0.7375123853565446,81.0,181.0,Differentiated
+Santa Clara Unified (Santa Clara),Moderate Underperformer,-0.739761446354813,53.5,54.0,Differentiated
+Ukiah Unified (Mendocino),Moderate Underperformer,-0.74196771184637,78.5,170.0,Differentiated
+Red Bluff Union Elementary (Tehama),Moderate Underperformer,-0.7495800245276028,126.0,332.0,Differentiated
+Santa Cruz City High (Santa Cruz),Moderate Underperformer,-0.7507106966962389,103.5,238.0,Differentiated
+Livermore Valley Joint Unified (Alameda),Moderate Underperformer,-0.7632167640662423,74.5,140.0,Differentiated
+Moorpark Unified (Ventura),Moderate Underperformer,-0.7662041067167099,79.5,164.0,Differentiated
+Plumas Unified (Plumas),Moderate Underperformer,-0.7729685373444055,54.0,56.0,Differentiated
+Columbia Elementary (Shasta),Moderate Underperformer,-0.7744933285170219,116.0,318.0,Differentiated
+Standard Elementary (Kern),Moderate Underperformer,-0.7747380515177907,69.0,112.0,Differentiated
+Colton Joint Unified (San Bernardino),Moderate Underperformer,-0.7888075664561663,87.0,193.0,Differentiated
+Dos Palos Oro Loma Joint Unified (Merced),Moderate Underperformer,-0.7946669965728529,97.5,238.0,Differentiated
+Scotts Valley Unified (Santa Cruz),Moderate Underperformer,-0.7946845315703758,71.5,131.0,General
+Coachella Valley Unified (Riverside),Moderate Underperformer,-0.7949143137248316,66.0,111.0,Differentiated
+Simi Valley Unified (Ventura),Moderate Underperformer,-0.8011279541138491,47.5,29.0,Differentiated
+Ventura Unified (Ventura),Moderate Underperformer,-0.8061771896219595,45.5,24.0,Differentiated
+Petaluma City Elementary (Sonoma),Moderate Underperformer,-0.8063778082741035,80.5,150.0,Differentiated
+Banning Unified (Riverside),Moderate Underperformer,-0.8074594976501392,75.5,154.0,Differentiated
+Mark Twain Union Elementary (Calaveras),Moderate Underperformer,-0.8233162897894151,97.0,252.0,Differentiated
+New Haven Unified (Alameda),Moderate Underperformer,-0.826252350636865,51.5,46.0,Differentiated
+Shoreline Unified (Marin),Moderate Underperformer,-0.8359778441896983,83.5,184.0,Differentiated
+Pollock Pines Elementary (El Dorado),Moderate Underperformer,-0.8361615827017906,54.0,58.0,Differentiated
+Sierra Sands Unified (Kern),Moderate Underperformer,-0.8473226877739407,80.5,198.0,Differentiated
+Center Joint Unified (Sacramento),Moderate Underperformer,-0.8473556724217447,57.5,71.0,Differentiated
+Briggs Elementary (Ventura),Moderate Underperformer,-0.8496132090508914,67.0,118.0,Differentiated
+Burton Elementary (Tulare),Moderate Underperformer,-0.8508916815985214,109.0,294.0,Differentiated
+Novato Unified (Marin),Moderate Underperformer,-0.854446884730594,62.5,100.0,Differentiated
+Petaluma Joint Union High (Sonoma),Moderate Underperformer,-0.8601757375958469,75.5,117.0,Differentiated
+Saint Helena Unified (Napa),Moderate Underperformer,-0.8617263166861457,70.5,138.0,Differentiated
+San Benito High (San Benito),Mixed/Volatile Results,-0.8653370051374887,162.5,452.0,Differentiated
+Gold Trail Union Elementary (El Dorado),Moderate Underperformer,-0.8687961753998413,58.0,71.0,General
+Rio Elementary (Ventura),Moderate Underperformer,-0.8816586414867528,62.5,79.0,Differentiated
+Inglewood Unified (Los Angeles),Moderate Underperformer,-0.8817399840859523,62.0,97.0,Differentiated
+Monterey Peninsula Unified (Monterey),Moderate Underperformer,-0.8882147585332861,60.5,91.0,Differentiated
+Martinez Unified (Contra Costa),Moderate Underperformer,-0.8884646909222234,62.0,88.0,General
+Williams Unified (Colusa),Moderate Underperformer,-0.9053975040456878,77.5,143.0,Differentiated
+Bakersfield City (Kern),Moderate Underperformer,-0.9104176518622497,63.0,94.0,Differentiated
+Lompoc Unified (Santa Barbara),Moderate Underperformer,-0.9146176652094271,64.5,125.0,Differentiated
+Santa Maria-Bonita (Santa Barbara),Moderate Underperformer,-0.9266011161236105,69.5,137.0,Differentiated
+Alisal Union (Monterey),Moderate Underperformer,-0.9515222453772813,55.0,71.0,General
+San Juan Unified (Sacramento),Moderate Underperformer,-0.9519165350676556,48.5,55.0,Differentiated
+Manteca Unified (San Joaquin),Moderate Underperformer,-0.9535231448027739,64.5,112.0,Differentiated
+Santa Rosa High (Sonoma),Moderate Underperformer,-0.9653279191860616,54.0,71.0,Differentiated
+San Bruno Park Elementary (San Mateo),Moderate Underperformer,-0.9664353659078179,71.5,160.0,Differentiated
+Greenfield Union Elementary (Monterey),Moderate Underperformer,-0.9686001368728979,69.5,143.0,Differentiated
+Fillmore Unified (Ventura),Moderate Underperformer,-0.9778680796425746,45.5,44.0,General
+Victor Elementary (San Bernardino),Moderate Underperformer,-0.9817556796906515,83.5,178.0,Differentiated
+Palm Springs Unified (Riverside),Moderate Underperformer,-0.9835090405405281,50.5,63.0,Differentiated
+Aromas - San Juan Unified (San Benito),Moderate Underperformer,-0.9947757385061095,75.5,156.0,Differentiated
+Yosemite Unified (Madera),Moderate Underperformer,-1.0010744176697566,63.5,104.0,Differentiated
+Alum Rock Union Elementary (Santa Clara),Moderate Underperformer,-1.0088161356107015,79.0,173.0,Differentiated
+Salinas Union High (Monterey),Moderate Underperformer,-1.0138875517182462,84.5,219.0,Differentiated
+Pacifica (San Mateo),Moderate Underperformer,-1.0219786261118036,72.0,136.0,Differentiated
+Bayshore Elementary (San Mateo),Moderate Underperformer,-1.0299878806243097,65.0,136.0,Differentiated
+Tulelake Basin Joint Unified (Modoc),Moderate Underperformer,-1.0314956068263639,67.0,148.0,General
+Fairfield-Suisun Unified (Solano),Moderate Underperformer,-1.0332801659991484,59.0,99.0,Differentiated
+Cotati-Rohnert Park Unified (Sonoma),Moderate Underperformer,-1.0399196128648813,53.5,74.0,Differentiated
+San Jose Unified (Santa Clara),Moderate Underperformer,-1.0410561238226936,66.0,121.0,Differentiated
+Klamath-Trinity Joint Unified (Humboldt),Moderate Underperformer,-1.044506735281209,63.5,133.0,Differentiated
+Oxnard Union High (Ventura),Moderate Underperformer,-1.0516956245775426,90.5,193.0,Differentiated
+Gustine Unified (Merced),Moderate Underperformer,-1.056486406605458,58.5,107.0,General
+Travis Unified (Solano),Moderate Underperformer,-1.0604500264274168,45.5,54.0,Differentiated
+Benicia Unified (Solano),Moderate Underperformer,-1.0634748775506302,83.5,177.0,Differentiated
+Coalinga-Huron Unified (Fresno),Moderate Underperformer,-1.0713208852549092,80.0,203.0,Differentiated
+Westside Union Elementary (Los Angeles),Moderate Underperformer,-1.071384292470142,47.0,58.0,Differentiated
+Jurupa Unified (Riverside),Moderate Underperformer,-1.0830467933196783,65.5,147.0,Differentiated
+Esparto Unified (Yolo),Moderate Underperformer,-1.0982503466780693,81.5,227.0,Differentiated
+Santa Rosa Elementary (Sonoma),Moderate Underperformer,-1.099315686432464,83.0,174.0,Differentiated
+John Swett Unified (Contra Costa),Moderate Underperformer,-1.1014329335617448,83.0,243.0,Differentiated
+Sutter Union High (Sutter),Moderate Underperformer,-1.1045174393395374,101.0,270.0,General
+Windsor Unified (Sonoma),Moderate Underperformer,-1.111892736001798,70.5,162.0,Differentiated
+Arcohe Union Elementary (Sacramento),Moderate Underperformer,-1.112890527913653,108.5,291.0,Differentiated
+Lakeside Union (Kern),Moderate Underperformer,-1.115230526371719,75.5,143.0,Differentiated
+San Lorenzo Valley Unified (Santa Cruz),Moderate Underperformer,-1.1193588626762991,53.5,83.0,Differentiated
+Denair Unified (Stanislaus),Moderate Underperformer,-1.1205748664372217,59.5,115.0,Differentiated
+Lassen Union High (Lassen),Moderate Underperformer,-1.1219020871466403,126.0,316.0,Differentiated
+Cucamonga Elementary (San Bernardino),Moderate Underperformer,-1.1220987113613945,36.5,20.0,Differentiated
+Newark Unified (Alameda),Moderate Underperformer,-1.1226387715193638,38.5,33.0,Differentiated
+Fort Bragg Unified (Mendocino),Moderate Underperformer,-1.1269829243441507,44.5,58.0,Differentiated
+Soquel Union Elementary (Santa Cruz),Moderate Underperformer,-1.1387637685970207,50.5,73.0,General
+Willows Unified (Glenn),Moderate Underperformer,-1.142060354237225,85.5,213.0,General
+Dixon Unified (Solano),Moderate Underperformer,-1.1495510492671672,66.5,115.0,Differentiated
+Liberty Union High (Contra Costa),Moderate Underperformer,-1.1813778629387846,132.5,360.0,Differentiated
+Vacaville Unified (Solano),Moderate Underperformer,-1.1845783904071827,43.0,50.0,Differentiated
+Mother Lode Union Elementary (El Dorado),Moderate Underperformer,-1.1865821955872624,43.5,53.0,Differentiated
+Hueneme Elementary (Ventura),Moderate Underperformer,-1.1892730975698105,35.0,23.0,Differentiated
+San Lorenzo Unified (Alameda),Moderate Underperformer,-1.209923286449511,55.0,106.0,Differentiated
+Mt. Diablo Unified (Contra Costa),Moderate Underperformer,-1.2135549111297177,47.5,85.0,Differentiated
+Rim of the World Unified (San Bernardino),Moderate Underperformer,-1.2255866797128792,36.5,36.0,Differentiated
+Southern Kern Unified (Kern),Moderate Underperformer,-1.246161834989673,61.0,123.0,Differentiated
+Acton-Agua Dulce Unified (Los Angeles),Moderate Underperformer,-1.2474110753382386,57.5,111.0,Differentiated
+Brittan Elementary (Sutter),Moderate Underperformer,-1.259925975589451,86.5,245.0,General
+East Nicolaus Joint Union High (Sutter),Moderate Underperformer,-1.26113632997641,117.5,307.0,General
+Gilroy Unified (Santa Clara),Moderate Underperformer,-1.2613917358304556,69.0,164.0,Differentiated
+Round Valley Unified (Mendocino),Moderate Underperformer,-1.267942588023921,80.5,239.0,Differentiated
+Eastern Sierra Unified (Mono),Moderate Underperformer,-1.2700741150818844,81.5,193.0,General
+Orland Joint Unified (Glenn),Moderate Underperformer,-1.2704058990146032,72.5,191.0,Differentiated
+River Delta Joint Unified (Sacramento),Moderate Underperformer,-1.2766181727696797,37.5,44.0,Differentiated
+Napa Valley Unified (Napa),Moderate Underperformer,-1.28173385361667,42.5,74.0,Differentiated
+Colfax Elementary (Placer),Moderate Underperformer,-1.2890159803235397,80.0,224.0,General
+Anderson Valley Unified (Mendocino),Moderate Underperformer,-1.290356739754027,39.5,52.0,Differentiated
+Bellevue Union (Sonoma),Moderate Underperformer,-1.3007213568879552,57.5,95.0,Differentiated
+West Contra Costa Unified (Contra Costa),Moderate Underperformer,-1.3118530466410576,40.5,56.0,Differentiated
+Mount Pleasant Elementary (Santa Clara),Moderate Underperformer,-1.332225774549652,44.0,79.0,Differentiated
+Sunnyside Union Elementary (Tulare),Moderate Underperformer,-1.347190841314986,35.5,41.0,General
+Washington Union Elementary (Monterey),Moderate Underperformer,-1.3472908920280362,45.0,86.0,General
+Calaveras Unified (Calaveras),Moderate Underperformer,-1.348495503867355,60.5,154.0,Differentiated
+Gerber Union Elementary (Tehama),Moderate Underperformer,-1.3537154084906802,84.5,222.0,Differentiated
+Borrego Springs Unified (San Diego),Moderate Underperformer,-1.371784597192955,67.5,191.0,Differentiated
+Riverbank Unified (Stanislaus),Moderate Underperformer,-1.3738161798789403,42.0,90.0,Differentiated
+Jamul-Dulzura Union Elementary (San Diego),Moderate Underperformer,-1.37585330467368,59.5,136.0,General
+Mesa Union Elementary (Ventura),Moderate Underperformer,-1.3799377294999873,40.5,67.0,General
+Templeton Unified (San Luis Obispo),Moderate Underperformer,-1.38218896106956,61.0,168.0,Differentiated
+Winters Joint Unified (Yolo),Moderate Underperformer,-1.3837744030163481,31.0,29.0,Differentiated
+Ojai Unified (Ventura),Moderate Underperformer,-1.3892977780837394,39.0,66.0,Differentiated
+Desert Sands Unified (Riverside),Moderate Underperformer,-1.3896791549890128,32.5,42.0,Differentiated
+North Monterey County Unified (Monterey),Moderate Underperformer,-1.3936708114300778,28.0,20.0,Differentiated
+Pittsburg Unified (Contra Costa),Moderate Underperformer,-1.4055455816913598,37.5,64.0,Differentiated
+Lucerne Valley Unified (San Bernardino),Moderate Underperformer,-1.4056758267867226,41.5,85.0,Differentiated
+Jefferson Union High (San Mateo),Moderate Underperformer,-1.4244195823715582,78.0,212.0,General
+Apple Valley Unified (San Bernardino),Moderate Underperformer,-1.4265299956147102,58.5,174.0,Differentiated
+Knightsen Elementary (Contra Costa),Moderate Underperformer,-1.440197907576331,27.0,30.0,General
+Palmdale Elementary (Los Angeles),Moderate Underperformer,-1.4418577222320694,46.0,97.0,Differentiated
+Hesperia Unified (San Bernardino),Moderate Underperformer,-1.445486753307286,54.0,139.0,Differentiated
+Tehachapi Unified (Kern),Moderate Underperformer,-1.4558893914563769,42.0,74.0,Differentiated
+Mojave Unified (Kern),Moderate Underperformer,-1.473495818001325,58.5,136.0,Differentiated
+Tamalpais Union High (Marin),Moderate Underperformer,-1.4846909330380056,55.5,115.0,Differentiated
+Butte Valley Unified (Siskiyou),Moderate Underperformer,-1.4862784103517686,47.0,81.0,General
+Pleasant View Elementary (Tulare),Significant Underperformer,-1.5008338631151357,64.5,187.0,Differentiated
+Hayward Unified (Alameda),Significant Underperformer,-1.5101152866089598,35.0,75.0,Differentiated
+Antelope Valley Union High (Los Angeles),Significant Underperformer,-1.5384457738334547,48.0,108.0,Differentiated
+Santa Rita Union Elementary (Monterey),Significant Underperformer,-1.5499230548365475,37.0,59.0,General
+Lakeport Unified (Lake),Significant Underperformer,-1.60933948499042,52.0,139.0,Differentiated
+Amador County Unified (Amador),Significant Underperformer,-1.628556136762111,22.5,21.0,Differentiated
+Springville Union Elementary (Tulare),Significant Underperformer,-1.6468077298211932,25.0,39.0,General
+Konocti Unified (Lake),Significant Underperformer,-1.6530993421288769,32.0,68.0,Differentiated
+Orchard Elementary (Santa Clara),Significant Underperformer,-1.6582108065582635,36.0,98.0,Differentiated
+Lancaster Elementary (Los Angeles),Significant Underperformer,-1.6761955574105167,37.5,81.0,Differentiated
+Mt. Shasta Union Elementary (Siskiyou),Significant Underperformer,-1.67872825687313,56.5,205.0,General
+Valley Center-Pauma Unified (San Diego),Significant Underperformer,-1.7031023534221195,35.0,89.0,Differentiated
+Vallejo City Unified (Solano),Significant Underperformer,-1.7073379406046933,43.0,123.0,Differentiated
+Siskiyou Union High (Siskiyou),Significant Underperformer,-1.7077623695778659,54.5,217.0,General
+Salinas City Elementary (Monterey),Significant Underperformer,-1.711127463300519,43.5,153.0,General
+Ravenswood City Elementary (San Mateo),Significant Underperformer,-1.7318726987782733,39.5,104.0,Differentiated
+Pajaro Valley Unified (Santa Cruz),Significant Underperformer,-1.7364081167623233,35.5,97.0,Differentiated
+Twin Hills Union Elementary (Sonoma),Significant Underperformer,-1.7703168001270435,24.5,39.0,General
+Kelseyville Unified (Lake),Significant Underperformer,-1.772901700048531,26.0,45.0,Differentiated
+Cabrillo Unified (San Mateo),Significant Underperformer,-1.8077172289426209,24.5,39.0,Differentiated
+Barstow Unified (San Bernardino),Significant Underperformer,-1.8164894778520493,41.5,163.0,Differentiated
+Luther Burbank (Santa Clara),Significant Underperformer,-1.81856955078486,35.0,119.0,Differentiated
+Adelanto Elementary (San Bernardino),Significant Underperformer,-1.8310077807337932,32.0,74.0,Differentiated
+Antioch Unified (Contra Costa),Significant Underperformer,-1.8368834952761763,19.5,28.0,Differentiated
+Emery Unified (Alameda),Significant Underperformer,-1.8460403589828083,25.5,67.0,General
+Dehesa Elementary (San Diego),Significant Underperformer,-1.8833866805942832,18.5,35.0,General
+Eastside Union Elementary (Los Angeles),Significant Underperformer,-1.8868948232791154,26.5,62.0,Differentiated
+Morgan Hill Unified (Santa Clara),Significant Underperformer,-1.9442077130410327,18.0,36.0,Differentiated
+Wilsona Elementary (Los Angeles),Significant Underperformer,-1.9499181511031174,22.0,54.0,Differentiated
+Oakley Union Elementary (Contra Costa),Significant Underperformer,-1.980157513010946,13.0,13.0,Differentiated
+Keppel Union Elementary (Los Angeles),Significant Underperformer,-2.0111381560187263,21.5,64.0,Differentiated
+Mountain Empire Unified (San Diego),Significant Underperformer,-2.0119720779540757,15.0,28.0,Differentiated
+Alta Vista Elementary (Tulare),Significant Underperformer,-2.0168780662133963,16.5,35.0,Differentiated
+Upper Lake Unified (Lake),Significant Underperformer,-2.021026182297869,23.0,82.0,Differentiated
+Willits Unified (Mendocino),Significant Underperformer,-2.0553460884501984,19.0,52.0,Differentiated
+Cloverdale Unified (Sonoma),Significant Underperformer,-2.0719226530116424,13.0,22.0,General
+Muroc Joint Unified (Kern),Significant Underperformer,-2.1604131800696,9.5,6.0,Differentiated
+Sonoma Valley Unified (Sonoma),Significant Underperformer,-2.1671208125560524,9.5,19.0,Differentiated
+Natomas Unified (Sacramento),Significant Underperformer,-2.205017097421692,10.5,18.0,Differentiated
+Spreckels Union Elementary (Monterey),Significant Underperformer,-2.2291194188070924,7.0,12.0,General
+Gold Oak Union Elementary (El Dorado),Significant Underperformer,-2.294465635381647,6.0,4.0,Differentiated
+Campbell Union (Santa Clara),Significant Underperformer,-2.3395106185075973,5.0,0.0,General

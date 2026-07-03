@@ -39,8 +39,8 @@ final = final.rename(columns={
     'Ethnic Diversity Index (District)': 'diversity_idx',
     'Cohort Graduates % (District)': 'pct_grad',
     'Cohort Grads by Socio. Econ. DisAdvtg % (District)': 'pct_grad_sed',
-    'CAASPP-Math Standard Exceeded or Met (Levels 3 and 4) (District)': 'caaspp_math',
-    'CAASPP-ELA Standard Exceeded or Met (Levels 3 and 4) (District)': 'caaspp_ela',
+    'non_charter_math_caaspp': 'caaspp_math',
+    'non_charter_ela_caaspp': 'caaspp_ela',
     'Student/Teacher Ratio (District)': 'stu_teach_ratio',
     '1st Year Teachers (District)': 'pct_first_yr_teachers',
     'Experienced Teachers (District)': 'pct_exp_teachers',
@@ -239,9 +239,9 @@ final['caaspp_math']       = pd.to_numeric(final['caaspp_math'],       errors='c
 final['median_income']     = pd.to_numeric(final['median_income'],     errors='coerce')
 final['pupil_teach_ratio'] = pd.to_numeric(final['pupil_teach_ratio'], errors='coerce')
 final['fte_teachers']      = pd.to_numeric(final['fte_teachers'],      errors='coerce')
-final['enroll_total']      = np.log(final['enroll_total'])
+final['enroll_noncharter']      = np.log(final['enroll_noncharter'])
 
-final = final[np.exp(final['enroll_total']) > 30]
+final = final[np.exp(final['enroll_noncharter']) > 100]
 
 # endregion
 
@@ -257,9 +257,8 @@ base_cols = ['caaspp_ela', 'caaspp_math', 'lat', 'lon', 'dist_name']
 df_spatial = final.dropna(subset=base_cols).copy()
 
 numeric_preds = [
-    'avg_yrs_teaching', 'pct_frpm', 'pct_exp_instruction', 'suspension_rate', 
-    'pct_chronic_absent', 'bach_pct', 'median_income', 'pct_el', 'diversity_idx', 
-    'pct_swd', 'enroll_total', 'unemployment_pct', 'pct_first_yr_teachers', 
+     'pct_frpm', 'bach_pct', 'median_income', 'pct_el', 'diversity_idx', 
+    'pct_swd', 'enroll_total', 'unemployment_pct', 
     'pupil_teach_ratio', 'teaching_days', 'exp_per_ada', 'pct_exp_admin', 
     'pct_exp_pupil_svc'
 ]
@@ -286,9 +285,9 @@ for i, neighbors in w_dist.neighbors.items():
 w.transform = 'r'
 
 formula = (
-    '{outcome} ~ avg_yrs_teaching + pct_frpm + suspension_rate '
-    '+ pct_chronic_absent + bach_pct + median_income + pct_el + diversity_idx '
-    '+ locale + pct_swd + enroll_total'
+    '{outcome} ~ pct_frpm '
+    '+ bach_pct + median_income + pct_el + diversity_idx '
+    '+ locale + pct_swd + enroll_noncharter'
 )
 
 print("\n--- Moran's I on OLS Baseline (IDW k=8) ---")
@@ -311,38 +310,33 @@ from scipy.stats import zscore
 
 SPECS = {
     'maximalist_all_factors': [
-        'median_income', 'bach_pct', 'unemployment_pct', 'locale',
+        'median_income', 'bach_pct', 'unemployment_pct', 'poverty_pct', 'locale',
         'pct_frpm', 'pct_el', 'pct_swd', 'diversity_idx',
-        'avg_yrs_teaching', 'pct_first_yr_teachers', 'pupil_teach_ratio', 'teaching_days',
-        'enroll_total', 'exp_per_ada', 'pct_exp_instruction', 'pct_exp_admin',
-        'suspension_rate', 'pct_chronic_absent', 'pct_exp_pupil_svc'
+        'pupil_teach_ratio', 'teaching_days', 'enroll_noncharter'
     ],
-    
+
     'school_production_function': [
-        'pct_frpm', 'pct_el', 'pct_swd', 'diversity_idx', 'enroll_total', 'locale',
-        'avg_yrs_teaching', 'pct_first_yr_teachers', 'pupil_teach_ratio', 'teaching_days',
-        'suspension_rate', 'pct_chronic_absent',
-        'pct_exp_instruction', 'pct_exp_admin', 'pct_exp_pupil_svc'
+        'pct_frpm', 'pct_el', 'pct_swd', 'diversity_idx', 'enroll_noncharter', 'locale',
+        'pupil_teach_ratio', 'teaching_days',
+        'median_income', 'bach_pct', 'poverty_pct'
     ],
-    
+
     'structural_socioeconomic_resource': [
-        'median_income', 'bach_pct', 'unemployment_pct', 'locale', 'enroll_total',
+        'median_income', 'bach_pct', 'unemployment_pct', 'poverty_pct', 'locale', 'enroll_noncharter',
         'pct_frpm', 'pct_el', 'pct_swd',
-        'exp_per_ada', 'pct_exp_instruction', 'pct_exp_admin',
-        'avg_yrs_teaching', 'pupil_teach_ratio', 'teaching_days'
+        'pupil_teach_ratio', 'teaching_days'
     ],
-    
+
     'student_composition_and_climate': [
-        'pct_frpm', 'pct_el', 'pct_swd', 'diversity_idx', 'enroll_total', 'locale',
-        'median_income', 'unemployment_pct',
-        'suspension_rate', 'pct_chronic_absent', 'pct_exp_pupil_svc',
-        'pupil_teach_ratio', 'avg_yrs_teaching', 'pct_first_yr_teachers'
+        'pct_frpm', 'pct_el', 'pct_swd', 'diversity_idx', 'enroll_noncharter', 'locale',
+        'median_income', 'unemployment_pct', 'bach_pct', 'poverty_pct',
+        'pupil_teach_ratio'
     ],
-    
+
     'finance_and_human_capital': [
-        'pct_frpm', 'pct_el', 'enroll_total', 'locale', 'bach_pct',
-        'exp_per_ada', 'pct_exp_instruction', 'pct_exp_admin', 'pct_exp_pupil_svc',
-        'avg_yrs_teaching', 'pct_first_yr_teachers', 'pupil_teach_ratio', 'teaching_days'
+        'pct_frpm', 'pct_el', 'enroll_noncharter', 'locale', 'bach_pct',
+        'median_income', 'poverty_pct', 'unemployment_pct',
+        'pupil_teach_ratio', 'teaching_days'
     ]
 }
 
@@ -468,7 +462,7 @@ for outcome in ['caaspp_ela', 'caaspp_math']:
     # Calculate shrinkage independently for locale type
     for cluster_name, group in df_spatial.groupby('locale'):
         resid = group[f'ols_resid_{outcome}'].values
-        n_students = np.exp(group['enroll_total'].values)
+        n_students = np.exp(group['enroll_noncharter'].values)
         
         p_bar = group[outcome].mean()
         
@@ -501,9 +495,9 @@ for outcome in ['caaspp_ela', 'caaspp_math']:
     combined = combined.join(fma_resids[outcome].rename(f'fma_resid_{outcome}'), how='left')
     combined = combined.join(eb_resids[outcome].rename(f'eb_resid_{outcome}'), how='left')
 
-combined['enroll_total_raw'] = np.exp(df_spatial.loc[df_spatial['dist_name'].isin(combined['dist_name']), 'enroll_total'].values)
-min_enrollment = 100
-combined = combined[combined['enroll_total_raw'] >= min_enrollment].copy()
+combined['enroll_noncharter_raw'] = np.exp(df_spatial.loc[df_spatial['dist_name'].isin(combined['dist_name']), 'enroll_noncharter'].values)
+min_enrollment = 300
+combined = combined[combined['enroll_noncharter_raw'] >= min_enrollment].copy()
 
 combined = combined.merge(df_spatial[['dist_name', 'lat', 'lon']], on='dist_name', how='left')
 
@@ -690,12 +684,12 @@ print("CHECK 3: SUBGROUP BIAS AND VARIANCE CHECK")
 print("="*50)
 
 check_df = combined.merge(
-    df_spatial[['dist_name', 'enroll_total', 'locale', 'dist_type', 'pct_frpm']], 
+    df_spatial[['dist_name', 'enroll_noncharter', 'locale', 'dist_type', 'pct_frpm']], 
     on='dist_name', 
     how='left'
 )
 
-check_df['enrollment_raw'] = np.exp(check_df['enroll_total'])
+check_df['enrollment_raw'] = np.exp(check_df['enroll_noncharter'])
 
 check_df['size_quintile'] = pd.qcut(
     check_df['enrollment_raw'], 
@@ -768,7 +762,7 @@ print(f"  -> Average global correlation: {avg_r:.3f}")
 print(f"  -> Covariance shrinkage factor: {shrinkage_factor:.3f}")
 print(f"  -> Variance Pooling: Blended individual SE with global median SE ({median_se:.3f})")
 
-n_sims = 100000
+n_sims = 1000000
 n_districts = len(combined)
 simulated_ranks = np.zeros((n_districts, n_sims))
 
@@ -859,6 +853,8 @@ print("\nExported final tiered rankings to 'district_performance_tiers.csv'")
 # endregion
 
 # endregion
+
+
 
 
 # region VALIDATION: EXTERNAL CDS AWARDS (bayes smoothed)
@@ -956,6 +952,172 @@ except Exception as e:
 
 # endregion
 
+# region tables 
+
+# region demographic table: overperformers vs underperformers
+
+demo = final.copy()
+
+tier_df = pd.read_csv("district_performance_tiers.csv")
+
+demo = demo.merge(
+    tier_df[['dist_name', 'performance_tier']],
+    on='dist_name',
+    how='inner'
+)
+
+overperformers = demo[
+    demo['performance_tier'].isin([
+        'Moderate Overperformer',
+        'Significant Overperformer'
+    ])
+]
+
+underperformers = demo[
+    demo['performance_tier'].isin([
+        'Moderate Underperformer',
+        'Significant Underperformer'
+    ])
+]
+
+def summarize(group):
+    return {
+        'Rural Districts (%)':
+            100 * group['locale'].eq('Rural').mean(),
+        'Average Enrollment':
+            group['enrollment'].mean(),
+        'Ethnic Diversity Index':
+            group['diversity_idx'].mean(),
+        'English Learners (%)':
+            group['pct_el'].mean(),
+        'Free/Reduced Meals (%)':
+            group['pct_frpm'].mean(),
+        "Adults with Bachelor's Degree (%)":
+            group['bach_pct'].mean()
+    }
+
+over_stats = summarize(overperformers)
+under_stats = summarize(underperformers)
+
+table = pd.DataFrame({
+    f'Overperformers (n={len(overperformers)})': over_stats,
+    f'Underperformers (n={len(underperformers)})': under_stats
+})
+
+table.loc['Average Enrollment'] = table.loc['Average Enrollment'].round(0)
+table = table.round(1)
+
+print("\nDEMOGRAPHIC COMPARISON")
+print("=" * 60)
+print(table)
+
+# endregion
+
+# region demographic table: significant overperformers vs significant underperformers
+
+sig_overperformers = demo[
+    demo['performance_tier'] == 'Significant Overperformer'
+]
+
+sig_underperformers = demo[
+    demo['performance_tier'] == 'Significant Underperformer'
+]
+
+sig_over_stats = summarize(sig_overperformers)
+sig_under_stats = summarize(sig_underperformers)
+
+sig_table = pd.DataFrame({
+    f'Significant Overperformers (n={len(sig_overperformers)})': sig_over_stats,
+    f'Significant Underperformers (n={len(sig_underperformers)})': sig_under_stats
+})
+
+sig_table.loc['Average Enrollment'] = (
+    sig_table.loc['Average Enrollment'].round(0)
+)
+
+sig_table = sig_table.round(1)
+
+print("\nSIGNIFICANT-TIER DEMOGRAPHIC COMPARISON")
+print("=" * 60)
+print(sig_table)
+
+# endregion
+
+# region district assistance status by performance tier
+
+assistance_df = final.copy()
+
+tier_df = pd.read_csv("district_performance_tiers.csv")
+
+assistance_df = assistance_df.merge(
+    tier_df[["dist_name", "performance_tier"]],
+    on="dist_name",
+    how="inner"
+)
+
+assistance_df["assistance_type"] = np.where(
+    assistance_df["assist_status"].str.contains(
+        "Differentiated", case=False, na=False
+    ),
+    "Differentiated",
+    "General"
+)
+
+tier_order = [
+    "Moderate Underperformer",
+    "Expected Performer",
+    "Mixed/Volatile Results",
+    "Moderate Overperformer",
+    "Significant Underperformer",
+    "Significant Overperformer"
+]
+
+assistance_table = (
+    pd.crosstab(
+        assistance_df["performance_tier"],
+        assistance_df["assistance_type"]
+    )
+    .reindex(tier_order)
+    .fillna(0)
+    .astype(int)
+)
+
+assistance_table["Total"] = assistance_table.sum(axis=1)
+assistance_table["% Differentiated"] = (
+    assistance_table["Differentiated"]
+    / assistance_table["Total"]
+    * 100
+)
+
+assistance_table = assistance_table[
+    ["Differentiated", "% Differentiated", "General", "Total"]
+]
+
+total_diff = assistance_table["Differentiated"].sum()
+total_gen = assistance_table["General"].sum()
+total_n = assistance_table["Total"].sum()
+
+assistance_table.loc["Total"] = [
+    total_diff,
+    100 * total_diff / total_n,
+    total_gen,
+    total_n
+]
+
+display_table = assistance_table.copy()
+display_table["% Differentiated"] = (
+    display_table["% Differentiated"]
+    .round(1)
+    .astype(str)
+    + "%"
+)
+
+print("\n--- District Assistance Status by Performance Tier ---")
+print(display_table)
+
+# endregion
+
+# endregion 
 
 # region PLOTS
 
@@ -990,17 +1152,12 @@ print("INTERPRETABILITY: 6-VARIABLE ICE GRID FOR POLICY")
 print("="*60)
 
 features_to_plot = [
-    'pct_frpm', 'pct_el', 'avg_yrs_teaching', 
-    'suspension_rate', 'pct_chronic_absent', 'exp_per_ada'
+    'pct_frpm', 'pct_el'
 ]
 
 label_mapping = {
     'pct_frpm': 'Student Poverty (%)',
-    'pct_el': 'English Learners (%)',
-    'avg_yrs_teaching': 'Avg Teaching Experience (Years)',
-    'suspension_rate': 'Suspension Rate (%)',
-    'pct_chronic_absent': 'Chronic Absenteeism (%)',
-    'exp_per_ada': 'Funding per Student ($ per ADA)'
+    'pct_el': 'English Learners (%)'
 }
 
 y_limit_min = 20  
@@ -1244,10 +1401,6 @@ COLOR_BG           = "#C9CCCF"
 COLOR_TEXT         = "#1B1B1B"
 COLOR_GRID         = "#DFE1E2"
 
-CMAP_OVER  = plt.cm.Greens
-
-CMAP_UNDER = plt.cm.Reds_r 
-
 plt.rcParams["font.family"] = "sans-serif"
 plt.rcParams["font.sans-serif"] = ["Arial", "Helvetica", "DejaVu Sans"]
 plt.rcParams["text.color"] = COLOR_TEXT
@@ -1256,127 +1409,94 @@ plt.rcParams["axes.labelcolor"] = COLOR_TEXT
 plt.rcParams["xtick.color"] = COLOR_TEXT
 plt.rcParams["ytick.color"] = COLOR_TEXT
 
-N_LABELS = 6
+N_LABELS = 20  # number of over- and under-performers shown
 
+top_over  = cluster_df[cluster_df['strategic_group'] == "Beat-the-Odds"].sort_values('pca_z', ascending=False).head(N_LABELS)
+top_under = cluster_df[cluster_df['strategic_group'] == "Underutilized"].sort_values('pca_z', ascending=True).head(N_LABELS)
 
-panel_specs = {
-    "Beat-the-Odds": dict(
-        group="Beat-the-Odds",
-        point_color="#14532D",   # Solid deep green
-        label_color=COLOR_OVERPERFORM,
-        title="Low-SES districts that outperform expectations",
-        sort_ascending=False,
-    ),
-    "Underutilized": dict(
-        group="Underutilized",
-        point_color="#7A271A",   # Solid deep red
-        label_color=COLOR_UNDERPERFORM,
-        title="High-SES districts that underperform expectations",
-        sort_ascending=True,
-    ),
-}
+lollipop_df = pd.concat([top_under, top_over], ignore_index=True)
+lollipop_df = lollipop_df.sort_values('pca_z', ascending=True).reset_index(drop=True)
 
-fig, axes = plt.subplots(1, 2, figsize=(17, 7.5))
+bar_colors = [COLOR_OVERPERFORM if v >= 0 else COLOR_UNDERPERFORM for v in lollipop_df['pca_z']]
+
+fig, ax = plt.subplots(figsize=(10, max(6, 0.32 * len(lollipop_df))))
 fig.patch.set_facecolor("white")
+ax.set_facecolor("white")
 
-accessible_tables = {}
+y_pos = np.arange(len(lollipop_df))
 
-for ax, (panel_name, spec) in zip(axes, panel_specs.items()):
-    grp = spec["group"]
-    panel_df = cluster_df[cluster_df['strategic_group'] == grp]
-    background_df = cluster_df[cluster_df['strategic_group'] != grp]
+# Stems
+ax.hlines(
+    y=y_pos, xmin=0, xmax=lollipop_df['pca_z'],
+    color=bar_colors, linewidth=1.8, zorder=2
+)
 
-    ax.set_facecolor("white")
-    ax.axhline(0, color=COLOR_GRID, linewidth=1.2, zorder=1)
-    ax.axvline(0, color=COLOR_GRID, linewidth=1.2, zorder=1)
-    ax.grid(True, color=COLOR_GRID, linewidth=0.7, zorder=0)
-    ax.set_axisbelow(True)
+# Lollipop heads
+ax.scatter(
+    lollipop_df['pca_z'], y_pos,
+    color=bar_colors, s=70, zorder=3, linewidth=0
+)
 
-    # Plot background points in a faint gray color for clean styling
-    ax.scatter(
-        background_df['ses_index'], background_df['pca_z'], 
-        color="#E5E7EB", alpha=0.6, s=26, linewidth=0, zorder=2
+ax.axvline(0, color=COLOR_GRID, linewidth=1.4, zorder=1)
+ax.grid(axis='x', color=COLOR_GRID, linewidth=0.7, zorder=0)
+ax.set_axisbelow(True)
+
+ax.set_yticks(y_pos)
+ax.set_yticklabels(lollipop_df['dist_name_short'], fontsize=9)
+
+x_pad = lollipop_df['pca_z'].abs().max() * 0.18
+ax.set_xlim(lollipop_df['pca_z'].min() - x_pad, lollipop_df['pca_z'].max() + x_pad)
+
+for y, v in zip(y_pos, lollipop_df['pca_z']):
+    label_color = COLOR_OVERPERFORM if v >= 0 else COLOR_UNDERPERFORM
+    ha = 'left' if v >= 0 else 'right'
+    offset = x_pad * 0.12 if v >= 0 else -x_pad * 0.12
+    ax.text(
+        v + offset, y, f"{v:+.2f}",
+        va='center', ha=ha, fontsize=8, color=label_color, weight='bold', zorder=4
     )
 
-    # Plot active points with a clean, solid color hex code
-    ax.scatter(
-        panel_df['ses_index'], panel_df['pca_z'], 
-        color=spec["point_color"], alpha=0.9, s=50, linewidth=0, zorder=3
-    )
+ax.set_title("20 most overperforming and underperforming districts",
+             fontsize=13, weight='bold', color=COLOR_TEXT, pad=14, loc='left')
+ax.set_xlabel("Value-added performance (z-score)", fontsize=9.5, color=COLOR_TEXT, labelpad=10)
 
-    # Note: Colorbar instantiation and formatting blocks have been removed entirely
+for spine in ['top', 'right', 'left']:
+    ax.spines[spine].set_visible(False)
 
-    # Set boundaries BEFORE adjust_text so label positioning respects axis constraints
-    if grp == "Beat-the-Odds":
-        x_lo = panel_df['ses_index'].min() - 0.3
-        x_hi = 0.0  
-        y_lo = 0.0  
-        y_hi = panel_df['pca_z'].max() + 0.5
-    else:
-        x_lo = 0.0  
-        x_hi = panel_df['ses_index'].max() + 0.3
-        y_lo = panel_df['pca_z'].min() - 0.5
-        y_hi = 0.0  
+fig.suptitle(
+    "District performance relative to socioeconomic expectations",
+    fontsize=15, weight='bold', color=COLOR_TEXT, y=1.02, x=0.01, ha='left'
+)
+fig.text(
+    0.01, 0.965,
+    f"Distance from 0 represents how much they deviate from the model's expectations. Positive means overperformance, negative is underperformance",
+    fontsize=10, color=COLOR_TEXT, ha='left', wrap=True
+)
 
-    ax.set_xlim(x_lo, x_hi)
-    ax.set_ylim(y_lo, y_hi)
+plt.tight_layout(rect=[0, 0, 1, 0.92])
+plt.savefig("performance_cluster.png", dpi=300, bbox_inches='tight')
+plt.show()
 
-    top_labels = panel_df.sort_values('pca_z', ascending=spec["sort_ascending"]).head(N_LABELS)
-
-    texts = []
-    label_x, label_y = [], []
-    for _, row in top_labels.iterrows():
-        t = ax.text(
-            row['ses_index'], row['pca_z'], row['dist_name_short'],
-            fontsize=8, color=spec["label_color"], weight='bold',
-            bbox=dict(facecolor='white', edgecolor='none', alpha=0.75, pad=1.2),
-            zorder=6
-        )
-        texts.append(t)
-        label_x.append(row['ses_index'])
-        label_y.append(row['pca_z'])
-
-    adjust_text(
-        texts,
-        ax=ax,
-        x=label_x,
-        y=label_y,
-        arrowprops=dict(arrowstyle='-', color=COLOR_TEXT, lw=0.6, alpha=0.6),
-        expand=(1.2, 1.4),
-        force_text=(0.6, 0.8),
-        max_move=30,
-        lim=2000,
-    )
-
-    ax.set_title(spec["title"], fontsize=13, weight='bold', color=COLOR_TEXT, pad=14, loc='left')
-    ax.set_xlabel("Socioeconomic status index (higher = wealthier)", fontsize=9.5, color=COLOR_TEXT, labelpad=10)
-    ax.set_ylabel("Value-added performance (z-score)", fontsize=9.5, color=COLOR_TEXT, labelpad=10)
-
-    accessible_tables[grp] = (
-        top_labels[['dist_name', 'ses_index', 'pca_z']]
+accessible_tables = {
+    "Beat-the-Odds": (
+        top_over[['dist_name', 'ses_index', 'pca_z']]
         .rename(columns={
             'dist_name': 'District',
             'ses_index': 'SES index',
             'pca_z': 'Value-added z-score'
         })
         .round(2)
-    )
-
-
-fig.suptitle(
-    "Performance relative to socioeconomic expectations, by district",
-    fontsize=15, weight='bold', color=COLOR_TEXT, y=1.04, x=0.01, ha='left'
-)
-fig.text(
-    0.01, 0.965,
-    "Color intensity shows how far each district's performance deviates from what its "
-    "socioeconomic profile would predict. Faint gray points are districts outside this panel's group.",
-    fontsize=10, color=COLOR_TEXT, ha='left', wrap=True
-)
-
-plt.tight_layout(rect=[0, 0, 1, 0.90])
-plt.savefig("performance_cluster.png")
-plt.show()
+    ),
+    "Underutilized": (
+        top_under[['dist_name', 'ses_index', 'pca_z']]
+        .rename(columns={
+            'dist_name': 'District',
+            'ses_index': 'SES index',
+            'pca_z': 'Value-added z-score'
+        })
+        .round(2)
+    ),
+}
 
 
 
@@ -1394,3 +1514,4 @@ print(accessible_tables["Underutilized"].to_string(index=False))
 
 # endregion
 # %%
+
