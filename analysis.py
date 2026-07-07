@@ -239,9 +239,9 @@ final['caaspp_math']       = pd.to_numeric(final['caaspp_math'],       errors='c
 final['median_income']     = pd.to_numeric(final['median_income'],     errors='coerce')
 final['pupil_teach_ratio'] = pd.to_numeric(final['pupil_teach_ratio'], errors='coerce')
 final['fte_teachers']      = pd.to_numeric(final['fte_teachers'],      errors='coerce')
-final['enroll_noncharter']      = np.log(final['enroll_noncharter'])
+final['enroll_noncharter']      = np.log1p(final['enroll_noncharter'])
 
-final = final[np.exp(final['enroll_noncharter']) > 100]
+final = final[np.exp(final['enroll_noncharter']) > 30]
 
 # endregion
 
@@ -275,11 +275,12 @@ for cat_col in ['locale', 'dist_type']:
 df_spatial['dist_name'] = df_spatial['dist_name'].values
 
 coords = np.array(list(zip(df_spatial['lon'], df_spatial['lat'])))
-w = KNN.from_array(coords, k=8)
-w_dist = KNN.from_array(coords, k=8, distance_metric='euclidean')
+from scipy.spatial.distance import euclidean
 
-for i, neighbors in w_dist.neighbors.items():
-    distances = [w_dist.weights[i][j] for j in range(len(neighbors))]
+w = KNN.from_array(coords, k=8)
+
+for i, neighbors in w.neighbors.items():
+    distances = [euclidean(coords[i], coords[j]) for j in neighbors]
     w.weights[i] = [1.0 / (d + 0.0001) for d in distances]
     
 w.transform = 'r'
@@ -287,7 +288,7 @@ w.transform = 'r'
 formula = (
     '{outcome} ~ pct_frpm '
     '+ bach_pct + median_income + pct_el + diversity_idx '
-    '+ locale + pct_swd + enroll_noncharter'
+    '+ locale + pct_swd + enroll_noncharter + dist_type + teaching_days + unemployment_pct + enroll_noncharter'
 )
 
 print("\n--- Moran's I on OLS Baseline (IDW k=8) ---")
@@ -301,51 +302,36 @@ for outcome in ['caaspp_ela', 'caaspp_math']:
 
 # region FMA specs
 
-from sklearn.ensemble import RandomForestRegressor
-from sklearn.model_selection import cross_val_score, cross_val_predict, KFold
-from sklearn.compose import ColumnTransformer
-from sklearn.pipeline import Pipeline
-from sklearn.linear_model import LinearRegression
-from scipy.stats import zscore
+MODEL_FEATURES = [
+    'median_income',
+    'bach_pct',
+    'unemployment_pct',
+    'poverty_pct',
+    'locale',
+    'pct_frpm',
+    'pct_el',
+    'pct_swd',
+    'diversity_idx',
+    'enroll_noncharter',
+    'dist_type',
+    'teaching_days',
+]
 
-SPECS = {
-    'maximalist_all_factors': [
-        'median_income', 'bach_pct', 'unemployment_pct', 'poverty_pct', 'locale',
-        'pct_frpm', 'pct_el', 'pct_swd', 'diversity_idx',
-        'pupil_teach_ratio', 'teaching_days', 'enroll_noncharter'
-    ],
-
-    'school_production_function': [
-        'pct_frpm', 'pct_el', 'pct_swd', 'diversity_idx', 'enroll_noncharter', 'locale',
-        'pupil_teach_ratio', 'teaching_days',
-        'median_income', 'bach_pct', 'poverty_pct'
-    ],
-
-    'structural_socioeconomic_resource': [
-        'median_income', 'bach_pct', 'unemployment_pct', 'poverty_pct', 'locale', 'enroll_noncharter',
-        'pct_frpm', 'pct_el', 'pct_swd',
-        'pupil_teach_ratio', 'teaching_days'
-    ],
-
-    'student_composition_and_climate': [
-        'pct_frpm', 'pct_el', 'pct_swd', 'diversity_idx', 'enroll_noncharter', 'locale',
-        'median_income', 'unemployment_pct', 'bach_pct', 'poverty_pct',
-        'pupil_teach_ratio'
-    ],
-
-    'finance_and_human_capital': [
-        'pct_frpm', 'pct_el', 'enroll_noncharter', 'locale', 'bach_pct',
-        'median_income', 'poverty_pct', 'unemployment_pct',
-        'pupil_teach_ratio', 'teaching_days'
-    ]
-}
-
-for key in SPECS:
-    SPECS[key] = [col for col in SPECS[key] if col in df_spatial.columns]
+MODEL_FEATURES = [
+    c for c in MODEL_FEATURES
+    if c in df_spatial.columns
+]
 
 # endregion
 
 # region FMA random forest
+from sklearn.compose import ColumnTransformer
+from sklearn.impute import IterativeImputer
+from sklearn.linear_model import BayesianRidge, ElasticNetCV
+from sklearn.pipeline import Pipeline
+from sklearn.model_selection import KFold, cross_val_predict
+from sklearn.ensemble import RandomForestRegressor
+from sklearn.metrics import r2_score
 
 cv = KFold(n_splits=5, shuffle=True, random_state=42)
 
@@ -356,246 +342,355 @@ rf_base = RandomForestRegressor(
     n_jobs=-1
 )
 
-outcomes     = ['caaspp_ela', 'caaspp_math']
-spec_results = {outcome: {} for outcome in outcomes}
+outcomes = ['caaspp_ela', 'caaspp_math']
+
+rf_resids = {}
+enet_resids = {}
 
 print("\n" + "="*65)
-print("FMA: Fitting specs across outcomes")
+print("NONLINEAR MODELS")
 print("="*65)
 
 for outcome in outcomes:
+
     print(f"\n── {outcome} ──")
-    for spec_name, features in SPECS.items():
-        rf_data = final[features + [outcome, 'dist_name']].copy()
-        rf_data = rf_data.dropna(subset=[outcome])
-        
-        if 'locale' in rf_data.columns:
-            rf_data = pd.get_dummies(rf_data, columns=['locale'], dtype=float, drop_first=True)
 
-        feature_cols = [c for c in rf_data.columns if c not in [outcome, 'dist_name']]
-        X = rf_data[feature_cols]
-        y = rf_data[outcome]
+    model_data = df_spatial[MODEL_FEATURES + [outcome, 'dist_name']].copy()
+    model_data = model_data.dropna(subset=[outcome])
 
-        num_cols   = X.select_dtypes(include='number').columns
-        preprocess = ColumnTransformer([
-            ('iterative', IterativeImputer(
-                estimator=BayesianRidge(),
-                max_iter=10,
-                random_state=42,
-                imputation_order='ascending'
-            ), num_cols),
-        ])
+    cat_cols = ['locale', 'dist_type']
+    cols_to_dummy = [c for c in cat_cols if c in model_data.columns]
 
-        pipe      = Pipeline([('prep', preprocess), ('rf', rf_base)])
-        r2_scores = cross_val_score(pipe, X, y, cv=cv, scoring='r2')
-        mean_r2   = r2_scores.mean()
-        y_pred    = cross_val_predict(pipe, X, y, cv=cv)
+    if cols_to_dummy:
+        model_data = pd.get_dummies(
+            model_data,
+            columns=cols_to_dummy,
+            dtype=float,
+            drop_first=True
+        )
 
-        spec_results[outcome][spec_name] = {
-            'resid': pd.Series(y.values - y_pred, index=rf_data.index),
-            'r2':    mean_r2,
-        }
+    feature_cols = [
+        c for c in model_data.columns
+        if c not in [outcome, 'dist_name']
+    ]
 
-        print(f"  {spec_name:<18}  CV R²: {mean_r2:.4f}  (n={len(y)})")
+    X = model_data[feature_cols]
+    y = model_data[outcome]
 
-# endregion
+    num_cols = X.select_dtypes(include='number').columns
 
-# region FMA weights and residual aggregation
+    preprocess = ColumnTransformer(
+        [
+            (
+                'iterative',
+                IterativeImputer(
+                    estimator=BayesianRidge(),
+                    random_state=42,
+                    max_iter=10
+                ),
+                num_cols
+            )
+        ],
+        remainder='passthrough'
+    )
 
-fma_resids   = {}
-spec_weights = {}
+    enet_pipe = Pipeline([
+        ('prep', preprocess),
+        ('enet', ElasticNetCV(
+            l1_ratio=[.1,.3,.5,.7,.9,.95,.99,1],
+            cv=5,
+            random_state=42,
+            max_iter=10000
+        ))
+    ])
 
-print("\n" + "="*65)
-print("FMA weights (proportional to CV R², floor 0)")
-print("="*65)
+    enet_pred = cross_val_predict(
+        enet_pipe,
+        X,
+        y,
+        cv=cv
+    )
 
-for outcome in outcomes:
-    specs       = spec_results[outcome]
-    raw_weights = {k: max(v['r2'], 0.0) for k, v in specs.items()}
-    total_w     = sum(raw_weights.values())
+    enet_r2 = r2_score(y, enet_pred)
 
-    if total_w == 0:
-        norm_weights = {k: 1 / len(specs) for k in specs}
-        print(f"  WARNING: all specs have R²≤0 for {outcome}; using equal weights")
-    else:
-        norm_weights = {k: w / total_w for k, w in raw_weights.items()}
+    enet_resids[outcome] = pd.Series(
+        y.values - enet_pred,
+        index=model_data.index,
+        name=f'enet_resid_{outcome}'
+    )
 
-    spec_weights[outcome] = norm_weights
+    rf_pipe = Pipeline([
+        ('prep', preprocess),
+        ('rf', rf_base)
+    ])
 
-    print(f"\n  {outcome}")
-    for spec_name, wt in norm_weights.items():
-        print(f"    {spec_name:<18}  weight: {wt:.4f}  (R²={specs[spec_name]['r2']:.4f})")
+    rf_pred = cross_val_predict(
+        rf_pipe,
+        X,
+        y,
+        cv=cv
+    )
 
-    resid_df     = pd.DataFrame({k: specs[k]['resid'] for k in specs})
-    weighted_sum = pd.Series(0.0, index=resid_df.index)
-    effective_wt = pd.Series(0.0, index=resid_df.index)
+    rf_r2 = r2_score(y, rf_pred)
 
-    for spec_name, wt in norm_weights.items():
-        col  = resid_df[spec_name]
-        mask = col.notna()
-        weighted_sum[mask] += wt * col[mask]
-        effective_wt[mask] += wt
+    rf_resids[outcome] = pd.Series(
+        y.values - rf_pred,
+        index=model_data.index,
+        name=f'rf_resid_{outcome}'
+    )
 
-    fma_resid              = weighted_sum / effective_wt.replace(0, np.nan)
-    fma_resids[outcome]    = fma_resid.rename(f'fma_resid_{outcome}')
-
-    print(f"\n  FMA residual coverage for {outcome}:")
-    print(f"    Full:    {(effective_wt == 1.0).sum()}")
-    print(f"    Partial: {((effective_wt > 0) & (effective_wt < 1.0)).sum()}")
-    print(f"    None:    {(effective_wt == 0).sum()}")
-
-# endregion
-
-# region emp bayes
-
-eb_resids = {}
-print("\n" + "="*50)
-print("EMPIRICAL BAYES: CLUSTERED SHRINKAGE")
-print("="*50)
-
-for outcome in ['caaspp_ela', 'caaspp_math']:
-    res = smf.ols(formula.format(outcome=outcome), data=df_spatial).fit()
-    df_spatial[f'ols_resid_{outcome}'] = res.resid.values
-    
-    eb_resid_series = pd.Series(index=df_spatial.index, dtype=float)
-    
-    # Calculate shrinkage independently for locale type
-    for cluster_name, group in df_spatial.groupby('locale'):
-        resid = group[f'ols_resid_{outcome}'].values
-        n_students = np.exp(group['enroll_noncharter'].values)
-        
-        p_bar = group[outcome].mean()
-        
-        v_j = (p_bar * (100 - p_bar)) / n_students
-        
-        total_var = np.var(resid, ddof=1) if len(resid) > 1 else 0
-        mean_v_j = np.mean(v_j)
-        tau_squared = max(0, total_var - mean_v_j)
-        
-        w_j = tau_squared / (tau_squared + v_j)
-        eb_resid_series.loc[group.index] = w_j * resid
-        
-    eb_resids[outcome] = eb_resid_series.rename(f'eb_resid_{outcome}')
-    print(f"  -> {outcome.upper()}: Clustered EB applied across {df_spatial['locale'].nunique()} locales.")
+    print(f"  Elastic Net CV R² : {enet_r2:.4f}")
+    print(f"  Random Forest CV R²: {rf_r2:.4f}")
 
 # endregion
 
-# region performance ranking (SAR geosmoothed + winsorized)
-
-import spreg
-import numpy as np
-from sklearn.decomposition import PCA
-from scipy.stats import zscore
-from libpysal.weights import KNN, lag_spatial
+# region composite PCA
 
 combined = df_spatial[['dist_name', 'county']].copy()
 
-for outcome in ['caaspp_ela', 'caaspp_math']:
-    combined[f'ols_resid_{outcome}'] = df_spatial[f'ols_resid_{outcome}'].values
-    combined = combined.join(fma_resids[outcome].rename(f'fma_resid_{outcome}'), how='left')
-    combined = combined.join(eb_resids[outcome].rename(f'eb_resid_{outcome}'), how='left')
+for outcome in outcomes:
 
-combined['enroll_noncharter_raw'] = np.exp(df_spatial.loc[df_spatial['dist_name'].isin(combined['dist_name']), 'enroll_noncharter'].values)
-min_enrollment = 300
+    combined[f'ols_resid_{outcome}'] = df_spatial[
+        f'ols_resid_{outcome}'
+    ].values
+
+    combined = combined.join(
+        enet_resids[outcome],
+        how='left'
+    )
+
+    combined = combined.join(
+        rf_resids[outcome],
+        how='left'
+    )
+
+combined['enroll_noncharter_raw'] = np.exp(
+    df_spatial.loc[df_spatial['dist_name'].isin(combined['dist_name']), 'enroll_noncharter'].values
+)
+min_enrollment = 30
 combined = combined[combined['enroll_noncharter_raw'] >= min_enrollment].copy()
-
 combined = combined.merge(df_spatial[['dist_name', 'lat', 'lon']], on='dist_name', how='left')
+combined = combined.merge(df_spatial[['dist_name', 'locale']], on='dist_name', how='left')
 
-combined['fma_ela_z']  = zscore(combined['fma_resid_caaspp_ela'],  nan_policy='omit')
-combined['fma_math_z'] = zscore(combined['fma_resid_caaspp_math'], nan_policy='omit')
-combined['eb_ela_z']   = zscore(combined['eb_resid_caaspp_ela'],   nan_policy='omit')
-combined['eb_math_z']  = zscore(combined['eb_resid_caaspp_math'],  nan_policy='omit')
+from scipy.stats import zscore
+combined['ols_ela_z'] = zscore(
+    combined['ols_resid_caaspp_ela'],
+    nan_policy='omit'
+)
 
-print("\n" + "="*50)
-print("PERFORMANCE RANKING: DYNAMIC SAR SMOOTHING + WINSORIZED PCA")
-print("="*50)
+combined['ols_math_z'] = zscore(
+    combined['ols_resid_caaspp_math'],
+    nan_policy='omit'
+)
 
-components = ['fma_ela_z', 'fma_math_z', 'eb_ela_z', 'eb_math_z']
+combined['enet_ela_z'] = zscore(
+    combined['enet_resid_caaspp_ela'],
+    nan_policy='omit'
+)
 
-coords = combined[['lon', 'lat']].values
-w_sub = KNN.from_array(coords, k=8)
-w_sub.transform = 'r' 
+combined['enet_math_z'] = zscore(
+    combined['enet_resid_caaspp_math'],
+    nan_policy='omit'
+)
 
-X = np.ones((len(combined), 1))
+combined['rf_ela_z'] = zscore(
+    combined['rf_resid_caaspp_ela'],
+    nan_policy='omit'
+)
 
-for col in components:
-    y = combined[col].values.reshape(-1, 1)
-    
-    sar_model = spreg.ML_Lag(y, X, w=w_sub, name_y=col)
-    
+combined['rf_math_z'] = zscore(
+    combined['rf_resid_caaspp_math'],
+    nan_policy='omit'
+)
 
-    rho = max(0.0, min(sar_model.rho, 0.5))
-    
-    blend_neighbors = rho
-    blend_self = 1.0 - rho
-    
-    neighbor_avg = lag_spatial(w_sub, combined[col].values)
-    combined[col] = (blend_self * combined[col]) + (blend_neighbors * neighbor_avg)
-    
-    print(f"  -> SAR estimated split for {col}: {blend_self*100:.1f}% Self / {blend_neighbors*100:.1f}% Neighbors (rho = {sar_model.rho:.3f})")
+components = [
+    'ols_ela_z',
+    'ols_math_z',
+    'enet_ela_z',
+    'enet_math_z',
+    'rf_ela_z',
+    'rf_math_z'
+]
 
 for col in components:
     lower_bound = combined[col].quantile(0.01)
     upper_bound = combined[col].quantile(0.99)
     combined[col] = combined[col].clip(lower=lower_bound, upper=upper_bound)
 
-print(f"  -> Winsorization applied (1st/99th percentiles).")
-
+from sklearn.decomposition import PCA
 pca = PCA(n_components=1)
 pca_raw = pca.fit_transform(combined[components])
 
-combined['pca_z'] = (pca_raw - pca_raw.mean()) / pca_raw.std()
+combined['pca_raw'] = pca_raw
+if combined[components[0]].corr(combined['pca_raw']) < 0:
+    combined['pca_raw'] *= -1
 
-if combined[components[0]].corr(combined['pca_z']) < 0:
-    combined['pca_z'] *= -1
-
-print(f"  -> PCA Component 1 Variance Explained: {pca.explained_variance_ratio_[0]*100:.1f}%")
-
-print("\n--- Structural overperformers (SAR Smoothed + Winsorized PCA) ---")
-print(combined.sort_values('pca_z', ascending=False).head(20)[['dist_name', 'pca_z']])
-
-print("\n--- Structural underperformers (SAR Smoothed + Winsorized PCA) ---")
-print(combined.sort_values('pca_z').head(20)[['dist_name', 'pca_z']])
+print(f"  -> PCA loadings: {dict(zip(components, pca.components_[0].round(3)))}")
+print(f"  -> Variance explained by PC1: {pca.explained_variance_ratio_[0]*100:.1f}%")
 
 # endregion
 
-# region spec weight diagnostics
+# region empirical bayes
+import spreg
+from libpysal.weights.spatial_lag import lag_spatial
+from scipy.spatial.distance import euclidean
 
-print("\n" + "="*65)
-print("Spec weight summary across outcomes")
-print("="*65)
-weight_df = pd.DataFrame(spec_weights).rename_axis('spec')
-weight_df['avg_weight'] = weight_df.mean(axis=1)
-print(weight_df.sort_values('avg_weight', ascending=False).round(4).to_string())
+print("\n" + "="*50)
+print("EMPIRICAL BAYES & SPATIAL SMOOTHING")
+print("="*50)
+
+score_col = 'pca_raw'
+group_col = 'locale'
+n_col     = 'enroll_noncharter_raw'
+
+group_means = combined.groupby(group_col)[score_col].transform('mean')
+combined['_dev'] = combined[score_col] - group_means
+combined['_inv_n'] = 1.0 / combined[n_col]
+
+phi_hat = 1.0
+
+eb_score = pd.Series(index=combined.index, dtype=float)
+
+for name, group in combined.groupby(group_col):
+    y = group[score_col].values
+    n = group[n_col].values
+    y_bar = np.average(y, weights=n)
+
+    if len(y) < 3:
+        eb_score.loc[group.index] = y
+        continue
+
+    sample_var = np.average((y - y_bar) ** 2, weights=n)
+    mean_inv_n = np.average(1.0 / n, weights=n)
+    tau_sq = max(0.0, sample_var - phi_hat * mean_inv_n)
+
+    v_i = phi_hat / n
+    w_i = tau_sq / (tau_sq + v_i)
+    eb_score.loc[group.index] = y_bar + w_i * (y - y_bar)
+
+combined['eb_shrunken_raw'] = eb_score
+
+coords_sub = combined[['lon', 'lat']].values
+w_sub = KNN.from_array(coords_sub, k=8)
+
+for i, neighbors in w_sub.neighbors.items():
+    distances = [euclidean(coords_sub[i], coords_sub[j]) for j in neighbors]
+    w_sub.weights[i] = [1.0 / (d + 0.0001) for d in distances]
+w_sub.transform = 'r'
+
+X = np.ones((len(combined), 1))
+y_sar = combined['eb_shrunken_raw'].values.reshape(-1, 1)
+
+sar_model = spreg.ML_Lag(y_sar, X, w=w_sub, name_y='eb_shrunken_raw')
+rho = max(0.0, min(sar_model.rho, 0.5))
+neighbor_avg = lag_spatial(w_sub, combined['eb_shrunken_raw'].values)
+
+combined['sar_smoothed'] = (1 - rho) * combined['eb_shrunken_raw'] + rho * neighbor_avg
+print(f"  -> SAR applied: {(1-rho)*100:.1f}% Self / {rho*100:.1f}% Neighbors (rho={sar_model.rho:.3f})")
+
+combined['pca_z'] = zscore(combined['sar_smoothed'], nan_policy='omit')
+
+final_lower = combined['pca_z'].quantile(0.01)
+final_upper = combined['pca_z'].quantile(0.99)
+combined['pca_z'] = combined['pca_z'].clip(lower=final_lower, upper=final_upper)
+
+combined = combined.drop(columns=['_dev', '_inv_n'])
 
 # endregion
 
-# region spec stability diagnostic
+# region elastic net
 
-print("\n" + "="*65)
-print("Spec stability (residual SD across specs per district)")
-print("="*65)
+cv = KFold(
+    n_splits=5,
+    shuffle=True,
+    random_state=42
+)
 
-for outcome in outcomes:
-    specs    = spec_results[outcome]
-    resid_df = pd.DataFrame({k: specs[k]['resid'] for k in specs})
-    combined[f'spec_sd_{outcome}'] = resid_df.std(axis=1)
+enet_resids = {}
 
-    flagged = (
-        combined[['dist_name', 'pca_z', f'spec_sd_{outcome}']]
-        .dropna()
-        .sort_values(f'spec_sd_{outcome}', ascending=False)
-        .head(15)
+print("\n" + "=" * 65)
+print("ELASTIC NET")
+print("=" * 65)
+
+for outcome in ['caaspp_ela', 'caaspp_math']:
+
+    print(f"\n── {outcome} ──")
+
+    model_data = df_spatial[
+        MODEL_FEATURES + [outcome, 'dist_name']
+    ].copy()
+
+    model_data = model_data.dropna(subset=[outcome])
+
+    cat_cols = [
+        c for c in ['locale', 'dist_type']
+        if c in model_data.columns
+    ]
+
+    if cat_cols:
+        model_data = pd.get_dummies(
+            model_data,
+            columns=cat_cols,
+            dtype=float,
+            drop_first=True
+        )
+
+    feature_cols = [
+        c for c in model_data.columns
+        if c not in [outcome, 'dist_name']
+    ]
+
+    X = model_data[feature_cols]
+    y = model_data[outcome]
+
+    num_cols = X.select_dtypes(include='number').columns
+
+    preprocess = ColumnTransformer(
+        [
+            (
+                'imputer',
+                IterativeImputer(
+                    estimator=BayesianRidge(),
+                    random_state=42,
+                    max_iter=10
+                ),
+                num_cols
+            )
+        ],
+        remainder='passthrough'
     )
-    print(f"\n  {outcome} — highest cross-spec residual SD")
-    print(flagged.to_string(index=False))
+
+    enet = Pipeline([
+        ('prep', preprocess),
+        ('enet', ElasticNetCV(
+            l1_ratio=[0.05, 0.1, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 0.95, 0.99, 1.0],
+            cv=5,
+            random_state=42,
+            max_iter=10000
+        ))
+    ])
+
+    pred = cross_val_predict(
+        enet,
+        X,
+        y,
+        cv=cv,
+        n_jobs=-1
+    )
+
+    print(f"  CV R²: {r2_score(y, pred):.4f}")
+
+    enet_resids[outcome] = pd.Series(
+        y.values - pred,
+        index=model_data.index,
+        name=f'enet_resid_{outcome}'
+    )
 
 # endregion
 
 # region validation
 
 import seaborn as sns
-import shap
 
 print("\n" + "="*50)
 print("CHECK 1: TAIL SHRINKAGE ANALYSIS")
@@ -634,57 +729,34 @@ if variance_retained < 0.5:
 
 
 print("\n" + "="*50)
-print("CHECK 2: SHAP VALUE ANALYSIS (ELA Model)")
+print("CHECK 2: RANK STABILITY (SPEARMAN CORRELATION)")
 print("="*50)
 
-# We will use the maximalist model for the SHAP explanation
-global_features = SPECS['maximalist_all_factors']
-rf_data = final[global_features + ['caaspp_ela', 'dist_name']].dropna(subset=['caaspp_ela'])
+# Calculate Spearman Rank Correlation between Final Model and Raw OLS Baseline
+spearman_corr, p_value = stats.spearmanr(
+    combined['pca_z'], 
+    combined['avg_ols_z'], 
+    nan_policy='omit'
+)
 
-if 'locale' in rf_data.columns:
-    rf_data = pd.get_dummies(rf_data, columns=['locale'], drop_first=True, dtype=float)
+print(f"Spearman Rank Correlation (Final PCA vs. Raw OLS): {spearman_corr:.4f}")
+print(f"p-value: {p_value:.4e}")
 
-feature_cols = [c for c in rf_data.columns if c not in ['caaspp_ela', 'dist_name']]
-X = rf_data[feature_cols]
-y = rf_data['caaspp_ela']
-
-num_cols = X.select_dtypes(include='number').columns
-preprocess = ColumnTransformer([
-    ('iterative', IterativeImputer(
-        estimator=BayesianRidge(),
-        max_iter=10,
-        random_state=42,
-        imputation_order='ascending'
-    ), num_cols),
-])
-
-# Fit the preprocessing step
-X_imputed = preprocess.fit_transform(X)
-X_imputed_df = pd.DataFrame(X_imputed, columns=num_cols)
-
-# Define and fit the Random Forest on the full dataset
-rf_shap = RandomForestRegressor(n_estimators=1000, max_features='sqrt', random_state=42, n_jobs=-1)
-rf_shap.fit(X_imputed_df, y)
-
-# Calculate SHAP values
-explainer = shap.TreeExplainer(rf_shap)
-shap_values = explainer.shap_values(X_imputed_df)
-
-# Plot summary
-plt.figure(figsize=(12, 8))
-plt.title("SHAP Feature Importance (Random Forest - ELA)")
-shap.summary_plot(shap_values, X_imputed_df, feature_names=num_cols, show=False)
-plt.tight_layout()
-plt.savefig("shap_summary_ela.png")
-plt.show()
-
+if spearman_corr > 0.95:
+    print("  -> Result: EXTREMELY HIGH agreement. Shrinkage adjusted magnitudes, but general rank order is largely unchanged.")
+elif spearman_corr > 0.80:
+    print("  -> Result: HIGH agreement. Ranks are stable, with meaningful targeted reordering by Empirical Bayes/RF.")
+elif spearman_corr > 0.50:
+    print("  -> Result: MODERATE agreement. The ensembling pipeline substantially reshuffled the baseline district rankings.")
+else:
+    print("  -> Result: LOW agreement. The final model fundamentally transformed the baseline OLS rankings.")
 
 print("\n" + "="*50)
 print("CHECK 3: SUBGROUP BIAS AND VARIANCE CHECK")
 print("="*50)
 
 check_df = combined.merge(
-    df_spatial[['dist_name', 'enroll_noncharter', 'locale', 'dist_type', 'pct_frpm']], 
+    df_spatial[['dist_name', 'enroll_noncharter', 'dist_type', 'pct_frpm']], 
     on='dist_name', 
     how='left'
 )
@@ -817,10 +889,7 @@ combined = combined.merge(df_spatial[['dist_name', 'assist_status']], on='dist_n
 # pca_z is already standardized natively, so we just pass it through directly
 combined['final_z_standardized'] = combined['pca_z']
 
-def assign_tier(z, spread):
-    if spread > 400:
-        return "Mixed/Volatile Results"
-    
+def assign_tier(z, spread): 
     if z >= 1.5:
         return "Significant Overperformer"
     elif z >= 0.5:
@@ -1066,7 +1135,6 @@ assistance_df["assistance_type"] = np.where(
 tier_order = [
     "Moderate Underperformer",
     "Expected Performer",
-    "Mixed/Volatile Results",
     "Moderate Overperformer",
     "Significant Underperformer",
     "Significant Overperformer"
@@ -1117,83 +1185,78 @@ print(display_table)
 
 # endregion
 
+# region baseline characteristics
+
+table1_df = final.merge(df_spatial[['dist_name']], on='dist_name', how='inner')
+
+def fmt_continuous(group, col):
+    vals = group[col].dropna()
+    if len(vals) == 0:
+        return "—"
+    return f"{vals.mean():.1f} ({vals.std():.1f})"
+
+def fmt_categorical(group, col, level):
+    vals = group[col].dropna()
+    if len(vals) == 0:
+        return "0.0%"
+    return f"{100 * vals.eq(level).mean():.1f}%"
+
+def baseline_summarize(group):
+    return {
+        # CAASPP Outcomes
+        "CAASPP ELA Score, mean (SD)": 
+            fmt_continuous(group, "caaspp_ela"),
+        "CAASPP Math Score, mean (SD)": 
+            fmt_continuous(group, "caaspp_math"),
+        # Model Features
+        "Median Household Income, mean (SD)": 
+            fmt_continuous(group, "median_income"),
+        "Adults w/ Bachelor's Degree, % mean (SD)": 
+            fmt_continuous(group, "bach_pct"),
+        "Unemployment, % mean (SD)": 
+            fmt_continuous(group, "unemployment_pct"),
+        "Poverty, % mean (SD)": 
+            fmt_continuous(group, "poverty_pct"),
+        "Free/Reduced Meals, % mean (SD)": 
+            fmt_continuous(group, "pct_frpm"),
+        "English Learners, % mean (SD)": 
+            fmt_continuous(group, "pct_el"),
+        "Students w/ Disabilities, % mean (SD)": 
+            fmt_continuous(group, "pct_swd"),
+        "Ethnic Diversity Index, mean (SD)": 
+            fmt_continuous(group, "diversity_idx"),
+        "Log Enrollment (Non-Charter), mean (SD)": 
+            fmt_continuous(group, "enroll_noncharter"),
+        "Teaching Days, mean (SD)": 
+            fmt_continuous(group, "teaching_days"),
+        "District Type: Elementary, %": 
+            fmt_categorical(group, "dist_type", "Elementary"),
+        "District Type: High School, %": 
+            fmt_categorical(group, "dist_type", "High School"),
+        "District Type: Unified, %": 
+            fmt_categorical(group, "dist_type", "Unified"),
+    }
+
+locales = ['City', 'Suburb', 'Town', 'Rural']
+
+baseline_columns = {}
+for loc in locales:
+    grp = table1_df[table1_df["locale"] == loc]
+    baseline_columns[f"{loc} (n={len(grp)})"] = baseline_summarize(grp)
+
+baseline_columns[f"Total (n={len(table1_df)})"] = baseline_summarize(table1_df)
+
+baseline_table = pd.DataFrame(baseline_columns)
+
+print("\nTABLE 1. BASELINE CHARACTERISTICS BY LOCALITY")
+print("=" * 70)
+print(baseline_table)
+
+# endregion
+
 # endregion 
 
 # region PLOTS
-
-# region SHAP Bar Plot
-
-print("\n" + "="*50)
-print("INTERPRETABILITY: SHAP BAR PLOT")
-print("="*50)
-
-plt.figure(figsize=(10, 6))
-plt.title("Top Factors Driving ELA Scores (Average Impact)")
-
-shap.summary_plot(
-    shap_values, 
-    X_imputed_df, 
-    plot_type="bar", 
-    show=False
-)
-
-plt.tight_layout()
-plt.savefig("shap_bar_ela.png")
-plt.show()
-# endregion
-
-# region ICE Plots (Individual Conditional Expectation)
-
-from sklearn.inspection import PartialDependenceDisplay
-import matplotlib.pyplot as plt
-
-print("\n" + "="*60)
-print("INTERPRETABILITY: 6-VARIABLE ICE GRID FOR POLICY")
-print("="*60)
-
-features_to_plot = [
-    'pct_frpm', 'pct_el'
-]
-
-label_mapping = {
-    'pct_frpm': 'Student Poverty (%)',
-    'pct_el': 'English Learners (%)'
-}
-
-y_limit_min = 20  
-y_limit_max = 80  
-
-fig, ax = plt.subplots(figsize=(16, 10))
-
-display = PartialDependenceDisplay.from_estimator(
-    estimator=rf_shap,
-    X=X_imputed_df,
-    features=features_to_plot,
-    kind='both',
-    subsample=100,
-    random_state=42,
-    grid_resolution=50,
-    ice_lines_kw={"color": "tab:blue", "alpha": 0.08, "linewidth": 0.5},
-    pd_line_kw={"color": "tab:orange", "linewidth": 3.5, "alpha": 1},
-    ax=ax
-)
-
-for i, feature_name in enumerate(features_to_plot):
-    sub_ax = display.axes_.flatten()[i]
-    if sub_ax is not None:
-        sub_ax.set_xlabel(label_mapping[feature_name], fontsize=11, weight='bold')
-        sub_ax.set_ylabel("Predicted % Meeting ELA Standards", fontsize=9)
-        sub_ax.set_ylim(y_limit_min, y_limit_max)
-        sub_ax.grid(True, linestyle='--', alpha=0.5)
-
-fig.suptitle("Isolated Impact Curves: Systemic Trends (Orange) vs. Individual Districts (Blue)", 
-             fontsize=18, weight='bold', y=0.96)
-
-plt.subplots_adjust(top=0.88, bottom=0.08, wspace=0.3, hspace=0.35)
-plt.savefig("policy_ice_grid_ela.png", dpi=300)
-plt.show()
-
-# endregion
 
 # region CERF CA Bar Chart 
 
@@ -1231,6 +1294,9 @@ labels = ["Sig. Under", "Mod. Under", "Expected", "Mod. Over", "Sig. Over"]
 combined['tier'] = pd.cut(combined['pca_z'], bins=bins, labels=labels)
 
 ct = pd.crosstab(combined['cerf_region'], combined['tier'], normalize='index') * 100
+
+ct = pd.crosstab(combined['cerf_region'], combined['tier'], normalize='index') * 100
+ct = ct.reindex(columns=labels, fill_value=0)
 
 n_counts = combined.groupby('cerf_region').size()
 ct.index = [f"{reg} (n={n_counts[reg]})" if reg in n_counts else reg for reg in ct.index]

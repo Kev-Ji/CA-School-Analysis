@@ -1,0 +1,466 @@
+import os
+import numpy as np
+import pandas as pd
+import statsmodels.formula.api as smf
+import scipy.stats as stats
+
+OUTDIR = "appendix_tables"
+os.makedirs(OUTDIR, exist_ok=True)
+
+def save_and_print(df, name, note=""):
+    path = os.path.join(OUTDIR, f"{name}.csv")
+    df.to_csv(path)
+    print(f"\n{'='*70}\n{name}{'  — ' + note if note else ''}\n{'='*70}")
+    print(df.to_string())
+    print(f"[saved -> {path}]")
+
+# ============================================================
+# region DATA LOADING / CLEANING  (mirrors analysis.py "region data")
+# ============================================================
+
+final = pd.read_csv("data/final.csv")
+
+final = final[
+    ~final["District Type (District)"].isin(["County Office of Education (COE)"])
+]
+
+final = final.rename(columns={
+    'Unnamed: 0': 'idx',
+    'District Name': 'dist_name',
+    'County Name (District)': 'county',
+    'District Type (District)': 'dist_type',
+    'non_charter_math_caaspp': 'caaspp_math',
+    'non_charter_ela_caaspp': 'caaspp_ela',
+    'Student/Teacher Ratio (District)': 'stu_teach_ratio',
+    'Free/Reduced Meals % (District)': 'pct_frpm',
+    'English Learners % (District)': 'pct_el',
+    'Ethnic Diversity Index (District)': 'diversity_idx',
+    'SWDpct': 'pct_swd',
+    'Locale [District] 2024-25': 'locale',
+    'EnrollNonCharter': 'enroll_noncharter',
+    'Pupil/Teacher Ratio [District] 2024-25': 'pupil_teach_ratio',
+    'Teaching Days (District)': 'teaching_days',
+    'Total Number Operational Schools [Public School] 2024-25': 'n_schools',
+    'CDSCode': 'cds_code',
+    'Agency Name Clean': 'agency_name_clean',
+    'AssistStatus': 'assist_status',
+    'Latitude [District] 2024-25': 'lat',
+    'Longitude [District] 2024-25': 'lon',
+    'median_income': 'median_income',
+    'unemployment_pct': 'unemployment_pct',
+    'poverty_pct': 'poverty_pct',
+    'bach_pct': 'bach_pct',
+    'DistrctAreaSqMi': 'area_sq_mi',
+})
+
+# NOTE: this rename dict is a trimmed subset of the full mapping in analysis.py
+# (only the columns this script touches). If your final.csv still has the raw
+# NCES/CDE column names beyond what's listed above, pull the full rename dict
+# straight from analysis.py rather than retyping it here.
+
+locale_map = {
+    '11-City: Large': 'City', '12-City: Mid-size': 'City', '13-City: Small': 'City',
+    '21-Suburb: Large': 'Suburb', '22-Suburb: Mid-size': 'Suburb', '23-Suburb: Small': 'Suburb',
+    '31-Town: Fringe': 'Town', '32-Town: Distant': 'Town', '33-Town: Remote': 'Town',
+    '41-Rural: Fringe': 'Rural', '42-Rural: Distant': 'Rural', '43-Rural: Remote': 'Rural',
+}
+assist_map = {
+    'Differentiated, Year 1': 'Differentiated',
+    'Differentiated, Year 2': 'Differentiated',
+    'General': 'General',
+}
+dist_type_map = {
+    'Elementary School District': 'Elementary',
+    'High School District': 'High School',
+    'Unified School District': 'Unified',
+    'Union Elementary School District': 'Elementary',
+    'Union High School District': 'High School',
+}
+
+final['assist_status'] = final['assist_status'].map(assist_map)
+final['locale'] = final['locale'].map(locale_map)
+final['dist_type'] = final['dist_type'].map(dist_type_map)
+
+final['caaspp_ela'] = pd.to_numeric(final['caaspp_ela'], errors='coerce')
+final['caaspp_math'] = pd.to_numeric(final['caaspp_math'], errors='coerce')
+final['median_income'] = pd.to_numeric(final['median_income'], errors='coerce')
+final['pupil_teach_ratio'] = pd.to_numeric(final['pupil_teach_ratio'], errors='coerce')
+final['enroll_noncharter'] = np.log(final['enroll_noncharter'])
+final = final[np.exp(final['enroll_noncharter']) >= 30]
+
+# endregion
+
+# ============================================================
+# region SPATIAL SETUP + BASELINE OLS  (Tables A1, A2, A4)
+# ============================================================
+
+from sklearn.experimental import enable_iterative_imputer
+from sklearn.impute import IterativeImputer
+from sklearn.linear_model import BayesianRidge
+from libpysal.weights import KNN
+from esda.moran import Moran
+
+base_cols = ['caaspp_ela', 'caaspp_math', 'lat', 'lon', 'dist_name']
+df_spatial = final.dropna(subset=base_cols).copy()
+
+numeric_preds = [
+    'pct_frpm', 'bach_pct', 'median_income', 'pct_el', 'diversity_idx',
+    'pct_swd', 'unemployment_pct', 'pupil_teach_ratio', 'teaching_days',
+]
+
+
+existing_numeric = [c for c in numeric_preds if c in df_spatial.columns]
+
+imputer = IterativeImputer(estimator=BayesianRidge(), max_iter=10, random_state=42)
+df_spatial[existing_numeric] = imputer.fit_transform(df_spatial[existing_numeric])
+
+for cat_col in ['locale', 'dist_type']:
+    if cat_col in df_spatial.columns:
+        df_spatial[cat_col] = df_spatial[cat_col].fillna(df_spatial[cat_col].mode()[0])
+
+coords = np.array(list(zip(df_spatial['lon'], df_spatial['lat'])))
+w = KNN.from_array(coords, k=8)
+w_dist = KNN.from_array(coords, k=8, distance_metric='euclidean')
+for i, neighbors in w_dist.neighbors.items():
+    distances = [w_dist.weights[i][j] for j in range(len(neighbors))]
+    w.weights[i] = [1.0 / (d + 0.0001) for d in distances]
+w.transform = 'r'
+
+formula = (
+    '{outcome} ~ pct_frpm '
+    '+ bach_pct + median_income + pct_el + diversity_idx '
+    '+ locale + pct_swd + enroll_noncharter + dist_type + teaching_days + unemployment_pct + enroll_noncharter'
+)
+
+def clean_index(idx):
+    if 'locale[T.' in idx:
+        return idx.replace('locale[T.', '').replace(']', '') + ' locale'
+    if idx == 'Intercept':
+        return 'Intercept'
+    return idx
+
+moran_rows = []
+ols_results = {}
+
+for outcome, label in [('caaspp_ela', 'CAASPP ELA'), ('caaspp_math', 'CAASPP Math')]:
+    res = smf.ols(formula.format(outcome=outcome), data=df_spatial).fit()
+    df_spatial[f'ols_resid_{outcome}'] = res.resid.values
+    ols_results[outcome] = res
+
+    table = pd.DataFrame({
+        'Coefficient': res.params,
+        'Std. Error': res.bse,
+        't-stat': res.tvalues,
+        'p-value': res.pvalues,
+    }).round(3)
+    table.index = [clean_index(i) for i in table.index]
+
+    save_and_print(
+        table, f"Table_A{'1' if outcome == 'caaspp_ela' else '2'}_{label.replace(' ', '_')}",
+        note=f"Observations: {int(res.nobs)} | R²: {res.rsquared:.3f} | Adj. R²: {res.rsquared_adj:.3f}"
+    )
+
+    moran = Moran(res.resid.values, w)
+    moran_rows.append({
+        'Outcome': label, 'OLS R²': round(res.rsquared, 4),
+        "Moran's I": round(moran.I, 4), 'p': round(moran.p_sim, 4), 'z': round(moran.z_norm, 4),
+    })
+
+moran_table = pd.DataFrame(moran_rows).set_index('Outcome')
+save_and_print(moran_table, "Table_A4_Morans_I", note="IDW k=8 nearest neighbors, baseline OLS residuals")
+
+# endregion
+
+# ============================================================
+# region RANDOM FOREST + ELASTIC NET  (Table A3)
+# ============================================================
+
+from sklearn.ensemble import RandomForestRegressor
+from sklearn.linear_model import ElasticNetCV
+from sklearn.model_selection import cross_val_predict, KFold
+from sklearn.compose import ColumnTransformer
+from sklearn.pipeline import Pipeline
+from sklearn.metrics import r2_score
+
+MODEL_FEATURES = [
+    'median_income', 'bach_pct', 'unemployment_pct', 'poverty_pct', 'locale',
+    'pct_frpm', 'pct_el', 'pct_swd', 'diversity_idx', 'enroll_noncharter','dist_type', 'teaching_days',
+]
+MODEL_FEATURES = [c for c in MODEL_FEATURES if c in df_spatial.columns]
+
+cv = KFold(n_splits=5, shuffle=True, random_state=42)
+rf_base = RandomForestRegressor(n_estimators=1000, max_features='sqrt', random_state=42, n_jobs=-1)
+
+outcomes = ['caaspp_ela', 'caaspp_math']
+rf_resids = {}
+enet_resids = {}
+r2_rows = []
+
+for outcome in outcomes:
+    model_data = df_spatial[MODEL_FEATURES + [outcome, 'dist_name']].copy().dropna(subset=[outcome])
+
+    cat_cols = [c for c in ['locale', 'dist_type'] if c in model_data.columns]
+    if cat_cols:
+        model_data = pd.get_dummies(model_data, columns=cat_cols, dtype=float, drop_first=True)
+
+    feature_cols = [c for c in model_data.columns if c not in [outcome, 'dist_name']]
+    X = model_data[feature_cols]
+    y = model_data[outcome]
+    num_cols = X.select_dtypes(include='number').columns
+
+    preprocess = ColumnTransformer(
+        [('iterative', IterativeImputer(estimator=BayesianRidge(), random_state=42, max_iter=10), num_cols)],
+        remainder='passthrough'
+    )
+
+    enet_pipe = Pipeline([
+        ('prep', preprocess),
+        ('enet', ElasticNetCV(l1_ratio=[.1, .3, .5, .7, .9, .95, .99, 1], cv=5, random_state=42, max_iter=10000))
+    ])
+    enet_pred = cross_val_predict(enet_pipe, X, y, cv=cv)
+    enet_r2 = r2_score(y, enet_pred)
+    enet_resids[outcome] = pd.Series(y.values - enet_pred, index=model_data.index, name=f'enet_resid_{outcome}')
+
+    rf_pipe = Pipeline([('prep', preprocess), ('rf', rf_base)])
+    rf_pred = cross_val_predict(rf_pipe, X, y, cv=cv)
+    rf_r2 = r2_score(y, rf_pred)
+    rf_resids[outcome] = pd.Series(y.values - rf_pred, index=model_data.index, name=f'rf_resid_{outcome}')
+
+    r2_rows.append({'Outcome': outcome, 'Elastic Net CV R²': round(enet_r2, 4), 'Random Forest CV R²': round(rf_r2, 4)})
+
+r2_table = pd.DataFrame(r2_rows).set_index('Outcome')
+save_and_print(r2_table, "Table_A3_Model_R2", note="Five-fold CV out-of-sample R², single shared feature set (Appendix B)")
+
+# endregion
+
+# ============================================================
+# region WINSORIZED PCA  (six components: OLS, elastic net, random forest)
+# ============================================================
+
+from sklearn.decomposition import PCA
+from scipy.stats import zscore
+
+combined = df_spatial[['dist_name', 'county']].copy()
+for outcome in outcomes:
+    combined[f'ols_resid_{outcome}'] = df_spatial[f'ols_resid_{outcome}'].values
+    combined = combined.join(enet_resids[outcome], how='left')
+    combined = combined.join(rf_resids[outcome], how='left')
+
+combined['enroll_noncharter_raw'] = np.exp(
+    df_spatial.loc[df_spatial['dist_name'].isin(combined['dist_name']), 'enroll_noncharter'].values
+)
+MIN_ENROLLMENT = 30
+combined = combined[combined['enroll_noncharter_raw'] >= MIN_ENROLLMENT].copy()
+combined = combined.merge(df_spatial[['dist_name', 'lat', 'lon']], on='dist_name', how='left')
+combined = combined.merge(df_spatial[['dist_name', 'locale']], on='dist_name', how='left')
+
+components = ['ols_ela_z', 'ols_math_z', 'enet_ela_z', 'enet_math_z', 'rf_ela_z', 'rf_math_z']
+for outcome, prefix in [('caaspp_ela', 'ela'), ('caaspp_math', 'math')]:
+    combined[f'ols_{prefix}_z'] = zscore(combined[f'ols_resid_{outcome}'], nan_policy='omit')
+    combined[f'enet_{prefix}_z'] = zscore(combined[f'enet_resid_{outcome}'], nan_policy='omit')
+    combined[f'rf_{prefix}_z'] = zscore(combined[f'rf_resid_{outcome}'], nan_policy='omit')
+
+for col in components:
+    lower, upper = combined[col].quantile(0.01), combined[col].quantile(0.99)
+    combined[col] = combined[col].clip(lower=lower, upper=upper)
+
+pca = PCA(n_components=1)
+pca_raw = pca.fit_transform(combined[components])
+combined['pca_raw'] = pca_raw
+if combined[components[0]].corr(combined['pca_raw']) < 0:
+    combined['pca_raw'] *= -1
+
+print(f"\nPCA component 1 variance explained: {pca.explained_variance_ratio_[0]*100:.1f}%")
+
+# endregion
+
+# ============================================================
+# region EMPIRICAL BAYES SHRINKAGE OF COMPOSITE SCORE  (Table A6)
+# ============================================================
+
+phi_hat = 1.0
+eb_score = pd.Series(index=combined.index, dtype=float)
+eb_rows = []
+
+for locale_name, group in combined.groupby('locale'):
+    y = group['pca_raw'].values
+    n = group['enroll_noncharter_raw'].values
+    y_bar = np.average(y, weights=n)
+
+    if len(y) < 3:
+        eb_score.loc[group.index] = y
+        eb_rows.append({'Locale': locale_name, 'Districts': len(y), 'tau^2': np.nan, 'Mean shrinkage weight': 1.0})
+        continue
+
+    sample_var = np.average((y - y_bar) ** 2, weights=n)
+    mean_inv_n = np.average(1.0 / n, weights=n)
+    tau_sq = max(0.0, sample_var - phi_hat * mean_inv_n)
+    v_i = phi_hat / n
+    w_i = tau_sq / (tau_sq + v_i)
+    eb_score.loc[group.index] = y_bar + w_i * (y - y_bar)
+
+    eb_rows.append({
+        'Locale': locale_name, 'Districts': len(y),
+        'tau^2': round(tau_sq, 4), 'Mean shrinkage weight': round(np.mean(w_i), 3),
+    })
+
+combined['eb_shrunken_raw'] = eb_score
+eb_table = pd.DataFrame(eb_rows).set_index('Locale')
+save_and_print(eb_table, "Table_A6_Empirical_Bayes",
+                note="Shrinkage of the composite PCA score toward its enrollment-weighted locale mean")
+
+# endregion
+
+# ============================================================
+# region SAR SMOOTHING OF COMPOSITE SCORE  (Table A5)
+# ============================================================
+
+import spreg
+from libpysal.weights import lag_spatial
+from scipy.spatial.distance import euclidean
+
+coords_sub = combined[['lon', 'lat']].values
+w_sub = KNN.from_array(coords_sub, k=8)
+for i, neighbors in w_sub.neighbors.items():
+    distances = [euclidean(coords_sub[i], coords_sub[j]) for j in neighbors]
+    w_sub.weights[i] = [1.0 / (d + 0.0001) for d in distances]
+w_sub.transform = 'r'
+
+X_intercept = np.ones((len(combined), 1))
+y_sar = combined['eb_shrunken_raw'].values.reshape(-1, 1)
+sar_model = spreg.ML_Lag(y_sar, X_intercept, w=w_sub, name_y='eb_shrunken_raw')
+rho = max(0.0, min(sar_model.rho, 0.5))
+neighbor_avg = lag_spatial(w_sub, combined['eb_shrunken_raw'].values)
+combined['sar_smoothed'] = (1 - rho) * combined['eb_shrunken_raw'] + rho * neighbor_avg
+
+sar_table = pd.DataFrame([{
+    'Component': 'Composite (post-shrinkage) score', 'rho': round(rho, 3),
+    'Own district': f"{(1-rho)*100:.1f}%", 'Neighbor average': f"{rho*100:.1f}%",
+}]).set_index('Component')
+save_and_print(sar_table, "Table_A5_SAR_Blending")
+
+combined['pca_z'] = zscore(combined['sar_smoothed'], nan_policy='omit')
+final_lower, final_upper = combined['pca_z'].quantile(0.01), combined['pca_z'].quantile(0.99)
+combined['pca_z'] = combined['pca_z'].clip(lower=final_lower, upper=final_upper)
+
+# endregion
+
+# ============================================================
+# region TIER ASSIGNMENT  (Table A7)
+# ============================================================
+
+combined = combined.merge(df_spatial[['dist_name', 'assist_status']], on='dist_name', how='left')
+combined['final_z_standardized'] = combined['pca_z']
+
+rank_cols = []
+for col in components:
+    rank_col = f'rank_{col}'
+    combined[rank_col] = combined[col].rank(ascending=False, method='min')
+    rank_cols.append(rank_col)
+combined['component_rank_spread'] = combined[rank_cols].max(axis=1) - combined[rank_cols].min(axis=1)
+
+def assign_tier(z, spread):
+    if z >= 1.5:
+        return "Significant Overperformer"
+    elif z >= 0.5:
+        return "Moderate Overperformer"
+    elif z > -0.5:
+        return "Expected Performer"
+    elif z > -1.5:
+        return "Moderate Underperformer"
+    else:
+        return "Significant Underperformer"
+
+combined['performance_tier'] = combined.apply(
+    lambda row: assign_tier(row['final_z_standardized'], row['component_rank_spread']), axis=1
+)
+
+tier_counts = combined['performance_tier'].value_counts().rename("Districts").to_frame()
+n_total_modeled = len(df_spatial)
+n_ranked = len(combined)
+
+save_and_print(
+    tier_counts, "Table_A7_Tier_Assignment",
+    note=(f"{n_ranked} of {n_total_modeled} modeled districts meet the >={MIN_ENROLLMENT} enrollment "
+          f"threshold and are ranked/tiered")
+)
+
+combined[['dist_name', 'performance_tier', 'final_z_standardized',
+          'component_rank_spread', 'assist_status']].to_csv(
+    os.path.join(OUTDIR, "district_performance_tiers.csv"), index=False
+)
+
+# endregion
+
+# ============================================================
+# region EXTERNAL VALIDATION  (Table A8)
+# ============================================================
+
+try:
+    try:
+        awards = pd.read_csv("data/2024-25award.csv")
+    except FileNotFoundError:
+        awards = pd.read_csv("data/dsaawards.xlsx - CA Distinguished Schools.csv")
+
+    recent_awards = awards[awards['Year'].isin([2024, 2025])].copy()
+    if recent_awards.empty:
+        recent_awards = awards[awards['Year'] == awards['Year'].max()].copy()
+
+    school_counts = final[['dist_name', 'cds_code', 'agency_name_clean', 'n_schools']].copy()
+    award_cds_col = next((c for c in recent_awards.columns if 'cds' in c.lower()), None)
+
+    if award_cds_col:
+        recent_awards['merge_target'] = recent_awards[award_cds_col].astype(str).str.zfill(14)
+        school_counts['merge_target'] = school_counts['cds_code'].astype(str).str.zfill(14)
+    else:
+        dist_col = 'District' if 'District' in recent_awards.columns else 'District Name'
+        recent_awards['merge_target'] = recent_awards[dist_col].astype(str).str.upper().str.strip()
+        school_counts['merge_target'] = school_counts['agency_name_clean'].astype(str).str.upper().str.strip()
+
+    award_counts = recent_awards.groupby('merge_target').size().reset_index(name='award_count')
+    val_df = school_counts.merge(award_counts[['merge_target', 'award_count']], on='merge_target', how='left')
+    val_df['award_count'] = val_df['award_count'].fillna(0)
+    val_df['n_schools'] = pd.to_numeric(val_df['n_schools'], errors='coerce').fillna(1)
+    val_df['n_schools'] = val_df['n_schools'].apply(lambda x: x if x > 0 else 1)
+
+    raw_rates = val_df['award_count'] / val_df['n_schools']
+    global_mean = raw_rates.mean()
+    weighted_var = np.average((raw_rates - global_mean) ** 2, weights=val_df['n_schools'])
+
+    if weighted_var > 0 and weighted_var < (global_mean * (1 - global_mean)):
+        gamma = (global_mean * (1 - global_mean) / weighted_var) - 1
+        alpha = global_mean * gamma
+        beta = (1 - global_mean) * gamma
+    else:
+        prior_weight = val_df['n_schools'].median()
+        alpha = global_mean * prior_weight
+        beta = (1 - global_mean) * prior_weight
+
+    val_df['cds_density_smoothed'] = (val_df['award_count'] + alpha) / (val_df['n_schools'] + alpha + beta)
+
+    val_df_final = combined.merge(
+        val_df[['dist_name', 'cds_density_smoothed', 'award_count']], on='dist_name', how='left'
+    )
+    val_df_final['cds_density_smoothed'] = val_df_final['cds_density_smoothed'].fillna(alpha / (alpha + beta))
+    val_df_final['award_count'] = val_df_final['award_count'].fillna(0)
+
+    tau, p_val = stats.kendalltau(
+        val_df_final['final_z_standardized'], val_df_final['cds_density_smoothed'], nan_policy='omit'
+    )
+
+    a8 = pd.DataFrame({
+        'Metric': ['Empirical Bayes prior (alpha)', 'Empirical Bayes prior (beta)',
+                   'Awards mapped (2024-2025)', "Kendall's tau-b (tie-adjusted)", 'p-value'],
+        'Value': [round(alpha, 3), round(beta, 3), int(val_df['award_count'].sum()),
+                  round(tau, 4), p_val],
+    }).set_index('Metric')
+
+    save_and_print(a8, "Table_A8_External_Validation")
+
+except Exception as e:
+    print(f"\n[Table A8 FAILED] {e}")
+    print("Check that the award CSV path/columns match your data directory.")
+
+# endregion
+
+print(f"\nAll tables written to ./{OUTDIR}/")

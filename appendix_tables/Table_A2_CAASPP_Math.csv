@@ -1,0 +1,16 @@
+,Coefficient,Std. Error,t-stat,p-value
+Intercept,45.549,11.311,4.027,0.0
+Rural locale,-0.97,1.673,-0.58,0.562
+Suburb locale,1.691,1.101,1.535,0.125
+Town locale,-0.79,1.455,-0.543,0.588
+dist_type[T.High School],-12.166,1.346,-9.039,0.0
+dist_type[T.Unified],-5.259,0.886,-5.938,0.0
+pct_frpm,-0.346,0.03,-11.637,0.0
+bach_pct,0.491,0.068,7.189,0.0
+median_income,0.0,0.0,3.832,0.0
+pct_el,-0.098,0.038,-2.575,0.01
+diversity_idx,-0.138,0.03,-4.639,0.0
+pct_swd,-0.767,0.1,-7.642,0.0
+enroll_noncharter,2.458,0.368,6.673,0.0
+teaching_days,-0.031,0.056,-0.543,0.588
+unemployment_pct,0.162,0.097,1.677,0.094
