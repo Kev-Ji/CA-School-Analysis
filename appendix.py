@@ -172,11 +172,11 @@ save_and_print(moran_table, "Table_A4_Morans_I", note="IDW k=8 nearest neighbors
 # endregion
 
 # ============================================================
-# region RANDOM FOREST + ELASTIC NET  (Table A3)
+# region OLS + RANDOM FOREST + ELASTIC NET  (Table A3)
 # ============================================================
 
+from sklearn.linear_model import LinearRegression, ElasticNetCV
 from sklearn.ensemble import RandomForestRegressor
-from sklearn.linear_model import ElasticNetCV
 from sklearn.model_selection import cross_val_predict, KFold
 from sklearn.compose import ColumnTransformer
 from sklearn.pipeline import Pipeline
@@ -184,7 +184,7 @@ from sklearn.metrics import r2_score
 
 MODEL_FEATURES = [
     'median_income', 'bach_pct', 'unemployment_pct', 'poverty_pct', 'locale',
-    'pct_frpm', 'pct_el', 'pct_swd', 'diversity_idx', 'enroll_noncharter','dist_type', 'teaching_days',
+    'pct_frpm', 'pct_el', 'pct_swd', 'diversity_idx', 'enroll_noncharter','dist_type', 'teaching_days'
 ]
 MODEL_FEATURES = [c for c in MODEL_FEATURES if c in df_spatial.columns]
 
@@ -192,6 +192,7 @@ cv = KFold(n_splits=5, shuffle=True, random_state=42)
 rf_base = RandomForestRegressor(n_estimators=1000, max_features='sqrt', random_state=42, n_jobs=-1)
 
 outcomes = ['caaspp_ela', 'caaspp_math']
+ols_resids = {}
 rf_resids = {}
 enet_resids = {}
 r2_rows = []
@@ -213,6 +214,16 @@ for outcome in outcomes:
         remainder='passthrough'
     )
 
+    # --- OLS ---
+    ols_pipe = Pipeline([
+        ('prep', preprocess),
+        ('ols', LinearRegression())
+    ])
+    ols_pred = cross_val_predict(ols_pipe, X, y, cv=cv)
+    ols_r2 = r2_score(y, ols_pred)
+    ols_resids[outcome] = pd.Series(y.values - ols_pred, index=model_data.index, name=f'ols_resid_{outcome}')
+
+    # --- Elastic Net ---
     enet_pipe = Pipeline([
         ('prep', preprocess),
         ('enet', ElasticNetCV(l1_ratio=[.1, .3, .5, .7, .9, .95, .99, 1], cv=5, random_state=42, max_iter=10000))
@@ -221,12 +232,18 @@ for outcome in outcomes:
     enet_r2 = r2_score(y, enet_pred)
     enet_resids[outcome] = pd.Series(y.values - enet_pred, index=model_data.index, name=f'enet_resid_{outcome}')
 
+    # --- Random Forest ---
     rf_pipe = Pipeline([('prep', preprocess), ('rf', rf_base)])
     rf_pred = cross_val_predict(rf_pipe, X, y, cv=cv)
     rf_r2 = r2_score(y, rf_pred)
     rf_resids[outcome] = pd.Series(y.values - rf_pred, index=model_data.index, name=f'rf_resid_{outcome}')
 
-    r2_rows.append({'Outcome': outcome, 'Elastic Net CV R²': round(enet_r2, 4), 'Random Forest CV R²': round(rf_r2, 4)})
+    r2_rows.append({
+        'Outcome': outcome,
+        'OLS CV R²': round(ols_r2, 4),
+        'Elastic Net CV R²': round(enet_r2, 4),
+        'Random Forest CV R²': round(rf_r2, 4)
+    })
 
 r2_table = pd.DataFrame(r2_rows).set_index('Outcome')
 save_and_print(r2_table, "Table_A3_Model_R2", note="Five-fold CV out-of-sample R², single shared feature set (Appendix B)")
@@ -265,50 +282,147 @@ for col in components:
     combined[col] = combined[col].clip(lower=lower, upper=upper)
 
 pca = PCA(n_components=1)
-pca_raw = pca.fit_transform(combined[components])
-combined['pca_raw'] = pca_raw
-if combined[components[0]].corr(combined['pca_raw']) < 0:
-    combined['pca_raw'] *= -1
+pca_raw = pca.fit_transform(combined[components]).ravel()
+combined["pca_raw"] = pca_raw
+
+if combined[components[0]].corr(combined["pca_raw"]) < 0:
+    combined["pca_raw"] *= -1
 
 print(f"\nPCA component 1 variance explained: {pca.explained_variance_ratio_[0]*100:.1f}%")
+
+# ---------------------------------------------------------
+# Bootstrap PCA uncertainty
+# ---------------------------------------------------------
+
+from sklearn.utils import resample
+
+B = 1000
+rng = 42
+
+X = combined[components].values
+N = len(combined)
+
+boot_scores = np.empty((B, N))
+
+ref_loading = pca.components_[0].copy()
+
+for b in range(B):
+
+    idx = resample(
+        np.arange(N),
+        replace=True,
+        n_samples=N,
+        random_state=rng + b
+    )
+
+    X_boot = X[idx]
+
+    pca_boot = PCA(n_components=1)
+    pca_boot.fit(X_boot)
+
+    if np.dot(pca_boot.components_[0], ref_loading) < 0:
+        pca_boot.components_[0] *= -1
+
+    boot_scores[b] = pca_boot.transform(X).ravel()
+
+combined["pc1_var"] = boot_scores.var(axis=0, ddof=1)
+combined["pc1_se"] = np.sqrt(combined["pc1_var"])
+
+print(
+    f"Bootstrap PC1 SE "
+    f"(median={combined['pc1_se'].median():.4f}, "
+    f"max={combined['pc1_se'].max():.4f})"
+)
+
+# endregion
 
 # endregion
 
 # ============================================================
-# region EMPIRICAL BAYES SHRINKAGE OF COMPOSITE SCORE  (Table A6)
+# region EMPIRICAL BAYES SHRINKAGE OF COMPOSITE SCORE (Table A6)
 # ============================================================
 
-phi_hat = 1.0
-eb_score = pd.Series(index=combined.index, dtype=float)
+
 eb_rows = []
 
-for locale_name, group in combined.groupby('locale'):
-    y = group['pca_raw'].values
-    n = group['enroll_noncharter_raw'].values
-    y_bar = np.average(y, weights=n)
+combined["eb_shrunken_raw"] = np.nan
+combined["shrinkage_weight"] = np.nan
+combined["sampling_var"] = np.nan
+combined["posterior_var"] = np.nan
 
-    if len(y) < 3:
-        eb_score.loc[group.index] = y
-        eb_rows.append({'Locale': locale_name, 'Districts': len(y), 'tau^2': np.nan, 'Mean shrinkage weight': 1.0})
-        continue
+for locale_name, group in combined.groupby("locale"):
+
+    y = group["pca_raw"].values
+    n = group["enroll_noncharter_raw"].values
+    pc1_var = group["pc1_var"].values
+
+    y_bar = np.average(y, weights=n)
 
     sample_var = np.average((y - y_bar) ** 2, weights=n)
     mean_inv_n = np.average(1.0 / n, weights=n)
-    tau_sq = max(0.0, sample_var - phi_hat * mean_inv_n)
-    v_i = phi_hat / n
-    w_i = tau_sq / (tau_sq + v_i)
-    eb_score.loc[group.index] = y_bar + w_i * (y - y_bar)
+
+    if len(y) < 3:
+        combined.loc[group.index, "shrinkage_weight"] = 1.0
+        combined.loc[group.index, "eb_shrunken_raw"] = y
+        combined.loc[group.index, "sampling_var"] = np.nan
+        combined.loc[group.index, "posterior_var"] = pc1_var
+
+        eb_rows.append({
+            "Locale": locale_name,
+            "Districts": len(group),
+            "Min weight": 1.0,
+            "Median weight": 1.0,
+            "Mean weight": 1.0,
+            "Max weight": 1.0,
+            "Median PC1 SE": group["pc1_se"].median(),
+            "Mean PC1 SE": group["pc1_se"].mean(),
+        })
+        continue
+
+    sigma_sq = 0.15 * sample_var / np.median(1.0 / n)
+
+    tau_sq = max(0.0, sample_var - sigma_sq * mean_inv_n)
+
+    sampling_var = sigma_sq / n
+    posterior_var = sampling_var + pc1_var
+
+    w_i = tau_sq / (tau_sq + posterior_var)
+
+    combined.loc[group.index, "sampling_var"] = sampling_var
+    combined.loc[group.index, "posterior_var"] = posterior_var
+    combined.loc[group.index, "shrinkage_weight"] = w_i
+    combined.loc[group.index, "eb_shrunken_raw"] = (
+        y_bar + w_i * (y - y_bar)
+    )
 
     eb_rows.append({
-        'Locale': locale_name, 'Districts': len(y),
-        'tau^2': round(tau_sq, 4), 'Mean shrinkage weight': round(np.mean(w_i), 3),
+        "Locale": locale_name,
+        "Districts": len(group),
+        "Min weight": w_i.min(),
+        "Median weight": np.median(w_i),
+        "Mean weight": np.mean(w_i),
+        "Max weight": w_i.max(),
+        "Median PC1 SE": group["pc1_se"].median(),
+        "Mean PC1 SE": group["pc1_se"].mean(),
     })
 
-combined['eb_shrunken_raw'] = eb_score
-eb_table = pd.DataFrame(eb_rows).set_index('Locale')
-save_and_print(eb_table, "Table_A6_Empirical_Bayes",
-                note="Shrinkage of the composite PCA score toward its enrollment-weighted locale mean")
+eb_table = (
+    pd.DataFrame(eb_rows)
+      .set_index("Locale")
+      .round(4)
+)
 
+save_and_print(
+    eb_table,
+    "Table_A6_Empirical_Bayes",
+    note=(
+        "Empirical Bayes shrinkage weights applied to the composite PCA score. "
+        "Observation-level variance is defined as the sum of enrollment-based "
+        "sampling variance (σ²/n) and bootstrap-estimated PCA variance."
+    ),
+)
+
+# endregion
 # endregion
 
 # ============================================================

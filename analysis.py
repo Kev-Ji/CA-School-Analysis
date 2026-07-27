@@ -530,46 +530,130 @@ print(f"  -> Variance explained by PC1: {pca.explained_variance_ratio_[0]*100:.1
 
 # endregion
 
+# region bootstrap PCA
+
+from sklearn.decomposition import PCA
+from sklearn.utils import resample
+import numpy as np
+
+B = 1000          # 500 is acceptable; 1000 is preferable
+rng = 42
+
+X = combined[components].values
+n = len(combined)
+
+boot_scores = np.empty((B, n))
+
+# Original PCA direction for sign alignment
+pca_ref = PCA(n_components=1)
+pca_ref.fit(X)
+ref_loading = pca_ref.components_[0]
+
+for b in range(B):
+
+    # Bootstrap districts
+    boot_idx = resample(
+        np.arange(n),
+        replace=True,
+        n_samples=n,
+        random_state=rng + b
+    )
+
+    X_boot = X[boot_idx]
+
+    pca_boot = PCA(n_components=1)
+    pca_boot.fit(X_boot)
+
+    # Keep PC direction consistent
+    if np.dot(pca_boot.components_[0], ref_loading) < 0:
+        pca_boot.components_[0] *= -1
+
+    # Project ALL districts onto this bootstrap PC
+    boot_scores[b] = pca_boot.transform(X).ravel()
+
+combined["pc1_var"] = boot_scores.var(axis=0, ddof=1)
+combined["pc1_se"]  = np.sqrt(combined["pc1_var"])
+
+print("\nBootstrap PCA complete")
+print(f"Median PC1 SE : {combined['pc1_se'].median():.4f}")
+print(f"Mean   PC1 SE : {combined['pc1_se'].mean():.4f}")
+print(f"Max    PC1 SE : {combined['pc1_se'].max():.4f}")
+
+# endregion
+
 # region empirical bayes
+import numpy as np
+import pandas as pd
 import spreg
 from libpysal.weights.spatial_lag import lag_spatial
 from scipy.spatial.distance import euclidean
-
-print("\n" + "="*50)
-print("EMPIRICAL BAYES & SPATIAL SMOOTHING")
-print("="*50)
+from scipy.stats import zscore
+from libpysal.weights import KNN
 
 score_col = 'pca_raw'
 group_col = 'locale'
-n_col     = 'enroll_noncharter_raw'
-
-group_means = combined.groupby(group_col)[score_col].transform('mean')
-combined['_dev'] = combined[score_col] - group_means
-combined['_inv_n'] = 1.0 / combined[n_col]
-
-phi_hat = 1.0
+n_col = 'enroll_noncharter_raw'
 
 eb_score = pd.Series(index=combined.index, dtype=float)
+combined['v_i'] = np.nan
+combined['tau_sq'] = np.nan
+combined['posterior_var'] = np.nan
+
+print("\n" + "="*50)
+print("EMPIRICAL BAYES SHRINKAGE (GLOBAL POPULATION WEIGHT)")
+print("="*50)
+
+
+global_median_n = combined[n_col].median()
+global_large = combined.loc[combined[n_col] >= global_median_n, score_col]
+global_small = combined.loc[combined[n_col] < global_median_n, score_col]
+
+global_tau_sq = np.var(global_large, ddof=1)
+global_small_var = np.var(global_small, ddof=1)
+global_noise_var = max(0.0, global_small_var - global_tau_sq)
+
+global_mean_inv_n = np.mean(1.0 / combined.loc[combined[n_col] < global_median_n, n_col])
+global_sigma_sq = global_noise_var / global_mean_inv_n if global_mean_inv_n > 0 else 0.0
+
+print(f"Global Student Noise Parameter (sigma_sq): {global_sigma_sq:.3f}\n")
+
 
 for name, group in combined.groupby(group_col):
     y = group[score_col].values
     n = group[n_col].values
+    pc1_var = group['pc1_var'].values
+    
     y_bar = np.average(y, weights=n)
-
+    
     if len(y) < 3:
         eb_score.loc[group.index] = y
+        combined.loc[group.index, 'v_i'] = pc1_var
+        combined.loc[group.index, 'posterior_var'] = pc1_var
         continue
-
-    sample_var = np.average((y - y_bar) ** 2, weights=n)
-    mean_inv_n = np.average(1.0 / n, weights=n)
-    tau_sq = max(0.0, sample_var - phi_hat * mean_inv_n)
-
-    v_i = phi_hat / n
+        
+    median_n_loc = np.median(n)
+    large_districts = y[n >= median_n_loc]
+    tau_sq = np.var(large_districts, ddof=1) if len(large_districts) > 1 else np.var(y, ddof=1)
+    tau_sq = max(0.01, tau_sq)
+    
+    v_i = (global_sigma_sq / n) + pc1_var
+    
     w_i = tau_sq / (tau_sq + v_i)
+    
+    # Calculate POSTERIOR VARIANCE for the Monte Carlo Simulation
+    posterior_var = w_i * v_i
+    
     eb_score.loc[group.index] = y_bar + w_i * (y - y_bar)
+    
+    combined.loc[group.index, 'v_i'] = v_i
+    combined.loc[group.index, 'tau_sq'] = tau_sq
+    combined.loc[group.index, 'posterior_var'] = posterior_var
+    
+    print(f"  Locale: {name:<10} | Local Signal (tau_sq): {tau_sq:.3f}")
 
 combined['eb_shrunken_raw'] = eb_score
 
+# Spatial smoothing
 coords_sub = combined[['lon', 'lat']].values
 w_sub = KNN.from_array(coords_sub, k=8)
 
@@ -586,15 +670,11 @@ rho = max(0.0, min(sar_model.rho, 0.5))
 neighbor_avg = lag_spatial(w_sub, combined['eb_shrunken_raw'].values)
 
 combined['sar_smoothed'] = (1 - rho) * combined['eb_shrunken_raw'] + rho * neighbor_avg
-print(f"  -> SAR applied: {(1-rho)*100:.1f}% Self / {rho*100:.1f}% Neighbors (rho={sar_model.rho:.3f})")
-
 combined['pca_z'] = zscore(combined['sar_smoothed'], nan_policy='omit')
 
 final_lower = combined['pca_z'].quantile(0.01)
 final_upper = combined['pca_z'].quantile(0.99)
 combined['pca_z'] = combined['pca_z'].clip(lower=final_lower, upper=final_upper)
-
-combined = combined.drop(columns=['_dev', '_inv_n'])
 
 # endregion
 
@@ -732,7 +812,9 @@ print("\n" + "="*50)
 print("CHECK 2: RANK STABILITY (SPEARMAN CORRELATION)")
 print("="*50)
 
-# Calculate Spearman Rank Correlation between Final Model and Raw OLS Baseline
+import scipy.stats as stats
+
+
 spearman_corr, p_value = stats.spearmanr(
     combined['pca_z'], 
     combined['avg_ols_z'], 
@@ -769,18 +851,15 @@ check_df['size_quintile'] = pd.qcut(
     labels=['Smallest', 'Small', 'Medium', 'Large', 'Largest']
 )
 
-# 1. Check for systematic bias 
 print("\n--- Mean PCA Z-Score by District Size ---")
 print(check_df.groupby('size_quintile', observed=False)['pca_z'].mean().round(3))
 
 print("\n--- Mean PCA Z-Score by Locale ---")
 print(check_df.groupby('locale', observed=False)['pca_z'].mean().round(3))
 
-# 2. Check for over-shrinkage by size
 print("\n--- Variance of PCA Z-Score by District Size ---")
 print(check_df.groupby('size_quintile', observed=False)['pca_z'].var().round(3))
 
-# 3. Check correlation with Poverty
 corr_frpm = check_df['pca_z'].corr(check_df['pct_frpm'])
 print(f"\nCorrelation between Final PCA Score and Free/Reduced Lunch %: {corr_frpm:.3f}")
 if abs(corr_frpm) > 0.3:
@@ -814,34 +893,37 @@ print(combined.sort_values('component_rank_spread', ascending=False).head(10)[['
 
 # region STABILITY 2: MONTE CARLO RANK SIMULATION
 
+
 print("\n" + "="*50)
-print("STABILITY 2: MONTE CARLO RANK SIMULATION (EXACT COV + VARIANCE POOLING)")
+print("STABILITY 2: MONTE CARLO RANK SIMULATION (SCALE-CORRECTED)")
 print("="*50)
 
-corr_matrix = combined[components].corr()
-N = len(components)
-avg_r = (corr_matrix.values.sum() - N) / (N**2 - N)
-shrinkage_factor = np.sqrt((1 + (N - 1) * avg_r) / N)
-
-raw_se = combined[components].std(axis=1) * shrinkage_factor
-median_se = raw_se.median()
+ela_cols = ['ols_ela_z', 'enet_ela_z', 'rf_ela_z']
+math_cols = ['ols_math_z', 'enet_math_z', 'rf_math_z']
 
 
-combined['se_z'] = (0.5 * raw_se) + (0.5 * median_se)
-combined['se_z'] = combined['se_z'].fillna(median_se)
+sd_sar = combined['sar_smoothed'].std(ddof=1)
 
-print(f"  -> Average global correlation: {avg_r:.3f}")
-print(f"  -> Covariance shrinkage factor: {shrinkage_factor:.3f}")
-print(f"  -> Variance Pooling: Blended individual SE with global median SE ({median_se:.3f})")
+combined['posterior_var_z'] = (combined['posterior_var'] * (1 - rho)**2) / (sd_sar**2)
+
+combined['total_variance_z'] = combined['posterior_var_z']
+combined['se_z'] = np.sqrt(combined['total_variance_z'])
+
+print(f"  -> Median RAW posterior variance:          {combined['posterior_var'].median():.5f}")
+print(f"  -> Median SCALED posterior variance:       {combined['posterior_var_z'].median():.5f}")
+print(f"  -> Median total standard error (se_z):     {combined['se_z'].median():.5f}")
+
+
 
 n_sims = 1000000
 n_districts = len(combined)
 simulated_ranks = np.zeros((n_districts, n_sims))
 
+noise = np.random.normal(loc=0, scale=combined['se_z'].values[:, None], size=(n_districts, n_sims))
+simulated_scores = combined['pca_z'].values[:, None] + noise
+
 for i in range(n_sims):
-    noise = np.random.normal(loc=0, scale=combined['se_z'])
-    simulated_score = combined['pca_z'] + noise
-    simulated_ranks[:, i] = simulated_score.rank(ascending=False, method='min')
+    simulated_ranks[:, i] = pd.Series(simulated_scores[:, i]).rank(ascending=False, method='min')
 
 combined['rank_final'] = combined['pca_z'].rank(ascending=False, method='min')
 combined['rank_95_best'] = np.percentile(simulated_ranks, 2.5, axis=1)
@@ -857,16 +939,12 @@ print("\n--- Median Districts ---")
 sorted_combined = combined.sort_values('rank_final')
 mid_index = len(sorted_combined) // 2
 
-# Grab the 2 districts above the median, the median itself, and the 2 below it
 median_5 = sorted_combined.iloc[mid_index - 2 : mid_index + 3]
-
 for _, row in median_5.iterrows():
     print(f"{row['dist_name'][:30]:<30} | Rank: {int(row['rank_final'])} (+/- {int(row['plus_minus_spots'])} spots) | Range: {int(row['rank_95_best'])} to {int(row['rank_95_worst'])}")
 
-
 print("\n--- Bottom 5 Overall Districts ---")
 bottom_5 = combined.sort_values('rank_final', ascending=False).head(5)
-
 for _, row in bottom_5.iterrows():
     print(f"{row['dist_name'][:30]:<30} | Rank: {int(row['rank_final'])} (+/- {int(row['plus_minus_spots'])} spots) | Range: {int(row['rank_95_best'])} to {int(row['rank_95_worst'])}")
 
@@ -880,13 +958,11 @@ print("\n" + "="*50)
 print("TIER ASSIGNMENT: CATEGORIZING PERFORMANCE")
 print("="*50)
 
-# Prevent Jupyter duplicate column errors on cell re-runs
 if 'assist_status' in combined.columns:
     combined = combined.drop(columns=['assist_status'])
 
 combined = combined.merge(df_spatial[['dist_name', 'assist_status']], on='dist_name', how='left')
 
-# pca_z is already standardized natively, so we just pass it through directly
 combined['final_z_standardized'] = combined['pca_z']
 
 def assign_tier(z, spread): 
@@ -928,7 +1004,6 @@ print("\nExported final tiered rankings to 'district_performance_tiers.csv'")
 
 # region VALIDATION: EXTERNAL CDS AWARDS (bayes smoothed)
 
-import scipy.stats as stats
 import numpy as np
 
 print("\n" + "="*50)

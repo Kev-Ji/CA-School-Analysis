@@ -2,5 +2,5 @@ Metric,Value
 Empirical Bayes prior (alpha),0.304
 Empirical Bayes prior (beta),5.256
 Awards mapped (2024-2025),615.0
-Kendall's tau-b (tie-adjusted),0.2009
-p-value,4.943993337844475e-18
+Kendall's tau-b (tie-adjusted),0.2133
+p-value,3.937721728095578e-20
