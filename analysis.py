@@ -999,7 +999,58 @@ print("\nExported final tiered rankings to 'district_performance_tiers.csv'")
 
 # endregion
 
+# region PROJECTED VS ACTUAL RAW SCORES (ELA & MATH)
 
+print("\n" + "=" * 50)
+print("RECONSTRUCTING PROJECTED VS. ACTUAL RAW SCORES")
+print("=" * 50)
+ 
+actual_scores = df_spatial[['dist_name', 'caaspp_ela', 'caaspp_math']].copy()
+ 
+for outcome, tag in [('caaspp_ela', 'ela'), ('caaspp_math', 'math')]:
+    resid_cols = [
+        f'ols_resid_{outcome}',
+        f'enet_resid_{outcome}',
+        f'rf_resid_{outcome}',
+    ]
+    missing = [c for c in resid_cols if c not in combined.columns]
+    if missing:
+        raise KeyError(
+            f"Expected residual columns not found on `combined`: {missing}. "
+            "Make sure this block runs after the composite PCA / elastic net "
+            "regions have populated `combined`."
+        )
+    combined[f'ensemble_resid_{tag}'] = combined[resid_cols].mean(axis=1)
+ 
+scores = combined[
+    ['dist_name', 'ensemble_resid_ela', 'ensemble_resid_math']
+].merge(actual_scores, on='dist_name', how='left')
+ 
+scores['ela_actual_raw']     = scores['caaspp_ela']
+scores['ela_projected_raw']  = scores['caaspp_ela']  - scores['ensemble_resid_ela']
+scores['math_actual_raw']    = scores['caaspp_math']
+scores['math_projected_raw'] = scores['caaspp_math'] - scores['ensemble_resid_math']
+ 
+scores_out = scores[
+    ['dist_name', 'ela_projected_raw', 'ela_actual_raw',
+     'math_projected_raw', 'math_actual_raw']
+]
+ 
+n_missing_ela  = scores_out['ela_actual_raw'].isna().sum()
+n_missing_math = scores_out['math_actual_raw'].isna().sum()
+print(f"Districts missing ELA actual raw score : {n_missing_ela}")
+print(f"Districts missing Math actual raw score: {n_missing_math}")
+ 
+tiers = pd.read_csv("district_performance_tiers.csv")
+tiers = tiers.merge(scores_out, on='dist_name', how='left')
+tiers.to_csv("district_performance_tiers.csv", index=False)
+ 
+print("\nAppended projected/actual ELA & math raw scores to "
+      "'district_performance_tiers.csv'")
+print(tiers[['dist_name', 'ela_projected_raw', 'ela_actual_raw',
+             'math_projected_raw', 'math_actual_raw']].head())
+ 
+# endregion
 
 
 # region VALIDATION: EXTERNAL CDS AWARDS (bayes smoothed)
