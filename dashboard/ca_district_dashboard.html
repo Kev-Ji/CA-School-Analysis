@@ -170,6 +170,7 @@ button{font-family:inherit;}
   margin-right:8px;
 }
 .control-group{display:flex;align-items:center;}
+.control-group[hidden]{display:none;}
 
 .search-wrap{
   position:relative;
@@ -217,6 +218,70 @@ button{font-family:inherit;}
 }
 #map-svg path.district:hover{stroke:var(--ink);stroke-width:1.4;}
 #map-svg path.district.pinned{stroke:var(--signal);stroke-width:2;}
+
+.filter-group{display:flex;gap:8px;}
+.filter-btn-wrap{position:relative;}
+.filter-btn{position:relative;padding-right:14px;}
+.filter-btn.active{border-color:var(--signal);background:var(--signal-light);color:var(--signal-dark);}
+.filter-badge{
+  display:inline-flex;align-items:center;justify-content:center;
+  min-width:16px;height:16px;padding:0 4px;margin-left:6px;
+  background:var(--signal);color:#fff;
+  border-radius:9px;font-size:10px;font-weight:700;
+}
+.filter-badge[hidden]{display:none;}
+.filter-panel{
+  position:absolute;
+  top:calc(100% + 6px);
+  left:0;
+  z-index:30;
+  width:260px;
+  max-height:340px;
+  display:flex;
+  flex-direction:column;
+  background:var(--panel);
+  border:1px solid var(--line-strong);
+  border-radius:var(--radius);
+  box-shadow:0 6px 20px rgba(0,0,0,.12);
+}
+.filter-panel[hidden]{display:none;}
+.filter-panel-head{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:9px 11px;
+  border-bottom:1px solid var(--line);
+  font-size:11.5px;font-weight:700;
+  flex-shrink:0;
+}
+.filter-clear{
+  font-size:11px;font-weight:600;color:var(--ink-faint);
+  background:none;border:none;cursor:pointer;text-decoration:underline;padding:0;
+}
+.filter-clear:hover{color:var(--signal);}
+.filter-search{
+  margin:8px 11px 4px;
+  padding:6px 9px;
+  border:1px solid var(--line-strong);
+  border-radius:var(--radius);
+  font-size:12px;
+  font-family:inherit;
+  flex-shrink:0;
+}
+.filter-options{
+  overflow-y:auto;
+  padding:4px 4px 8px;
+}
+.filter-option{
+  display:flex;align-items:center;gap:8px;
+  padding:6px 8px;
+  border-radius:var(--radius);
+  font-size:12.5px;
+  cursor:pointer;
+}
+.filter-option:hover{background:var(--paper);}
+.filter-option input{margin:0;flex-shrink:0;}
+.filter-option .fo-name{flex:1;color:var(--ink);}
+.filter-option .fo-count{color:var(--ink-faint);font-family:var(--mono);font-size:11px;}
+.filter-option.fo-hidden{display:none;}
 
 .map-search-wrap{
   position:absolute;
@@ -544,6 +609,39 @@ button{font-family:inherit;}
   margin:-2px 0 16px;
 }
 
+.group-tier-bar{
+  display:flex;
+  height:16px;
+  border-radius:2px;
+  overflow:hidden;
+  margin:6px 0 4px;
+  border:1px solid rgba(0,0,0,.06);
+}
+.group-tier-bar div{height:100%;}
+.group-summary-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:1px;
+  background:var(--line);
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  overflow:hidden;
+  margin-bottom:10px;
+}
+.group-summary-grid .proj-cell .v{color:var(--ink);font-size:14px;}
+.group-header{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin-bottom:2px;
+}
+.group-header h2{
+  font-family:var(--serif-display);
+  font-size:15px;
+  font-weight:800;
+  margin:0;
+}
+
 /* ---------- footer ---------- */
 .foot{
   border-top:1px solid var(--line);
@@ -674,6 +772,34 @@ button{font-family:inherit;}
           <button data-subject="math">Math</button>
         </div>
       </div>
+      <div class="control-group filter-group">
+        <span class="control-label">Filter</span>
+        <div class="filter-btn-wrap">
+          <button class="btn filter-btn" id="btn-filter-region" type="button">
+            Economic region<span class="filter-badge" id="badge-region" hidden></span>
+          </button>
+          <div class="filter-panel" id="panel-region" hidden>
+            <div class="filter-panel-head">
+              <span>CERF economic regions</span>
+              <button type="button" class="filter-clear" id="clear-region">Clear</button>
+            </div>
+            <div class="filter-options" id="options-region"></div>
+          </div>
+        </div>
+        <div class="filter-btn-wrap">
+          <button class="btn filter-btn" id="btn-filter-county" type="button">
+            County<span class="filter-badge" id="badge-county" hidden></span>
+          </button>
+          <div class="filter-panel" id="panel-county" hidden>
+            <div class="filter-panel-head">
+              <span>Counties</span>
+              <button type="button" class="filter-clear" id="clear-county">Clear</button>
+            </div>
+            <input type="text" class="filter-search" id="county-search" placeholder="Search counties&hellip;" autocomplete="off">
+            <div class="filter-options" id="options-county"></div>
+          </div>
+        </div>
+      </div>
       <div class="control-group" style="margin-left:auto;" id="pinned-hint" hidden>
         <span class="control-label">Comparing</span>
         <span id="pinned-count" style="font-size:12.5px;color:var(--ink-soft);"></span>
@@ -758,6 +884,39 @@ const DISTRICT_DATA = {"type":"FeatureCollection","features":[{"type":"Feature",
     "Moderate Overperformer": "Moderate overperformer",
     "Significant Overperformer": "Significant overperformer"
   };
+  var TIER_COLOR_VAR = {
+    "Significant Underperformer": "--underperform",
+    "Moderate Underperformer": "--underperform-mid",
+    "Expected Performer": "--neutral",
+    "Moderate Overperformer": "--overperform-mid",
+    "Significant Overperformer": "--overperform"
+  };
+
+  // CERF (Community Economic Resilience Fund) county-to-region mapping, the
+  // same 13 economic regions used in the report's regional comparison.
+  // Source: k16collaborative.org/regional-map
+  var COUNTY_TO_REGION = {
+    "Riverside": "Inland Empire", "San Bernardino": "Inland Empire",
+    "Los Angeles": "Los Angeles County",
+    "Orange": "Orange County",
+    "Monterey": "Central Coast", "San Benito": "Central Coast", "Santa Barbara": "Central Coast",
+    "Santa Cruz": "Central Coast", "San Luis Obispo": "Central Coast", "Ventura": "Central Coast",
+    "Merced": "Northern San Joaquin Valley", "San Joaquin": "Northern San Joaquin Valley", "Stanislaus": "Northern San Joaquin Valley",
+    "Fresno": "Central San Joaquin Valley", "Kings": "Central San Joaquin Valley", "Madera": "Central San Joaquin Valley", "Tulare": "Central San Joaquin Valley",
+    "Kern": "Kern County",
+    "Alpine": "Eastern Sierra", "Amador": "Eastern Sierra", "Calaveras": "Eastern Sierra", "Inyo": "Eastern Sierra",
+    "Mariposa": "Eastern Sierra", "Mono": "Eastern Sierra", "Tuolumne": "Eastern Sierra",
+    "Alameda": "Bay Area", "Contra Costa": "Bay Area", "Marin": "Bay Area", "Napa": "Bay Area",
+    "San Francisco": "Bay Area", "San Mateo": "Bay Area", "Santa Clara": "Bay Area", "Solano": "Bay Area", "Sonoma": "Bay Area",
+    "Colusa": "Sacramento", "El Dorado": "Sacramento", "Nevada": "Sacramento", "Placer": "Sacramento",
+    "Sacramento": "Sacramento", "Sutter": "Sacramento", "Yolo": "Sacramento", "Yuba": "Sacramento",
+    "Del Norte": "Redwood Coast", "Humboldt": "Redwood Coast", "Lake": "Redwood Coast", "Mendocino": "Redwood Coast",
+    "Butte": "North State", "Glenn": "North State", "Lassen": "North State", "Modoc": "North State",
+    "Plumas": "North State", "Shasta": "North State", "Sierra": "North State", "Siskiyou": "North State",
+    "Tehama": "North State", "Trinity": "North State",
+    "Imperial": "Southern Border", "San Diego": "Southern Border"
+  };
+  function regionOf(county) { return COUNTY_TO_REGION[county] || "Unassigned"; }
 
   var RACE_LABELS = {
     white: "White",
@@ -780,6 +939,21 @@ const DISTRICT_DATA = {"type":"FeatureCollection","features":[{"type":"Feature",
     multi: "#a3a8ab"
   };
   var RACE_ORDER = ["hispanic", "white", "asian", "black", "filipino", "multi", "aian", "nhpi"];
+
+  // ---------- filter option lists (regions / counties present in the data) ----------
+  var countyCounts = {};
+  features.forEach(function (f) {
+    var co = f.properties.co;
+    if (!co) return;
+    countyCounts[co] = (countyCounts[co] || 0) + 1;
+  });
+  var COUNTY_LIST = Object.keys(countyCounts).sort();
+  var regionCounts = {};
+  COUNTY_LIST.forEach(function (co) {
+    var r = regionOf(co);
+    regionCounts[r] = (regionCounts[r] || 0) + countyCounts[co];
+  });
+  var REGION_LIST = Object.keys(regionCounts).sort();
 
   // ---------- derive stats for color scales ----------
   var ranked = features.filter(function (f) { return f.properties.tier; });
@@ -894,6 +1068,8 @@ const DISTRICT_DATA = {"type":"FeatureCollection","features":[{"type":"Feature",
     subject: "ela",      // 'ela' | 'ma'
     pinned: [],          // array of feature properties, up to MAX_PINS
     hovered: null,       // feature properties, transient
+    filterMode: null,    // null | 'region' | 'county'
+    filterValues: new Set(), // selected region or county names
     methodologyUrl: ""
   };
 
@@ -1054,8 +1230,7 @@ const DISTRICT_DATA = {"type":"FeatureCollection","features":[{"type":"Feature",
     svg.transition().duration(300).call(zoom.transform, d3.zoomIdentity);
   });
 
-  function flyTo(feature) {
-    var bounds = path.bounds(feature);
+  function flyToBounds(bounds) {
     var dx = bounds[1][0] - bounds[0][0];
     var dy = bounds[1][1] - bounds[0][1];
     var x = (bounds[0][0] + bounds[1][0]) / 2;
@@ -1065,6 +1240,188 @@ const DISTRICT_DATA = {"type":"FeatureCollection","features":[{"type":"Feature",
     svg.transition().duration(500)
       .call(zoom.transform, d3.zoomIdentity.translate(translate[0], translate[1]).scale(scale));
   }
+  function flyTo(feature) {
+    flyToBounds(path.bounds(feature));
+  }
+  function flyToFeatures(arr) {
+    if (!arr.length) return;
+    flyToBounds(path.bounds({ type: "FeatureCollection", features: arr }));
+  }
+
+  // ---------- region / county filter ----------
+  function groupOf(props) {
+    return state.filterMode === "region" ? regionOf(props.co) : props.co;
+  }
+  function matchesFilter(props) {
+    if (!state.filterMode || state.filterValues.size === 0) return true;
+    return state.filterValues.has(groupOf(props));
+  }
+  function applyFilterVisual() {
+    var active = state.filterMode && state.filterValues.size > 0;
+    districtPaths
+      .style("opacity", function (d) { return !active || matchesFilter(d.properties) ? 1 : 0.05; })
+      .style("pointer-events", function (d) { return !active || matchesFilter(d.properties) ? "auto" : "none"; });
+    if (active) {
+      var matched = features.filter(function (f) { return matchesFilter(f.properties); });
+      flyToFeatures(matched);
+    } else {
+      svg.transition().duration(400).call(zoom.transform, d3.zoomIdentity);
+    }
+  }
+  function computeGroupStats(groupName) {
+    var members = ranked.filter(function (f) { return groupOf(f.properties) === groupName; });
+    var totalMembers = features.filter(function (f) { return groupOf(f.properties) === groupName; }).length;
+    var counts = {};
+    TIER_ORDER.forEach(function (t) { counts[t] = 0; });
+    members.forEach(function (f) { counts[f.properties.tier]++; });
+    function avg(key) {
+      var vals = members.map(function (f) { return f.properties[key]; }).filter(function (v) { return v !== undefined; });
+      if (!vals.length) return undefined;
+      return vals.reduce(function (a, b) { return a + b; }, 0) / vals.length;
+    }
+    return {
+      name: groupName,
+      total: totalMembers,
+      rankedN: members.length,
+      counts: counts,
+      avgEla: avg("ela"),
+      avgMa: avg("ma"),
+      avgZ: avg("z"),
+      avgInc: avg("inc"),
+      avgFrpm: avg("frpm"),
+      avgEl: avg("el")
+    };
+  }
+  function tierBarHtml(counts, total) {
+    if (!total) return '<div class="group-tier-bar"></div>';
+    var html = '<div class="group-tier-bar">';
+    TIER_ORDER.forEach(function (t) {
+      var pct = (counts[t] / total) * 100;
+      if (pct <= 0) return;
+      html += '<div style="width:' + pct + '%;background:var(' + TIER_COLOR_VAR[t] + ');" title="' + TIER_SHORT[t] + ": " + counts[t] + '"></div>';
+    });
+    html += '</div>';
+    return html;
+  }
+  function groupSummaryBodyHtml(stats) {
+    var html = tierBarHtml(stats.counts, stats.rankedN);
+    html += '<div class="compare-tip" style="margin-bottom:8px;">' + stats.rankedN + ' of ' + stats.total + ' districts in the ranking model.</div>';
+    html += '<div class="group-summary-grid">';
+    html += '<div class="proj-cell"><div class="k">Avg. ELA</div><div class="v">' + (stats.avgEla !== undefined ? stats.avgEla.toFixed(1) + "%" : "N/A") + '</div></div>';
+    html += '<div class="proj-cell"><div class="k">Avg. Math</div><div class="v">' + (stats.avgMa !== undefined ? stats.avgMa.toFixed(1) + "%" : "N/A") + '</div></div>';
+    html += '<div class="proj-cell"><div class="k">Avg. value-added z</div><div class="v">' + (stats.avgZ !== undefined ? fmtZ(stats.avgZ) : "N/A") + '</div></div>';
+    html += '<div class="proj-cell"><div class="k">Avg. median income</div><div class="v">' + (stats.avgInc !== undefined ? "$" + Math.round(stats.avgInc).toLocaleString() : "N/A") + '</div></div>';
+    html += '<div class="proj-cell"><div class="k">Avg. free/reduced meals</div><div class="v">' + (stats.avgFrpm !== undefined ? stats.avgFrpm.toFixed(1) + "%" : "N/A") + '</div></div>';
+    html += '<div class="proj-cell"><div class="k">Avg. English learners</div><div class="v">' + (stats.avgEl !== undefined ? stats.avgEl.toFixed(1) + "%" : "N/A") + '</div></div>';
+    html += '</div>';
+    return html;
+  }
+  function groupCompareCardHtml(stats) {
+    var html = '<div class="compare-card">';
+    html += '<div class="compare-card-head"><div><div class="name">' + stats.name + '</div>' +
+      '<div class="sub">' + stats.rankedN + ' of ' + stats.total + ' districts ranked</div></div></div>';
+    html += '<div style="padding:9px 11px 4px;">' + tierBarHtml(stats.counts, stats.rankedN) + '</div>';
+    html += '<div class="compare-stat-row"><span class="k">Avg. ELA</span><span class="v">' + (stats.avgEla !== undefined ? stats.avgEla.toFixed(1) + "%" : "N/A") + '</span></div>';
+    html += '<div class="compare-stat-row"><span class="k">Avg. Math</span><span class="v">' + (stats.avgMa !== undefined ? stats.avgMa.toFixed(1) + "%" : "N/A") + '</span></div>';
+    html += '<div class="compare-stat-row"><span class="k">Avg. value-added z</span><span class="v">' + (stats.avgZ !== undefined ? fmtZ(stats.avgZ) : "N/A") + '</span></div>';
+    html += '<div class="compare-stat-row"><span class="k">Avg. median income</span><span class="v">' + (stats.avgInc !== undefined ? "$" + Math.round(stats.avgInc).toLocaleString() : "N/A") + '</span></div>';
+    html += '<div class="compare-stat-row"><span class="k">Avg. free/reduced meals</span><span class="v">' + (stats.avgFrpm !== undefined ? stats.avgFrpm.toFixed(1) + "%" : "N/A") + '</span></div>';
+    html += '</div>';
+    return html;
+  }
+
+  var panelRegion = document.getElementById("panel-region");
+  var panelCounty = document.getElementById("panel-county");
+  var btnFilterRegion = document.getElementById("btn-filter-region");
+  var btnFilterCounty = document.getElementById("btn-filter-county");
+
+  function buildOptionList(containerId, mode, list, counts) {
+    var container = document.getElementById(containerId);
+    container.innerHTML = list.map(function (name) {
+      return '<label class="filter-option" data-name="' + name.replace(/"/g, "&quot;") + '">' +
+        '<input type="checkbox" data-mode="' + mode + '" value="' + name.replace(/"/g, "&quot;") + '">' +
+        '<span class="fo-name">' + name + '</span>' +
+        '<span class="fo-count">' + counts[name] + '</span>' +
+        '</label>';
+    }).join("");
+    container.querySelectorAll("input[type=checkbox]").forEach(function (cb) {
+      cb.addEventListener("change", function () { toggleFilterValue(mode, cb.value, cb.checked); });
+    });
+  }
+  buildOptionList("options-region", "region", REGION_LIST, regionCounts);
+  buildOptionList("options-county", "county", COUNTY_LIST, countyCounts);
+
+  function updateFilterBadges() {
+    var badgeRegion = document.getElementById("badge-region");
+    var badgeCounty = document.getElementById("badge-county");
+    var regionActive = state.filterMode === "region" && state.filterValues.size > 0;
+    var countyActive = state.filterMode === "county" && state.filterValues.size > 0;
+    badgeRegion.hidden = !regionActive;
+    badgeCounty.hidden = !countyActive;
+    if (regionActive) badgeRegion.textContent = state.filterValues.size;
+    if (countyActive) badgeCounty.textContent = state.filterValues.size;
+    btnFilterRegion.classList.toggle("active", regionActive || !panelRegion.hidden);
+    btnFilterCounty.classList.toggle("active", countyActive || !panelCounty.hidden);
+  }
+  function toggleFilterValue(mode, value, checked) {
+    if (state.filterMode !== mode) {
+      state.filterMode = mode;
+      state.filterValues = new Set();
+    }
+    if (checked) state.filterValues.add(value);
+    else state.filterValues.delete(value);
+    if (state.filterValues.size === 0) state.filterMode = null;
+    state.pinned = [];
+    state.hovered = null;
+    refreshPinnedPaths();
+    applyFilterVisual();
+    updateFilterBadges();
+    renderRail();
+  }
+  function clearFilter(mode) {
+    state.filterMode = null;
+    state.filterValues = new Set();
+    document.querySelectorAll('input[data-mode="' + mode + '"]').forEach(function (cb) { cb.checked = false; });
+    state.pinned = [];
+    state.hovered = null;
+    refreshPinnedPaths();
+    applyFilterVisual();
+    updateFilterBadges();
+    renderRail();
+  }
+  document.getElementById("clear-region").addEventListener("click", function () { clearFilter("region"); });
+  document.getElementById("clear-county").addEventListener("click", function () { clearFilter("county"); });
+
+  function closeAllPanels() {
+    panelRegion.hidden = true;
+    panelCounty.hidden = true;
+    updateFilterBadges();
+  }
+  btnFilterRegion.addEventListener("click", function (e) {
+    e.stopPropagation();
+    var willOpen = panelRegion.hidden;
+    closeAllPanels();
+    panelRegion.hidden = !willOpen;
+    updateFilterBadges();
+  });
+  btnFilterCounty.addEventListener("click", function (e) {
+    e.stopPropagation();
+    var willOpen = panelCounty.hidden;
+    closeAllPanels();
+    panelCounty.hidden = !willOpen;
+    updateFilterBadges();
+  });
+  panelRegion.addEventListener("click", function (e) { e.stopPropagation(); });
+  panelCounty.addEventListener("click", function (e) { e.stopPropagation(); });
+  document.addEventListener("click", closeAllPanels);
+  document.getElementById("county-search").addEventListener("input", function (e) {
+    var q = e.target.value.trim().toLowerCase();
+    document.querySelectorAll("#options-county .filter-option").forEach(function (opt) {
+      var name = opt.getAttribute("data-name").toLowerCase();
+      opt.classList.toggle("fo-hidden", q.length > 0 && name.indexOf(q) === -1);
+    });
+  });
+  updateFilterBadges();
 
   // ---------- view / subject toggles ----------
   document.getElementById("view-toggle").addEventListener("click", function (e) {
@@ -1302,6 +1659,26 @@ const DISTRICT_DATA = {"type":"FeatureCollection","features":[{"type":"Feature",
     if (state.hovered) {
       rail.innerHTML = detailHtml(state.hovered) +
         '<div class="pin-toggle-hint">Click to pin this district and keep it while you browse others.</div>';
+      return;
+    }
+
+    if (state.filterMode && state.filterValues.size > 0) {
+      var groupLabel = state.filterMode === "region" ? "economic region" : "county";
+      var groups = Array.from(state.filterValues).sort();
+      if (groups.length === 1) {
+        var stats1 = computeGroupStats(groups[0]);
+        rail.innerHTML = '<div class="group-header"><h2>' + groups[0] + '</h2></div>' +
+          '<div class="compare-tip">Filtered to this ' + groupLabel + '. Select another to compare, or hover/click a district for its detail.</div>' +
+          groupSummaryBodyHtml(stats1);
+        return;
+      }
+      var html2 = '<div class="compare-header"><h2>Comparing ' + groups.length + ' ' + groupLabel + (groups.length === 1 ? "" : "s") + '</h2>' +
+        '<button class="btn-clear-pins" id="btn-clear-filter">Clear</button></div>';
+      html2 += '<div class="compare-tip">Only districts in these ' + groups.length + ' regions are shown on the map. Hover or click a district for its own detail.</div>';
+      groups.forEach(function (g) { html2 += groupCompareCardHtml(computeGroupStats(g)); });
+      rail.innerHTML = html2;
+      var clearFilterBtn = document.getElementById("btn-clear-filter");
+      if (clearFilterBtn) clearFilterBtn.addEventListener("click", function () { clearFilter(state.filterMode); });
       return;
     }
 
