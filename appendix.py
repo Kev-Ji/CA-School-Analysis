@@ -29,6 +29,7 @@ final = final.rename(columns={
     'District Name': 'dist_name',
     'County Name (District)': 'county',
     'District Type (District)': 'dist_type',
+    'Census Day Enrollment (District)': 'enrollment',
     'non_charter_math_caaspp': 'caaspp_math',
     'non_charter_ela_caaspp': 'caaspp_ela',
     'Student/Teacher Ratio (District)': 'stu_teach_ratio',
@@ -52,11 +53,6 @@ final = final.rename(columns={
     'bach_pct': 'bach_pct',
     'DistrctAreaSqMi': 'area_sq_mi',
 })
-
-# NOTE: this rename dict is a trimmed subset of the full mapping in analysis.py
-# (only the columns this script touches). If your final.csv still has the raw
-# NCES/CDE column names beyond what's listed above, pull the full rename dict
-# straight from analysis.py rather than retyping it here.
 
 locale_map = {
     '11-City: Large': 'City', '12-City: Mid-size': 'City', '13-City: Small': 'City',
@@ -85,13 +81,13 @@ final['caaspp_ela'] = pd.to_numeric(final['caaspp_ela'], errors='coerce')
 final['caaspp_math'] = pd.to_numeric(final['caaspp_math'], errors='coerce')
 final['median_income'] = pd.to_numeric(final['median_income'], errors='coerce')
 final['pupil_teach_ratio'] = pd.to_numeric(final['pupil_teach_ratio'], errors='coerce')
-final['enroll_noncharter'] = np.log(final['enroll_noncharter'])
-final = final[np.exp(final['enroll_noncharter']) >= 30]
+final['enroll_noncharter'] = np.log1p(final['enroll_noncharter'])
+final = final[np.exp(final['enroll_noncharter']) > 30]
 
 # endregion
 
 # ============================================================
-# region SPATIAL SETUP + BASELINE OLS  (Tables A1, A2, A4)
+# region SPATIAL SETUP + BASELINE OLS  (Tables B1, B2, C1)
 # ============================================================
 
 from sklearn.experimental import enable_iterative_imputer
@@ -156,7 +152,7 @@ for outcome, label in [('caaspp_ela', 'CAASPP ELA'), ('caaspp_math', 'CAASPP Mat
     table.index = [clean_index(i) for i in table.index]
 
     save_and_print(
-        table, f"Table_A{'1' if outcome == 'caaspp_ela' else '2'}_{label.replace(' ', '_')}",
+        table, f"Table_B{'1' if outcome == 'caaspp_ela' else '2'}_{label.replace(' ', '_')}",
         note=f"Observations: {int(res.nobs)} | R²: {res.rsquared:.3f} | Adj. R²: {res.rsquared_adj:.3f}"
     )
 
@@ -167,12 +163,12 @@ for outcome, label in [('caaspp_ela', 'CAASPP ELA'), ('caaspp_math', 'CAASPP Mat
     })
 
 moran_table = pd.DataFrame(moran_rows).set_index('Outcome')
-save_and_print(moran_table, "Table_A4_Morans_I", note="IDW k=8 nearest neighbors, baseline OLS residuals")
+save_and_print(moran_table, "Table_C1_Morans_I", note="IDW k=8 nearest neighbors, baseline OLS residuals")
 
 # endregion
 
 # ============================================================
-# region OLS + RANDOM FOREST + ELASTIC NET  (Table A3)
+# region OLS + RANDOM FOREST + ELASTIC NET  (Table B3)
 # ============================================================
 
 from sklearn.linear_model import LinearRegression, ElasticNetCV
@@ -246,7 +242,7 @@ for outcome in outcomes:
     })
 
 r2_table = pd.DataFrame(r2_rows).set_index('Outcome')
-save_and_print(r2_table, "Table_A3_Model_R2", note="Five-fold CV out-of-sample R², single shared feature set (Appendix B)")
+save_and_print(r2_table, "Table_B3_Model_R2", note="Five-fold CV out-of-sample R², single shared feature set (Appendix B)")
 
 # endregion
 
@@ -339,72 +335,92 @@ print(
 # endregion
 
 # ============================================================
-# region EMPIRICAL BAYES SHRINKAGE OF COMPOSITE SCORE (Table A6)
+# region EMPIRICAL BAYES SHRINKAGE OF COMPOSITE SCORE (Table D1)
 # ============================================================
 
+KAPPA = 0.15
 
-eb_rows = []
 
-combined["eb_shrunken_raw"] = np.nan
-combined["shrinkage_weight"] = np.nan
-combined["sampling_var"] = np.nan
-combined["posterior_var"] = np.nan
+def compute_eb_shrinkage(kappa, record_rows=False, store_columns=False):
+    """Run the locale-wise EB shrinkage for a given noise share kappa.
 
-for locale_name, group in combined.groupby("locale"):
+    Returns (eb_shrunken_raw: pd.Series aligned to combined.index,
+    eb_rows: list of per-locale summary dicts, or [] if record_rows
+    is False). If store_columns is True, also writes shrinkage_weight,
+    sampling_var, and posterior_var back onto `combined` (only
+    meaningful for the single kappa actually used for Table D1).
+    """
+    shrunken = pd.Series(index=combined.index, dtype=float)
+    rows = []
 
-    y = group["pca_raw"].values
-    n = group["enroll_noncharter_raw"].values
-    pc1_var = group["pc1_var"].values
+    if store_columns:
+        combined["shrinkage_weight"] = np.nan
+        combined["sampling_var"] = np.nan
+        combined["posterior_var"] = np.nan
 
-    y_bar = np.average(y, weights=n)
+    for locale_name, group in combined.groupby("locale"):
 
-    sample_var = np.average((y - y_bar) ** 2, weights=n)
-    mean_inv_n = np.average(1.0 / n, weights=n)
+        y = group["pca_raw"].values
+        n = group["enroll_noncharter_raw"].values
+        pc1_var = group["pc1_var"].values
 
-    if len(y) < 3:
-        combined.loc[group.index, "shrinkage_weight"] = 1.0
-        combined.loc[group.index, "eb_shrunken_raw"] = y
-        combined.loc[group.index, "sampling_var"] = np.nan
-        combined.loc[group.index, "posterior_var"] = pc1_var
+        y_bar = np.average(y, weights=n)
 
-        eb_rows.append({
-            "Locale": locale_name,
-            "Districts": len(group),
-            "Min weight": 1.0,
-            "Median weight": 1.0,
-            "Mean weight": 1.0,
-            "Max weight": 1.0,
-            "Median PC1 SE": group["pc1_se"].median(),
-            "Mean PC1 SE": group["pc1_se"].mean(),
-        })
-        continue
+        sample_var = np.average((y - y_bar) ** 2, weights=n)
+        mean_inv_n = np.average(1.0 / n, weights=n)
 
-    sigma_sq = 0.15 * sample_var / np.median(1.0 / n)
+        if len(y) < 3:
+            shrunken.loc[group.index] = y
+            if store_columns:
+                combined.loc[group.index, "shrinkage_weight"] = 1.0
+                combined.loc[group.index, "sampling_var"] = np.nan
+                combined.loc[group.index, "posterior_var"] = pc1_var
+            if record_rows:
+                rows.append({
+                    "Locale": locale_name,
+                    "Districts": len(group),
+                    "Min weight": 1.0,
+                    "Median weight": 1.0,
+                    "Mean weight": 1.0,
+                    "Max weight": 1.0,
+                    "Median PC1 SE": group["pc1_se"].median(),
+                    "Mean PC1 SE": group["pc1_se"].mean(),
+                })
+            continue
 
-    tau_sq = max(0.0, sample_var - sigma_sq * mean_inv_n)
+        sigma_sq = kappa * sample_var / np.median(1.0 / n)
+        tau_sq = max(0.0, sample_var - sigma_sq * mean_inv_n)
 
-    sampling_var = sigma_sq / n
-    posterior_var = sampling_var + pc1_var
+        sampling_var = sigma_sq / n
+        posterior_var = sampling_var + pc1_var
 
-    w_i = tau_sq / (tau_sq + posterior_var)
+        w_i = tau_sq / (tau_sq + posterior_var)
 
-    combined.loc[group.index, "sampling_var"] = sampling_var
-    combined.loc[group.index, "posterior_var"] = posterior_var
-    combined.loc[group.index, "shrinkage_weight"] = w_i
-    combined.loc[group.index, "eb_shrunken_raw"] = (
-        y_bar + w_i * (y - y_bar)
-    )
+        shrunken.loc[group.index] = y_bar + w_i * (y - y_bar)
 
-    eb_rows.append({
-        "Locale": locale_name,
-        "Districts": len(group),
-        "Min weight": w_i.min(),
-        "Median weight": np.median(w_i),
-        "Mean weight": np.mean(w_i),
-        "Max weight": w_i.max(),
-        "Median PC1 SE": group["pc1_se"].median(),
-        "Mean PC1 SE": group["pc1_se"].mean(),
-    })
+        if store_columns:
+            combined.loc[group.index, "shrinkage_weight"] = w_i
+            combined.loc[group.index, "sampling_var"] = sampling_var
+            combined.loc[group.index, "posterior_var"] = posterior_var
+
+        if record_rows:
+            rows.append({
+                "Locale": locale_name,
+                "Districts": len(group),
+                "Min weight": w_i.min(),
+                "Median weight": np.median(w_i),
+                "Mean weight": np.mean(w_i),
+                "Max weight": w_i.max(),
+                "Median PC1 SE": group["pc1_se"].median(),
+                "Mean PC1 SE": group["pc1_se"].mean(),
+            })
+
+    return shrunken, rows
+
+
+combined["eb_shrunken_raw"], eb_rows = compute_eb_shrinkage(
+    KAPPA, record_rows=True, store_columns=True
+)
 
 eb_table = (
     pd.DataFrame(eb_rows)
@@ -414,11 +430,47 @@ eb_table = (
 
 save_and_print(
     eb_table,
-    "Table_A6_Empirical_Bayes",
+    "Table_D1_Empirical_Bayes",
     note=(
         "Empirical Bayes shrinkage weights applied to the composite PCA score. "
-        "Observation-level variance is defined as the sum of enrollment-based "
-        "sampling variance (σ²/n) and bootstrap-estimated PCA variance."
+        f"Noise share (kappa = {KAPPA}), fixed rather than independently "
+        "estimated -- see Table D2 for a sensitivity sweep. Observation-level "
+        "variance is defined as the sum of enrollment-based sampling variance "
+        "(kappa-scaled sigma^2/n) and bootstrap-estimated PCA variance."
+    ),
+)
+
+# --- Sensitivity sweep over kappa (Table D2) ---
+
+
+kappa_grid = [0.05, 0.10, 0.15, 0.20, 0.25, 0.30]
+baseline_shrunk, _ = compute_eb_shrinkage(KAPPA, record_rows=False)
+
+sensitivity_rows = []
+for k in kappa_grid:
+    shrunk_k, rows_k = compute_eb_shrinkage(k, record_rows=True)
+    mean_weight = np.mean([r["Mean weight"] for r in rows_k if r["Districts"] >= 3])
+    rank_corr = stats.spearmanr(
+        baseline_shrunk, shrunk_k, nan_policy="omit"
+    ).correlation
+    max_abs_diff = (shrunk_k - baseline_shrunk).abs().max()
+    sensitivity_rows.append({
+        "kappa": k,
+        "Mean shrinkage weight": round(mean_weight, 4),
+        "Spearman rank corr. vs. kappa=0.15": round(rank_corr, 4),
+        "Max |score change| vs. kappa=0.15": round(max_abs_diff, 4),
+    })
+
+sensitivity_table = pd.DataFrame(sensitivity_rows).set_index("kappa")
+
+save_and_print(
+    sensitivity_table,
+    "Table_D2_Kappa_Sensitivity",
+    note=(
+        "Sensitivity of Empirical Bayes shrinkage to the noise-share "
+        "parameter kappa (Table D1 uses kappa = 0.15). District rankings are "
+        "compared to the kappa = 0.15 baseline via Spearman rank correlation "
+        "on the shrunken composite score, prior to spatial smoothing."
     ),
 )
 
@@ -426,7 +478,7 @@ save_and_print(
 # endregion
 
 # ============================================================
-# region SAR SMOOTHING OF COMPOSITE SCORE  (Table A5)
+# region SAR SMOOTHING OF COMPOSITE SCORE  (Table C2)
 # ============================================================
 
 import spreg
@@ -451,7 +503,7 @@ sar_table = pd.DataFrame([{
     'Component': 'Composite (post-shrinkage) score', 'rho': round(rho, 3),
     'Own district': f"{(1-rho)*100:.1f}%", 'Neighbor average': f"{rho*100:.1f}%",
 }]).set_index('Component')
-save_and_print(sar_table, "Table_A5_SAR_Blending")
+save_and_print(sar_table, "Table_C2_SAR_Blending")
 
 combined['pca_z'] = zscore(combined['sar_smoothed'], nan_policy='omit')
 final_lower, final_upper = combined['pca_z'].quantile(0.01), combined['pca_z'].quantile(0.99)
@@ -460,54 +512,7 @@ combined['pca_z'] = combined['pca_z'].clip(lower=final_lower, upper=final_upper)
 # endregion
 
 # ============================================================
-# region TIER ASSIGNMENT  (Table A7)
-# ============================================================
-
-combined = combined.merge(df_spatial[['dist_name', 'assist_status']], on='dist_name', how='left')
-combined['final_z_standardized'] = combined['pca_z']
-
-rank_cols = []
-for col in components:
-    rank_col = f'rank_{col}'
-    combined[rank_col] = combined[col].rank(ascending=False, method='min')
-    rank_cols.append(rank_col)
-combined['component_rank_spread'] = combined[rank_cols].max(axis=1) - combined[rank_cols].min(axis=1)
-
-def assign_tier(z, spread):
-    if z >= 1.5:
-        return "Significant Overperformer"
-    elif z >= 0.5:
-        return "Moderate Overperformer"
-    elif z > -0.5:
-        return "Expected Performer"
-    elif z > -1.5:
-        return "Moderate Underperformer"
-    else:
-        return "Significant Underperformer"
-
-combined['performance_tier'] = combined.apply(
-    lambda row: assign_tier(row['final_z_standardized'], row['component_rank_spread']), axis=1
-)
-
-tier_counts = combined['performance_tier'].value_counts().rename("Districts").to_frame()
-n_total_modeled = len(df_spatial)
-n_ranked = len(combined)
-
-save_and_print(
-    tier_counts, "Table_A7_Tier_Assignment",
-    note=(f"{n_ranked} of {n_total_modeled} modeled districts meet the >={MIN_ENROLLMENT} enrollment "
-          f"threshold and are ranked/tiered")
-)
-
-combined[['dist_name', 'performance_tier', 'final_z_standardized',
-          'component_rank_spread', 'assist_status']].to_csv(
-    os.path.join(OUTDIR, "district_performance_tiers.csv"), index=False
-)
-
-# endregion
-
-# ============================================================
-# region EXTERNAL VALIDATION  (Table A8)
+# region EXTERNAL VALIDATION  (Table G1)
 # ============================================================
 
 try:
@@ -559,7 +564,7 @@ try:
     val_df_final['award_count'] = val_df_final['award_count'].fillna(0)
 
     tau, p_val = stats.kendalltau(
-        val_df_final['final_z_standardized'], val_df_final['cds_density_smoothed'], nan_policy='omit'
+        val_df_final['pca_z'], val_df_final['cds_density_smoothed'], nan_policy='omit'
     )
 
     a8 = pd.DataFrame({
@@ -569,11 +574,139 @@ try:
                   round(tau, 4), p_val],
     }).set_index('Metric')
 
-    save_and_print(a8, "Table_A8_External_Validation")
+    save_and_print(a8, "Table_G1_External_Validation")
 
 except Exception as e:
-    print(f"\n[Table A8 FAILED] {e}")
+    print(f"\n[Table G1 FAILED] {e}")
     print("Check that the award CSV path/columns match your data directory.")
+
+# endregion
+
+# ============================================================
+# region TRENDS ACROSS DISTRICTS
+# ============================================================
+
+combined['final_z_standardized'] = combined['pca_z']
+
+
+def assign_tier(z):
+    if z >= 1.5:
+        return "Significant Overperformer"
+    elif z >= 0.5:
+        return "Moderate Overperformer"
+    elif z > -0.5:
+        return "Expected Performer"
+    elif z > -1.5:
+        return "Moderate Underperformer"
+    else:
+        return "Significant Underperformer"
+
+
+combined['performance_tier'] = combined['final_z_standardized'].apply(assign_tier)
+
+print("\n" + "="*50)
+print("TIER ASSIGNMENT: CATEGORIZING PERFORMANCE")
+print("="*50)
+print(combined['performance_tier'].value_counts())
+
+# --- Demographic comparison: overperformers vs. underperformers ---
+
+demo = final.merge(
+    combined[['dist_name', 'performance_tier']], on='dist_name', how='inner'
+)
+
+overperformers = demo[demo['performance_tier'].isin(
+    ['Moderate Overperformer', 'Significant Overperformer']
+)]
+underperformers = demo[demo['performance_tier'].isin(
+    ['Moderate Underperformer', 'Significant Underperformer']
+)]
+
+
+def summarize_demo(group):
+    return {
+        'Rural Districts (%)': 100 * group['locale'].eq('Rural').mean(),
+        'Average Enrollment': group['enrollment'].mean(),
+        'Ethnic Diversity Index': group['diversity_idx'].mean(),
+        'English Learners (%)': group['pct_el'].mean(),
+        'Free/Reduced Meals (%)': group['pct_frpm'].mean(),
+        "Adults with Bachelor's Degree (%)": group['bach_pct'].mean(),
+    }
+
+
+demo_table = pd.DataFrame({
+    f'Overperformers (n={len(overperformers)})': summarize_demo(overperformers),
+    f'Underperformers (n={len(underperformers)})': summarize_demo(underperformers),
+})
+demo_table.loc['Average Enrollment'] = demo_table.loc['Average Enrollment'].round(0)
+demo_table = demo_table.round(1)
+
+save_and_print(
+    demo_table,
+    "Table_2_Demographic_Comparison",
+    note="Overperformers (Moderate + Significant) vs. Underperformers (Moderate + Significant)",
+)
+
+# --- Demographic comparison: significant tier only ---
+
+sig_overperformers = demo[demo['performance_tier'] == 'Significant Overperformer']
+sig_underperformers = demo[demo['performance_tier'] == 'Significant Underperformer']
+
+sig_demo_table = pd.DataFrame({
+    f'Significant Overperformers (n={len(sig_overperformers)})': summarize_demo(sig_overperformers),
+    f'Significant Underperformers (n={len(sig_underperformers)})': summarize_demo(sig_underperformers),
+})
+sig_demo_table.loc['Average Enrollment'] = sig_demo_table.loc['Average Enrollment'].round(0)
+sig_demo_table = sig_demo_table.round(1)
+
+save_and_print(
+    sig_demo_table,
+    "Table_3_Significant_Tier_Demographic_Comparison",
+    note="Significant Overperformers vs. Significant Underperformers only",
+)
+
+# --- Differentiated Assistance status by performance tier ---
+
+assistance_df = final.merge(
+    combined[['dist_name', 'performance_tier']], on='dist_name', how='inner'
+)
+assistance_df['assistance_type'] = np.where(
+    assistance_df['assist_status'].str.contains('Differentiated', case=False, na=False),
+    'Differentiated',
+    'General',
+)
+
+tier_order = [
+    'Moderate Underperformer',
+    'Expected Performer',
+    'Moderate Overperformer',
+    'Significant Underperformer',
+    'Significant Overperformer',
+]
+
+assistance_table = (
+    pd.crosstab(assistance_df['performance_tier'], assistance_df['assistance_type'])
+      .reindex(tier_order)
+      .fillna(0)
+      .astype(int)
+)
+assistance_table['Total'] = assistance_table.sum(axis=1)
+assistance_table['% Differentiated'] = (
+    assistance_table['Differentiated'] / assistance_table['Total'] * 100
+)
+assistance_table = assistance_table[['Differentiated', '% Differentiated', 'General', 'Total']]
+
+total_diff = assistance_table['Differentiated'].sum()
+total_gen = assistance_table['General'].sum()
+total_n = assistance_table['Total'].sum()
+assistance_table.loc['Total'] = [total_diff, 100 * total_diff / total_n, total_gen, total_n]
+assistance_table['% Differentiated'] = assistance_table['% Differentiated'].round(1)
+
+save_and_print(
+    assistance_table,
+    "Table_4_Assistance_By_Tier",
+    note="District assistance status by performance tier; rows ordered by % receiving Differentiated Assistance",
+)
 
 # endregion
 

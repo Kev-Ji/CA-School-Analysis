@@ -1,0 +1,5 @@
+Locale,Districts,Min weight,Median weight,Mean weight,Max weight,Median PC1 SE,Mean PC1 SE
+City,141,0.1529,0.857,0.8053,0.9929,0.0693,0.0696
+Rural,325,0.3937,0.8591,0.8109,0.993,0.0693,0.0699
+Suburb,269,0.1245,0.8565,0.7968,0.9848,0.0693,0.0696
+Town,145,0.1654,0.8529,0.8017,0.9713,0.0695,0.0702

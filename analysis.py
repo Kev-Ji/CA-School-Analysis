@@ -536,7 +536,7 @@ from sklearn.decomposition import PCA
 from sklearn.utils import resample
 import numpy as np
 
-B = 1000          # 500 is acceptable; 1000 is preferable
+B = 1000          # number of bootstraps
 rng = 42
 
 X = combined[components].values
@@ -594,64 +594,90 @@ score_col = 'pca_raw'
 group_col = 'locale'
 n_col = 'enroll_noncharter_raw'
 
-eb_score = pd.Series(index=combined.index, dtype=float)
+# sigma_sq (the sampling-noise scale) is defined as a fixed fraction,
+# KAPPA = 0.15, of each locale's observed variance. This fraction is
+# not independently estimable from this data: the enrollment-driven
+# noise term sigma_sq/n is negligible relative to locale-level signal
+# variance across the full range of district enrollment, so no
+# estimator (maximum-likelihood, weighted least squares, or
+# method-of-moments) can reliably separate a "true" kappa from
+# estimation noise using only four locale groups. Rather than present
+# a spuriously precise estimate, kappa is fixed and its influence on
+# the results is assessed via a sensitivity sweep (Table D2, see
+# appendix.py): shrinkage weights are recomputed across a plausible
+# range of kappa, and the primary results (kappa = 0.15) are reported
+# alongside that range so the choice's impact is transparent.
+
+KAPPA = 0.15
+
+print("\n" + "="*50)
+print("EMPIRICAL BAYES SHRINKAGE (FIXED NOISE SHARE, KAPPA = 0.15)")
+print("="*50)
+
+
+def compute_eb_shrinkage(kappa):
+    """Locale-wise EB shrinkage of the composite score for a given
+    noise share kappa. Returns eb_shrunken_raw as a pd.Series aligned
+    to combined.index. Mirrors appendix.py's compute_eb_shrinkage.
+    """
+    shrunken = pd.Series(index=combined.index, dtype=float)
+
+    for name, group in combined.groupby(group_col):
+        y = group[score_col].values
+        n = group[n_col].values
+        pc1_var = group['pc1_var'].values
+
+        y_bar = np.average(y, weights=n)
+
+        sample_var = np.average((y - y_bar) ** 2, weights=n)
+        mean_inv_n = np.average(1.0 / n, weights=n)
+
+        if len(y) < 3:
+            shrunken.loc[group.index] = y
+            if kappa == KAPPA:
+                combined.loc[group.index, 'v_i'] = pc1_var
+                combined.loc[group.index, 'posterior_var'] = pc1_var
+            continue
+
+        sigma_sq = kappa * sample_var / np.median(1.0 / n)
+        tau_sq = max(0.0, sample_var - sigma_sq * mean_inv_n)
+
+        sampling_var = sigma_sq / n
+        posterior_var = sampling_var + pc1_var
+
+        w_i = tau_sq / (tau_sq + posterior_var)
+
+        shrunken.loc[group.index] = y_bar + w_i * (y - y_bar)
+
+        if kappa == KAPPA:
+            combined.loc[group.index, 'v_i'] = sampling_var
+            combined.loc[group.index, 'tau_sq'] = tau_sq
+            combined.loc[group.index, 'posterior_var'] = posterior_var
+            print(f"  Locale: {name:<10} | Local Signal (tau_sq): {tau_sq:.3f}")
+
+    return shrunken
+
+
 combined['v_i'] = np.nan
 combined['tau_sq'] = np.nan
 combined['posterior_var'] = np.nan
 
+combined['eb_shrunken_raw'] = compute_eb_shrinkage(KAPPA)
+
+# --- Sensitivity sweep over kappa ---
 print("\n" + "="*50)
-print("EMPIRICAL BAYES SHRINKAGE (GLOBAL POPULATION WEIGHT)")
+print("SENSITIVITY: EB SHRINKAGE ACROSS A RANGE OF KAPPA")
 print("="*50)
 
+kappa_grid = [0.05, 0.10, 0.15, 0.20, 0.25, 0.30]
+baseline_shrunk = combined['eb_shrunken_raw']
 
-global_median_n = combined[n_col].median()
-global_large = combined.loc[combined[n_col] >= global_median_n, score_col]
-global_small = combined.loc[combined[n_col] < global_median_n, score_col]
-
-global_tau_sq = np.var(global_large, ddof=1)
-global_small_var = np.var(global_small, ddof=1)
-global_noise_var = max(0.0, global_small_var - global_tau_sq)
-
-global_mean_inv_n = np.mean(1.0 / combined.loc[combined[n_col] < global_median_n, n_col])
-global_sigma_sq = global_noise_var / global_mean_inv_n if global_mean_inv_n > 0 else 0.0
-
-print(f"Global Student Noise Parameter (sigma_sq): {global_sigma_sq:.3f}\n")
-
-
-for name, group in combined.groupby(group_col):
-    y = group[score_col].values
-    n = group[n_col].values
-    pc1_var = group['pc1_var'].values
-    
-    y_bar = np.average(y, weights=n)
-    
-    if len(y) < 3:
-        eb_score.loc[group.index] = y
-        combined.loc[group.index, 'v_i'] = pc1_var
-        combined.loc[group.index, 'posterior_var'] = pc1_var
-        continue
-        
-    median_n_loc = np.median(n)
-    large_districts = y[n >= median_n_loc]
-    tau_sq = np.var(large_districts, ddof=1) if len(large_districts) > 1 else np.var(y, ddof=1)
-    tau_sq = max(0.01, tau_sq)
-    
-    v_i = (global_sigma_sq / n) + pc1_var
-    
-    w_i = tau_sq / (tau_sq + v_i)
-    
-    # Calculate POSTERIOR VARIANCE for the Monte Carlo Simulation
-    posterior_var = w_i * v_i
-    
-    eb_score.loc[group.index] = y_bar + w_i * (y - y_bar)
-    
-    combined.loc[group.index, 'v_i'] = v_i
-    combined.loc[group.index, 'tau_sq'] = tau_sq
-    combined.loc[group.index, 'posterior_var'] = posterior_var
-    
-    print(f"  Locale: {name:<10} | Local Signal (tau_sq): {tau_sq:.3f}")
-
-combined['eb_shrunken_raw'] = eb_score
+for k in kappa_grid:
+    shrunk_k = compute_eb_shrinkage(k)
+    rho = pd.Series(baseline_shrunk).corr(shrunk_k, method='spearman')
+    max_abs_diff = (shrunk_k - baseline_shrunk).abs().max()
+    print(f"  kappa={k:.2f}  Spearman rank corr. vs. kappa=0.15: {rho:.4f}  "
+          f"max |score change|: {max_abs_diff:.4f}")
 
 # Spatial smoothing
 coords_sub = combined[['lon', 'lat']].values
@@ -786,7 +812,6 @@ fig, ax = plt.subplots(figsize=(10, 8))
 # Scatter raw OLS vs Final Optimized PCA
 sns.scatterplot(x=combined['avg_ols_z'], y=combined['pca_z'], alpha=0.6, ax=ax)
 
-# Add a 1:1 reference line
 limits = [
     np.min([ax.get_xlim(), ax.get_ylim()]),  
     np.max([ax.get_xlim(), ax.get_ylim()]),  
@@ -798,10 +823,9 @@ ax.set_xlabel("Raw OLS Average Z-Score (Unshrunken)")
 ax.set_ylabel("Final PCA Z-Score (Optimized Latent Factor)")
 ax.legend()
 plt.tight_layout()
-plt.savefig("tail_shrinkage_check.png")
+plt.savefig("visuals//tail_shrinkage_check.png")
 plt.show()
 
-# Examine the variance ratio
 variance_retained = combined['pca_z'].var() / combined['avg_ols_z'].var()
 print(f"Variance retained in final PCA vs raw OLS: {variance_retained:.2%}")
 if variance_retained < 0.5:
@@ -825,13 +849,13 @@ print(f"Spearman Rank Correlation (Final PCA vs. Raw OLS): {spearman_corr:.4f}")
 print(f"p-value: {p_value:.4e}")
 
 if spearman_corr > 0.95:
-    print("  -> Result: EXTREMELY HIGH agreement. Shrinkage adjusted magnitudes, but general rank order is largely unchanged.")
+    print("  -> Result: extremely high agreement")
 elif spearman_corr > 0.80:
-    print("  -> Result: HIGH agreement. Ranks are stable, with meaningful targeted reordering by Empirical Bayes/RF.")
+    print("  -> Result: high agreement")
 elif spearman_corr > 0.50:
-    print("  -> Result: MODERATE agreement. The ensembling pipeline substantially reshuffled the baseline district rankings.")
+    print("  -> Result: moderate agreement")
 else:
-    print("  -> Result: LOW agreement. The final model fundamentally transformed the baseline OLS rankings.")
+    print("  -> Result: low agreement")
 
 print("\n" + "="*50)
 print("CHECK 3: SUBGROUP BIAS AND VARIANCE CHECK")
@@ -863,7 +887,7 @@ print(check_df.groupby('size_quintile', observed=False)['pca_z'].var().round(3))
 corr_frpm = check_df['pca_z'].corr(check_df['pct_frpm'])
 print(f"\nCorrelation between Final PCA Score and Free/Reduced Lunch %: {corr_frpm:.3f}")
 if abs(corr_frpm) > 0.3:
-    print("WARNING: Residuals are still heavily correlated with poverty. Model is missing structural covariates.")
+    print("WARNING: Residuals are still heavily correlated with poverty. Model may be missing structural covariates")
 
 # endregion
 
@@ -900,7 +924,6 @@ print("="*50)
 
 ela_cols = ['ols_ela_z', 'enet_ela_z', 'rf_ela_z']
 math_cols = ['ols_math_z', 'enet_math_z', 'rf_math_z']
-
 
 sd_sar = combined['sar_smoothed'].std(ddof=1)
 
@@ -1208,7 +1231,7 @@ print(table)
 
 # endregion
 
-# region demographic table: significant overperformers vs significant underperformers
+# region demographic table: extreme over and underperformer
 
 sig_overperformers = demo[
     demo['performance_tier'] == 'Significant Overperformer'
@@ -1539,7 +1562,7 @@ fig.text(
 )
 
 plt.subplots_adjust(top=0.90, bottom=0.12, left=0.20)
-plt.savefig("cerf_regional_gaps_final.png", dpi=300, bbox_inches='tight')
+plt.savefig("visuals//cerf_regional_gaps_final.png", dpi=300, bbox_inches='tight')
 plt.show()
 
 # endregion
@@ -1547,6 +1570,7 @@ plt.show()
 # %%
 # %%
 # %%
+
 # region clusters (SES vs. Performance)
 
 import matplotlib.transforms as transforms
@@ -1571,18 +1595,6 @@ cluster_df['ses_index'] = pca_ses.fit_transform(ses_scaled)
 if cluster_df['ses_index'].corr(cluster_df['median_income']) < 0:
     cluster_df['ses_index'] *= -1
 
-def assign_strategic_group(row):
-    if row['ses_index'] >= 0 and row['pca_z'] >= 0:
-        return "Expected High"
-    elif row['ses_index'] < 0 and row['pca_z'] >= 0:
-        return "Beat-the-Odds"
-    elif row['ses_index'] < 0 and row['pca_z'] < 0:
-        return "Systemic Challenge"
-    else:
-        return "Underutilized"
-
-cluster_df['strategic_group'] = cluster_df.apply(assign_strategic_group, axis=1)
-
 cluster_df['dist_name_short'] = cluster_df['dist_name'].apply(
     lambda s: re.sub(r'\s*\([^)]*\)\s*$', '', s)
 )
@@ -1601,10 +1613,10 @@ plt.rcParams["axes.labelcolor"] = COLOR_TEXT
 plt.rcParams["xtick.color"] = COLOR_TEXT
 plt.rcParams["ytick.color"] = COLOR_TEXT
 
-N_LABELS = 20  # number of over- and under-performers shown
+N_LABELS = 20 
 
-top_over  = cluster_df[cluster_df['strategic_group'] == "Beat-the-Odds"].sort_values('pca_z', ascending=False).head(N_LABELS)
-top_under = cluster_df[cluster_df['strategic_group'] == "Underutilized"].sort_values('pca_z', ascending=True).head(N_LABELS)
+top_over  = cluster_df.sort_values('pca_z', ascending=False).head(N_LABELS)
+top_under = cluster_df.sort_values('pca_z', ascending=True).head(N_LABELS)
 
 lollipop_df = pd.concat([top_under, top_over], ignore_index=True)
 lollipop_df = lollipop_df.sort_values('pca_z', ascending=True).reset_index(drop=True)
@@ -1633,6 +1645,7 @@ ax.axvline(0, color=COLOR_GRID, linewidth=1.4, zorder=1)
 ax.grid(axis='x', color=COLOR_GRID, linewidth=0.7, zorder=0)
 ax.set_axisbelow(True)
 
+# District names back on one fixed side (left), same as your original.
 ax.set_yticks(y_pos)
 ax.set_yticklabels(lollipop_df['dist_name_short'], fontsize=9)
 
@@ -1657,16 +1670,17 @@ for spine in ['top', 'right', 'left']:
 
 fig.suptitle(
     "District performance relative to socioeconomic expectations",
-    fontsize=15, weight='bold', color=COLOR_TEXT, y=1.02, x=0.01, ha='left'
+    fontsize=15, weight='bold', color=COLOR_TEXT, y=1.00, x=0.01, ha='left'
 )
 fig.text(
     0.01, 0.965,
-    f"Distance from 0 represents how much they deviate from the model's expectations. Positive means overperformance, negative is underperformance",
+    "Distance from 0 represents how much they deviate from the model's expectations. "
+    "Positive means overperformance, negative is underperformance",
     fontsize=10, color=COLOR_TEXT, ha='left', wrap=True
 )
 
-plt.tight_layout(rect=[0, 0, 1, 0.92])
-plt.savefig("performance_cluster.png", dpi=300, bbox_inches='tight')
+plt.tight_layout(rect=[0, 0, 1, 0.955])
+plt.savefig("visuals//performance_cluster.png", dpi=300, bbox_inches='tight')
 plt.show()
 
 accessible_tables = {
@@ -1705,5 +1719,3 @@ print(accessible_tables["Underutilized"].to_string(index=False))
 # endregion
 
 # endregion
-# %%
-

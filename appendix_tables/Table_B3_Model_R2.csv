@@ -1,0 +1,3 @@
+Outcome,OLS CV R²,Elastic Net CV R²,Random Forest CV R²
+caaspp_ela,0.6792,0.4576,0.7036
+caaspp_math,0.6949,0.5017,0.7107
